@@ -51,7 +51,17 @@ variable "git_branch" {
   default     = ""
 }
 
-variable "build" {
-  description = "Build Number"
+variable "version" {
+  description = "Version Number"
   default     = ""
+}
+
+variable "repo" {
+  description = "Docker hub repo containing PQVP KMT image"
+  default     = "ifishgroup/pqvp-kmt"
+}
+
+variable "tag" {
+  description = "PQVP Tag"
+  default     = "latest"
 }

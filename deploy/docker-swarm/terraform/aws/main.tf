@@ -134,6 +134,27 @@ resource "null_resource" "create_docker_networks" {
   }
 }
 
+ resource "null_resource" "deploy_services" {
+   depends_on = [ "null_resource.create_docker_networks" ]
+ 
+   connection {
+     user = "ubuntu"
+     private_key = "${file("${var.private_key_path}")}"
+     host = "${aws_instance.docker_swarm_manager_init.public_ip}"
+   }
+ 
+   provisioner "file" {
+     source = "${var.docker_compose_file}"
+     destination = "/tmp/docker-compose.yml"
+   }
+ 
+   provisioner "remote-exec" {
+     inline = [
+       "docker service create --name pqvp-kmt --network frontend ${var.repo}:${var.tag}"
+     ]
+   }
+ }
+
 resource "null_resource" "launch_weave_scope" {
   depends_on = ["aws_instance.docker_swarm_manager_init"]
 
