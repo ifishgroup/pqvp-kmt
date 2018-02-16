@@ -17,7 +17,7 @@ module.exports = {
       selenium_host: 'hub',
       silent: true,
       globals: {
-        devServerURL: 'http://pqvp-kmt:5000',
+        devServerURL: 'http://pqvp-kmt',
       },
     },
 

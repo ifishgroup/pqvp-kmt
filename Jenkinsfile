@@ -22,6 +22,7 @@ node('docker') {
         ]) {
             stage('e2e tests') {
                 try {
+                    sh "docker-compose build e2e"
                     sh "docker-compose run --rm e2e"
                 } catch(e) {
                     error "Failed: ${e}"
