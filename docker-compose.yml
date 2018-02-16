@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  ui:
+    image: ifishgroup/pqvp-kmt:latest 
+    ports:
+      - 80:80

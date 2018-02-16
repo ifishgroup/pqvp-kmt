@@ -16,7 +16,7 @@ services:
     command: ["./wait-for-it.sh", "hub:4444", "--", "yarn", "e2e-docker"]
 
   pqvp-kmt:
-    build: .
+    image: "ifishgroup/pqvp-kmt:${TAG}"
 
   chrome:
     image: selenium/node-chrome:3.9.1-actinium
@@ -29,5 +29,3 @@ services:
 
   hub:
     image: selenium/hub:3.9.1-actinium
-    ports:
-      - "4444:4444"
