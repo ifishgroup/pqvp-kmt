@@ -27,4 +27,4 @@ selenium-debug.log
 ### Terraform Patch ###
 *.tfvars
 
-.tfplan
+*.tfplan
