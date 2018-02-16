@@ -5,11 +5,11 @@ def repo             = "ifishgroup/pqvp-kmt"
 def nodeVersion      = '9.5.0'
 
 node('docker') {
-    def tag = "git-${gitCommit()}"
-
     stage('checkout') {
         checkout scm
     }
+
+    def tag = "git-${gitCommit()}"
 
     stage('docker build/unit/lint') {
         sh "docker build -t $repo:$tag ."
@@ -108,7 +108,8 @@ def setEnv(String tag) {
 }
 
 def gitCommit() {
-    return sh (returnStdout: true, script: "git rev-parse --short HEAD")
+    def commit = sh (returnStdout: true, script: "git rev-parse --short HEAD")
+    return commit.trim()
 }
 
 def convertBranchName(String name) {
