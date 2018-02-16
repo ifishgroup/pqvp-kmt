@@ -10,17 +10,13 @@ services:
       - ./:/usr/src/
     working_dir: "/usr/src/"
     depends_on:
-      - "nginx"
+      - "pqvp-kmt"
       - "chrome"
       - "hub"
     command: ["./wait-for-it.sh", "hub:4444", "--", "yarn", "e2e-docker"]
 
-  nginx:
-    image: nginx:alpine
-    volumes:
-      - ./dist:/usr/share/nginx/html
-    ports:
-      - 80:80
+  pqvp-kmt:
+    build: .
 
   chrome:
     image: selenium/node-chrome:3.9.1-actinium
