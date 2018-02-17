@@ -5,10 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.e2e
-    user: "node"  
-    volumes:
-      - ./:/usr/src/
-    working_dir: "/usr/src/"
     depends_on:
       - "pqvp-kmt"
       - "chrome"
