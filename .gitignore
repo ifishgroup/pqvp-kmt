@@ -24,7 +24,4 @@ selenium-debug.log
 # Module directory
 .terraform/
 
-### Terraform Patch ###
-*.tfvars
-
 *.tfplan

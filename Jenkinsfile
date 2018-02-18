@@ -38,7 +38,7 @@ node('docker') {
             usernameVariable: 'USERNAME'
         )]) {
 
-            def terraformDir = "${env.WORKSPACE}/deploy/docker-swarm/terraform/aws/"
+            def terraformDir = "deploy/docker-swarm/terraform/aws"
             def terraform = "docker run --rm -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w /usr/src/ hashicorp/terraform:light"
             def tfVars
             def tfplan
