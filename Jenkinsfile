@@ -40,11 +40,11 @@ node('docker') {
 
             def terraformDir = "${env.WORKSPACE}/deploy/docker-swarm/terraform/aws/"
             def terraform = "docker run --rm -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w /usr/src/ hashicorp/terraform:light"
-            def var
+            def tfVars
             def tfplan
 
             if (isPR()) {
-                var = "$terraformDir/config/staging.tfvars"
+                tfVars = "$terraformDir/config/staging.tfvars"
                 tfplan = "staging-${version}.tfplan"
 
                 stage('docker publish') {
@@ -53,7 +53,7 @@ node('docker') {
                 }
 
                 stage('plan') {
-                    sh "$terraform plan -var-file=$stagingVars -var tag=$tag -out $tfplan $terraformDir"
+                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -out $tfplan $terraformDir"
                 }
                 
                 try {
@@ -89,11 +89,11 @@ node('docker') {
                     sh "docker push $repo:latest"
                 }
             } else {
-                var = "$terraformDir/config/prod.tfvars"
+                tfVars = "$terraformDir/config/prod.tfvars"
                 tfplan = "prod-${version}.tfplan"
 
                 stage('plan') {
-                    sh "$terraform plan -var-file=$vars -var tag=$tag -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
+                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
                 }
 
                 stage('deploy to prod') {
