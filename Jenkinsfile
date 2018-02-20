@@ -38,7 +38,7 @@ node('docker') {
         ]) {
 
             def terraformDir = "deploy/docker-swarm/terraform/aws"
-            def terraform = "docker run --rm -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w /usr/src/ hashicorp/terraform:light"
+            def terraform = "docker run --rm -u \$(id -u):\$(id -g) -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w /usr/src/ hashicorp/terraform:light"
             def tfVars
             def tfplan
 
@@ -65,15 +65,16 @@ node('docker') {
                     stage('UAT') {
                         milestone 1
 
+                        def userInput = ''
                         timeout(time: 10, unit: 'MINUTES') {
-                            def userInput = input(
+                            userInput = input(
                                 id: 'userInput',
                                 message: "Did staged build 'pass' or 'fail'?",
                                 parameters: [choice(name: 'result', choices: 'pass\nfail', description: '')]
                             )
                         }
 
-                        if (userInput == "fail") {
+                        if (userInput != "pass") {
                             error("Staged build failed user acceptance testing")
                         }
 
@@ -82,7 +83,7 @@ node('docker') {
                 } catch(e) {
                     error "Failed: ${e}"
                 } finally {
-                    sh "$terraform destroy -force $terraformDir"
+                    sh "$terraform destroy -force -var private_key_path=pem.txt $terraformDir"
                 }
 
                 stage('docker tag latest') {
