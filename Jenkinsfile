@@ -32,11 +32,10 @@ node('docker') {
             }
         }
 
-        withCredentials([usernamePassword(
-            credentialsId: 'docker-hub-id', 
-            passwordVariable: 'PASSWORD', 
-            usernameVariable: 'USERNAME'
-        )]) {
+        withCredentials([
+            usernamePassword(credentialsId: 'docker-hub-id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME'),
+            file(credentialsId: 'pqvp-kmt-pem', variable: 'PQVP_KMT_PEM')
+        ]) {
 
             def terraformDir = "deploy/docker-swarm/terraform/aws"
             def terraform = "docker run --rm -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w /usr/src/ hashicorp/terraform:light"
@@ -53,7 +52,9 @@ node('docker') {
                 }
 
                 stage('plan') {
-                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -out $tfplan $terraformDir"
+                    sh "$terraform init $terraformDir"
+                    sh "cat $PQVP_KMT_PEM > pem.txt"
+                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
                 }
                 
                 try {
@@ -93,7 +94,9 @@ node('docker') {
                 tfplan = "prod-${version}.tfplan"
 
                 stage('plan') {
-                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
+                    sh "$terraform init $terraformDir"
+                    sh "cat $PQVP_KMT_PEM > pem.txt"
+                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
                 }
 
                 stage('deploy to prod') {

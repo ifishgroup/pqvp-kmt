@@ -1,7 +1,4 @@
 resource "aws_security_group" "docker_swarm_sg" {
-  name        = "docker-swarm"
-  description = "allow all internal traffic, all traffic http from anywhere"
-
   ingress {
     from_port = 0
     to_port   = 0
@@ -60,9 +57,6 @@ resource "aws_security_group" "docker_swarm_sg" {
 }
 
 resource "aws_security_group" "docker_swarm_managers_sg" {
-  name        = "docker-swarm-managers"
-  description = "opens additional ports to docker swarm managers"
-
   ingress {
     from_port   = 8080
     to_port     = 8080
