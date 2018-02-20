@@ -52,7 +52,7 @@ node('docker') {
                 }
 
                 stage('plan') {
-                    sh "$terraform init $terraformDir"
+                    sh "$terraform init -backend-config=$terraformDir/config/staging-state-store.tfvars -force-copy $terraformDir"
                     sh "cat $PQVP_KMT_PEM > pem.txt"
                     sh "$terraform plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
                 }
@@ -95,7 +95,7 @@ node('docker') {
                 tfplan = "prod-${version}.tfplan"
 
                 stage('plan') {
-                    sh "$terraform init $terraformDir"
+                    sh "$terraform init -backend-config=$terraformDir/config/prod-state-store.tfvars -force-copy $terraformDir"
                     sh "cat $PQVP_KMT_PEM > pem.txt"
                     sh "$terraform plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
                 }
