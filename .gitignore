@@ -15,3 +15,13 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+### Terraform ###
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform/
+
+*.tfplan

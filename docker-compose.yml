@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  ui:
+    image: ifishgroup/pqvp-kmt:${TAG}
+    ports:
+      - "80:80"
+    deploy:
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s

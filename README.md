@@ -1,4 +1,4 @@
-# kmt-client
+# pqvp-kmt
 
 > A Vue.js project
 

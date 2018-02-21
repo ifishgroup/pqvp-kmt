@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  e2e:
+    build:
+      context: .
+      dockerfile: Dockerfile.e2e
+    depends_on:
+      - "pqvp-kmt"
+      - "chrome"
+      - "hub"
+    command: ["./wait-for-it.sh", "hub:4444", "--", "yarn", "e2e-docker"]
+
+  pqvp-kmt:
+    image: "ifishgroup/pqvp-kmt:${TAG}"
+
+  chrome:
+    image: selenium/node-chrome:3.9.1-actinium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  hub:
+    image: selenium/hub:3.9.1-actinium
