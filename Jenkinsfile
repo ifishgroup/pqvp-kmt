@@ -38,7 +38,6 @@ node('docker') {
         ]) {
 
             def terraformDir = "deploy/docker-swarm/terraform/aws"
-            def terraform = "docker run --rm -u \$(id -u):\$(id -g) -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w /usr/src/ hashicorp/terraform:light"
             def tfVars
             def tfplan
 
@@ -52,14 +51,14 @@ node('docker') {
                 }
 
                 stage('plan') {
-                    sh "$terraform init -backend-config=$terraformDir/config/staging-state-store.tfvars -backend-config='key=tf/staging/git-${gitCommit()}.tfstate' $terraformDir"
                     sh "cat $PQVP_KMT_PEM > pem.txt"
-                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
+                    sh "${terraform()} init -backend-config=$terraformDir/config/staging-state-store.tfvars -backend-config='key=tf/staging/git-${gitCommit()}.tfstate' $terraformDir"
+                    sh "${terraform()} plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
                 }
                 
                 try {
                     stage('deploy staging') {
-                        sh "$terraform apply $tfplan"
+                        sh "${terraform()} apply $tfplan"
                     }
 
                     stage('UAT') {
@@ -83,7 +82,7 @@ node('docker') {
                 } catch(e) {
                     error "Failed: ${e}"
                 } finally {
-                    sh "$terraform destroy -force -var private_key_path=pem.txt $terraformDir"
+                    sh "${terraform()} destroy -force -var private_key_path=pem.txt $terraformDir"
                 }
 
                 stage('docker tag latest') {
@@ -91,21 +90,27 @@ node('docker') {
                     sh "docker push $repo:latest"
                 }
             } else {
-                tfVars = "$terraformDir/config/prod.tfvars"
+                tfVars = "config/prod.tfvars"
                 tfplan = "prod-${version}.tfplan"
 
                 stage('plan') {
-                    sh "$terraform init -backend-config=$terraformDir/config/prod-state-store.tfvars -force-copy $terraformDir"
-                    sh "cat $PQVP_KMT_PEM > pem.txt"
-                    sh "$terraform plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
+                    sh "cat $PQVP_KMT_PEM > $terraformDir/pem.txt"
+                    sh "cp docker-compose.yml $terraformDir"
+                    sh "${terraform("/usr/src/$terraformDir")} init -backend-config=config/prod-state-store.tfvars -force-copy ."
+                    sh "${terraform("/usr/src/$terraformDir")} taint null_resource.deploy_docker_stack"
+                    sh "${terraform("/usr/src/$terraformDir")} plan -var-file=$tfVars -var tag=latest -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan ."
                 }
 
                 stage('deploy to prod') {
-                    sh "$terraform apply $tfplan"
+                    sh "${terraform("/usr/src/$terraformDir")} apply $tfplan"
                 }
             }
         }
     }
+}
+
+def terraform(String workDir = '/usr/src/') {
+    return "docker run --rm -u \$(id -u):\$(id -g) -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w $workDir hashicorp/terraform:light"
 }
 
 def setEnv(String tag) {
