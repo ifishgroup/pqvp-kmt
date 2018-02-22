@@ -66,17 +66,19 @@ node('docker') {
                     """
                 }
                 
+                def masterAddress = ''
                 try {
                     stage('deploy staging') {
                         sh "${terraform()} apply $tfplan"
-                        publishStagedInfo(getMasterAddress())
+                        masterAddress = getMasterAddress()
+                        publishStagedInfo(masterAddress)
                     }
 
                     stage('UAT') {
                         milestone 1
 
                         def userInput = ''
-                        timeout(time: 10, unit: 'MINUTES') {
+                        timeout(time: 2, unit: 'DAYS') {
                             userInput = input(
                                 id: 'userInput',
                                 message: "Did staged build 'pass' or 'fail'?",
@@ -94,6 +96,7 @@ node('docker') {
                     error "Failed: ${e}"
                 } finally {
                     sh "${terraform()} destroy -force -var private_key_path=pem.txt ."
+                    notifyTeardownEvent(masterAddress)
                 }
 
                 stage('docker tag latest') {
@@ -133,6 +136,12 @@ def publishStagedInfo(String ip) {
     notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Staged deployment can be viewed at: [http://$ip](http://$ip). Staged builds require UAT, click on Jenkins link when finished with UAT to mark the build as 'pass' or 'failed'")
     slackSend(color: 'good',
         message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Staged deployment can be viewed at: http://$ip. Staged builds require UAT, click on Jenkins link when finished with testing to mark the build as 'pass' or 'failed'")
+}
+
+def notifyTeardownEvent(String ip) {
+    notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Staged build @ $ip was removed")
+    slackSend(color: 'good',
+        message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Staged build @ $ip was removed")
 }
 
 def publishProdInfo(String ip) {
