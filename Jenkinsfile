@@ -4,6 +4,8 @@ def version          = "0.0.${env.BUILD_NUMBER}"
 def repo             = "ifishgroup/pqvp-kmt"
 def nodeVersion      = '9.5.0'
 
+TERRAFORM_DIR     = 'deploy/docker-swarm/terraform/aws'
+
 node('docker') {
     stage('checkout') {
         checkout scm
@@ -36,14 +38,8 @@ node('docker') {
             usernamePassword(credentialsId: 'docker-hub-id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME'),
             file(credentialsId: 'pqvp-kmt-pem', variable: 'PQVP_KMT_PEM')
         ]) {
-
-            def terraformDir = "deploy/docker-swarm/terraform/aws"
-            def tfVars
-            def tfplan
-
             if (isPR()) {
-                tfVars = "$terraformDir/config/staging.tfvars"
-                tfplan = "staging-${version}.tfplan"
+                def tfplan = "staging-${version}.tfplan"
 
                 stage('docker publish') {
                     sh "docker login -u $USERNAME -p $PASSWORD"
@@ -51,14 +47,29 @@ node('docker') {
                 }
 
                 stage('plan') {
-                    sh "cat $PQVP_KMT_PEM > pem.txt"
-                    sh "${terraform()} init -backend-config=$terraformDir/config/staging-state-store.tfvars -backend-config='key=tf/staging/git-${gitCommit()}.tfstate' $terraformDir"
-                    sh "${terraform()} plan -var-file=$tfVars -var tag=$tag -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan $terraformDir"
+                    sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
+                    sh "cp docker-compose.yml $TERRAFORM_DIR"
+                    sh """${terraform()} init \
+                        -backend-config=config/staging-state-store.tfvars \
+                        -backend-config='key=tf/staging/git-${gitCommit()}.tfstate' \
+                        .
+                    """
+                    sh """${terraform()} plan \
+                        -var-file=config/staging.tfvars \
+                        -var tag=$tag \
+                        -var private_key_path=pem.txt \
+                        -var git_commit=${gitCommit()} \
+                        -var git_branch=${env.BRANCH_NAME} \
+                        -var version=${version} \
+                        -out $tfplan \
+                        .
+                    """
                 }
                 
                 try {
                     stage('deploy staging') {
                         sh "${terraform()} apply $tfplan"
+                        publishStagedInfo(getMasterAddress())
                     }
 
                     stage('UAT') {
@@ -82,7 +93,7 @@ node('docker') {
                 } catch(e) {
                     error "Failed: ${e}"
                 } finally {
-                    sh "${terraform()} destroy -force -var private_key_path=pem.txt $terraformDir"
+                    sh "${terraform()} destroy -force -var private_key_path=pem.txt ."
                 }
 
                 stage('docker tag latest') {
@@ -90,27 +101,90 @@ node('docker') {
                     sh "docker push $repo:latest"
                 }
             } else {
-                tfVars = "config/prod.tfvars"
-                tfplan = "prod-${version}.tfplan"
+                def tfplan = "prod-${version}.tfplan"
 
                 stage('plan') {
-                    sh "cat $PQVP_KMT_PEM > $terraformDir/pem.txt"
-                    sh "cp docker-compose.yml $terraformDir"
-                    sh "${terraform("/usr/src/$terraformDir")} init -backend-config=config/prod-state-store.tfvars -force-copy ."
-                    sh "${terraform("/usr/src/$terraformDir")} taint null_resource.deploy_docker_stack"
-                    sh "${terraform("/usr/src/$terraformDir")} plan -var-file=$tfVars -var tag=latest -var private_key_path=pem.txt -var git_commit=${gitCommit()} -var git_branch=${env.BRANCH_NAME} -var version=${version} -out $tfplan ."
+                    sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
+                    sh "cp docker-compose.yml $TERRAFORM_DIR"
+                    sh "${terraform()} init -backend-config=config/prod-state-store.tfvars -force-copy ."
+                    sh "${terraform()} taint null_resource.deploy_docker_stack"
+                    sh """${terraform()} plan \
+                        -var-file=config/prod.tfvars \
+                        -var tag=latest \
+                        -var private_key_path=pem.txt \
+                        -var git_commit=${gitCommit()} \
+                        -var git_branch=${env.BRANCH_NAME} \
+                        -var version=${version} \
+                        -out $tfplan \
+                        .
+                    """
                 }
 
                 stage('deploy to prod') {
-                    sh "${terraform("/usr/src/$terraformDir")} apply $tfplan"
+                    sh "${terraform()} apply $tfplan"
+                    publishProdInfo(getMasterAddress())
                 }
             }
         }
     }
 }
 
-def terraform(String workDir = '/usr/src/') {
-    return "docker run --rm -u \$(id -u):\$(id -g) -v ${env.WORKSPACE}:/usr/src/ -v $HOME/.ssh:/root/.ssh -w $workDir hashicorp/terraform:light"
+def publishStagedInfo(String ip) {
+    notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Staged deployment can be viewed at: [http://$ip](http://$ip). Staged builds require UAT, click on Jenkins link when finished with UAT to mark the build as 'pass' or 'failed'")
+    slackSend(color: 'good',
+        message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Staged deployment can be viewed at: http://$ip. Staged builds require UAT, click on Jenkins link when finished with testing to mark the build as 'pass' or 'failed'")
+}
+
+def publishProdInfo(String ip) {
+    notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Deployed to production, can be viewed at: [http://$ip](http://$ip).")
+    slackSend(color: 'good',
+        message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Deployed to production, can be viewed at: http://$ip.")
+}
+
+def notifyGithub(String comment) {
+    withCredentials([
+        string(credentialsId: '96df6ea0-11f0-4868-a203-7dbfac9bef3d', variable: 'TOKEN')
+    ]) {
+        def pr  = env.BRANCH_NAME.split("-")[1].trim()
+        sh "curl -H \"Content-Type: application/json\" -u ifg-bot:$TOKEN -X POST -d '{\"body\": \"$comment\"}' https://api.github.com/repos/ifishgroup/pqvp-kmt/issues/$pr/comments"
+    }
+}
+
+def notifySlack(String buildStatus) {
+    if (env.BRANCH_NAME =~ /(?i)^pr-/ || env.BRANCH_NAME == "master") {
+         echo "currentBuild.result=$buildStatus"
+
+        if (buildStatus != 'SUCCESS' && buildStatus != 'STARTED') {
+            buildStatus = 'FAILED'
+        }
+
+        def subject = "${buildStatus}: Job '${env.JOB_NAME}, build #${env.BUILD_NUMBER}'"
+        def summary = "${subject} (${env.BUILD_URL})"
+
+        if (buildStatus == 'STARTED') {
+            color = 'warning'
+        } else if (buildStatus == 'SUCCESS') {
+            color = 'good'
+        } else {
+            color = 'danger'
+        }
+
+        slackSend(
+            color: color,
+            message: summary,
+            channel: 'pqvp',
+            tokenCredentialId: '8bd2373e-a7c8-46aa-bfdc-6cbc44f49578'
+        )
+    }
+}
+
+def terraform() {
+    return "docker run --rm -u \$(id -u):\$(id -g) -v ${env.WORKSPACE}:/usr/src/ -w /usr/src/$TERRAFORM_DIR hashicorp/terraform:light"
+}
+
+def getMasterAddress() {
+    def ip = sh (returnStdout: true, script: "${terraform()} output master_address")
+    return ip.trim()
 }
 
 def setEnv(String tag) {
