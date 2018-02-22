@@ -4,7 +4,8 @@ def version          = "0.0.${env.BUILD_NUMBER}"
 def repo             = "ifishgroup/pqvp-kmt"
 def nodeVersion      = '9.5.0'
 
-TERRAFORM_DIR     = 'deploy/docker-swarm/terraform/aws'
+TERRAFORM_DIR        = 'deploy/docker-swarm/terraform/aws'
+NOTIFICATIONS        = true
 
 node('docker') {
     stage('checkout') {
@@ -24,7 +25,6 @@ node('docker') {
         ]) {
             stage('e2e tests') {
                 try {
-                    sh "docker-compose build e2e"
                     sh "docker-compose run --rm e2e"
                 } catch(e) {
                     error "Failed: ${e}"
@@ -71,7 +71,7 @@ node('docker') {
                     stage('deploy staging') {
                         sh "${terraform()} apply $tfplan"
                         masterAddress = getMasterAddress()
-                        publishStagedInfo(masterAddress)
+                        publishStagedInfo(masterAddress) 
                     }
 
                     stage('UAT') {
@@ -106,27 +106,32 @@ node('docker') {
             } else {
                 def tfplan = "prod-${version}.tfplan"
 
-                stage('plan') {
-                    sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
-                    sh "cp docker-compose.yml $TERRAFORM_DIR"
-                    sh "${terraform()} init -backend-config=config/prod-state-store.tfvars -force-copy ."
-                    sh "${terraform()} taint null_resource.deploy_docker_stack"
-                    sh """${terraform()} plan \
-                        -var-file=config/prod.tfvars \
-                        -var tag=latest \
-                        -var private_key_path=pem.txt \
-                        -var git_commit=${gitCommit()} \
-                        -var git_branch=${env.BRANCH_NAME} \
-                        -var version=${version} \
-                        -out $tfplan \
-                        .
-                    """
-                }
+                try {
+                    stage('plan') {
+                        sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
+                        sh "cp docker-compose.yml $TERRAFORM_DIR"
+                        sh "${terraform()} init -backend-config=config/prod-state-store.tfvars -force-copy ."
+                        sh "${terraform()} taint null_resource.deploy_docker_stack"
+                        sh """${terraform()} plan \
+                            -var-file=config/prod.tfvars \
+                            -var tag=latest \
+                            -var private_key_path=pem.txt \
+                            -var git_commit=${gitCommit()} \
+                            -var git_branch=${env.BRANCH_NAME} \
+                            -var version=${version} \
+                            -out $tfplan \
+                            .
+                        """
+                    }
 
-                stage('deploy to prod') {
-                    sh "${terraform()} apply $tfplan"
-                    publishProdInfo(getMasterAddress())
-                }
+                    stage('deploy to prod') {
+                        sh "${terraform()} apply $tfplan"
+                        publishProdInfo(getMasterAddress())
+                    }
+                } catch(e) {
+                    error "Failed: ${e}"
+                    notifySlack("FAILED")
+                } 
             }
         }
     }
@@ -151,17 +156,19 @@ def publishProdInfo(String ip) {
 }
 
 def notifyGithub(String comment) {
-    withCredentials([
-        string(credentialsId: '96df6ea0-11f0-4868-a203-7dbfac9bef3d', variable: 'TOKEN')
-    ]) {
-        def pr  = env.BRANCH_NAME.split("-")[1].trim()
-        sh "curl -H \"Content-Type: application/json\" -u ifg-bot:$TOKEN -X POST -d '{\"body\": \"$comment\"}' https://api.github.com/repos/ifishgroup/pqvp-kmt/issues/$pr/comments"
+    if (NOTIFICATIONS) {
+        withCredentials([
+            string(credentialsId: '96df6ea0-11f0-4868-a203-7dbfac9bef3d', variable: 'TOKEN')
+        ]) {
+            def pr  = env.BRANCH_NAME.split("-")[1].trim()
+            sh "curl -H \"Content-Type: application/json\" -u ifg-bot:$TOKEN -X POST -d '{\"body\": \"$comment\"}' https://api.github.com/repos/ifishgroup/pqvp-kmt/issues/$pr/comments"
+        }
     }
 }
 
 def notifySlack(String buildStatus) {
-    if (env.BRANCH_NAME =~ /(?i)^pr-/ || env.BRANCH_NAME == "master") {
-         echo "currentBuild.result=$buildStatus"
+    if (NOTIFICATIONS) {
+        echo "currentBuild.result=$buildStatus"
 
         if (buildStatus != 'SUCCESS' && buildStatus != 'STARTED') {
             buildStatus = 'FAILED'

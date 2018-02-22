@@ -2,14 +2,16 @@ version: '3'
 
 services:
   e2e:
-    build:
-      context: .
-      dockerfile: Dockerfile.e2e
+    image: node:9.5.0
+    user: 'node'
+    working_dir: '/usr/src/'
     depends_on:
       - "pqvp-kmt"
       - "chrome"
       - "hub"
-    command: ["./wait-for-it.sh", "hub:4444", "--", "yarn", "e2e-docker"]
+    volumes:
+      - ./:/usr/src/
+    command: ["./wait-for-it.sh", "hub:4444", "--", "bash", "-c", "yarn install && yarn e2e-docker"]
 
   pqvp-kmt:
     image: "ifishgroup/pqvp-kmt:${TAG}"

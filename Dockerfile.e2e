@@ -1,5 +1,0 @@
-FROM node:9.5.0
-
-COPY . /usr/src/
-WORKDIR /usr/src/
-RUN yarn install
