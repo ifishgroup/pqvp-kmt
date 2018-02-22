@@ -138,21 +138,26 @@ node('docker') {
 }
 
 def publishStagedInfo(String ip) {
-    notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Staged deployment can be viewed at: [http://$ip](http://$ip). Staged builds require UAT, click on Jenkins link when finished with UAT to mark the build as 'pass' or 'failed'")
-    slackSend(color: 'good',
-        message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Staged deployment can be viewed at: http://$ip. Staged builds require UAT, click on Jenkins link when finished with testing to mark the build as 'pass' or 'failed'")
+    if (NOTIFICATIONS) {
+        notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Staged deployment can be viewed at: [http://$ip](http://$ip). Staged builds require UAT, click on Jenkins link when finished with UAT to mark the build as 'pass' or 'failed'")
+        slackSend(color: 'good',
+            message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Staged deployment can be viewed at: http://$ip. Staged builds require UAT, click on Jenkins link when finished with testing to mark the build as 'pass' or 'failed'")
+    }
 }
 
 def notifyTeardownEvent(String ip) {
-    notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Staged build @ $ip was removed")
-    slackSend(color: 'good',
-        message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Staged build @ $ip was removed")
+    if (NOTIFICATIONS) {
+        notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Staged build @ $ip was removed")
+        slackSend(color: 'good',
+            message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Staged build @ $ip was removed")
+    }
 }
 
 def publishProdInfo(String ip) {
-    notifyGithub("${env.JOB_NAME}, build [#${env.BUILD_NUMBER}](${env.BUILD_URL}) - Deployed to production, can be viewed at: [http://$ip](http://$ip).")
-    slackSend(color: 'good',
-        message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Deployed to production, can be viewed at: http://$ip.")
+    if (NOTIFICATIONS) {
+        slackSend(color: 'good',
+            message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Deployed to production, can be viewed at: http://$ip.")
+    }
 }
 
 def notifyGithub(String comment) {
