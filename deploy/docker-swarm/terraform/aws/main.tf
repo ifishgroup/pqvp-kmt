@@ -1,6 +1,6 @@
 terraform {
   required_version = "~> 0.11.0"
-  backend "s3" {}
+  backend          "s3"             {}
 }
 
 provider "aws" {
@@ -80,13 +80,12 @@ resource "aws_instance" "docker_swarm_managers" {
 }
 
 resource "aws_instance" "docker_swarm_workers" {
-  depends_on                  = ["aws_instance.docker_swarm_manager_init"]
-  count                       = "${var.num_nodes}"
-  instance_type               = "${var.instance_type}"
-  ami                         = "${data.aws_ami.pqvp_kmt_ami.id}"
-  key_name                    = "${var.private_key_name}"
-  vpc_security_group_ids      = ["${aws_security_group.docker_swarm_sg.id}"]
-  associate_public_ip_address = "false"
+  depends_on             = ["aws_instance.docker_swarm_manager_init"]
+  count                  = "${var.num_nodes}"
+  instance_type          = "${var.instance_type}"
+  ami                    = "${data.aws_ami.pqvp_kmt_ami.id}"
+  key_name               = "${var.private_key_name}"
+  vpc_security_group_ids = ["${aws_security_group.docker_swarm_sg.id}"]
 
   tags {
     Name        = "pqvp-kmt-worker-${var.environment}-${var.git_commit}"
@@ -116,8 +115,8 @@ resource "aws_instance" "docker_swarm_workers" {
   }
 }
 
-resource "null_resource" "create_docker_networks" {
-  depends_on = ["aws_instance.docker_swarm_manager_init"]
+resource "null_resource" "deploy_docker_stack" {
+  depends_on = ["aws_instance.docker_swarm_workers"]
 
   connection {
     user        = "ubuntu"
@@ -125,24 +124,8 @@ resource "null_resource" "create_docker_networks" {
     host        = "${aws_instance.docker_swarm_manager_init.public_ip}"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "docker network create --driver overlay monitoring",
-    ]
-  }
-}
-
-resource "null_resource" "deploy_docker_stack" {
-  depends_on = [ "aws_instance.docker_swarm_workers", "null_resource.create_docker_networks" ]
-
-  connection {
-    user = "ubuntu"
-    private_key = "${file("${var.private_key_path}")}"
-    host = "${aws_instance.docker_swarm_manager_init.public_ip}"
-  }
-
   provisioner "file" {
-    source = "docker-compose.yml"
+    source      = "${var.docker_compose_file}"
     destination = "docker-compose.yml"
   }
 
@@ -150,7 +133,30 @@ resource "null_resource" "deploy_docker_stack" {
     inline = [
       "export TAG=${var.tag}",
       "docker-compose -f docker-compose.yml pull",
-      "docker stack deploy -c docker-compose.yml pqvp-kmt"
+      "docker stack deploy -c docker-compose.yml pqvp-kmt",
+    ]
+  }
+}
+
+resource "null_resource" "deploy_monitoring_stack" {
+  depends_on = ["aws_instance.docker_swarm_workers"]
+
+  connection {
+    user        = "ubuntu"
+    private_key = "${file("${var.private_key_path}")}"
+    host        = "${aws_instance.docker_swarm_manager_init.public_ip}"
+  }
+
+  provisioner "file" {
+    source      = "monitoring"
+    destination = "monitoring"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p monitoring/data/prometheus",
+      "docker-compose -f monitoring/monitoring-stack.yml pull",
+      "docker stack deploy -c monitoring/monitoring-stack.yml monitoring",
     ]
   }
 }
@@ -166,13 +172,18 @@ resource "null_resource" "launch_weave_scope" {
 
   provisioner "remote-exec" {
     inline = [
-      "scope launch",
+      "scope launch ${join(" ", aws_instance.docker_swarm_workers.*.private_ip)}",
+      "curl https://getcaddy.com | bash -s personal http.ipfilter,http.prometheus",
+      "echo ':4041 {\nbasicauth / ${var.admin_user} ${var.admin_password}\nproxy / localhost:4040 {\nwebsocket\n}\nerrors stderr\ntls off\n}' > Caddyfile.scope",
+      "sleep 1",
+      "nohup caddy -conf Caddyfile.scope &",
+      "sleep 1",
     ]
   }
 }
 
 resource "null_resource" "cleanup" {
-  depends_on = ["aws_instance.docker_swarm_workers", "aws_instance.docker_swarm_managers"]
+  depends_on = ["aws_instance.docker_swarm_manager_init", "aws_instance.docker_swarm_workers", "aws_instance.docker_swarm_managers"]
 
   provisioner "local-exec" {
     command = "rm -f -- join_worker.sh"

@@ -65,3 +65,18 @@ variable "tag" {
   description = "PQVP Tag"
   default     = "latest"
 }
+
+variable "docker_compose_file" {
+  description = "Full path to main docker-compose.yml file"
+  default     = "docker-compose.yml"
+}
+
+variable "admin_user" {
+  description = "Admin credentials for weave scope"
+  default     = "admin"
+}
+
+variable "admin_password" {
+  description = "Admin password for weave scope"
+  default     = "admin"
+}
