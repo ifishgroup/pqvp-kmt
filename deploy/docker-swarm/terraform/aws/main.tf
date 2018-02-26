@@ -30,7 +30,7 @@ resource "aws_instance" "docker_swarm_manager_init" {
   provisioner "remote-exec" {
     inline = [
       "sudo service docker start",
-      "docker swarm init"
+      "docker swarm init",
     ]
   }
 }
@@ -72,12 +72,12 @@ resource "aws_instance" "docker_swarm_managers" {
 }
 
 resource "aws_instance" "docker_swarm_workers" {
-  depends_on                  = ["null_resource.create_join_scripts"]
-  count                       = "${var.num_nodes}"
-  instance_type               = "${var.instance_type}"
-  ami                         = "${data.aws_ami.pqvp_kmt_ami.id}"
-  key_name                    = "${var.private_key_name}"
-  vpc_security_group_ids      = ["${aws_security_group.docker_swarm_sg.id}"]
+  depends_on             = ["null_resource.create_join_scripts"]
+  count                  = "${var.num_nodes}"
+  instance_type          = "${var.instance_type}"
+  ami                    = "${data.aws_ami.pqvp_kmt_ami.id}"
+  key_name               = "${var.private_key_name}"
+  vpc_security_group_ids = ["${aws_security_group.docker_swarm_sg.id}"]
 
   tags {
     Name        = "pqvp-kmt-worker-${var.environment}-${var.git_commit}"
