@@ -33,6 +33,14 @@ resource "aws_instance" "docker_swarm_manager_init" {
       "docker swarm init",
     ]
   }
+
+  provisioner "local-exec" {
+    command = "TOKEN=$(ssh -i ${var.private_key_path} -o StrictHostKeyChecking=no ubuntu@${aws_instance.docker_swarm_manager_init.public_ip} docker swarm join-token -q worker); echo \"#!/usr/bin/env bash\ndocker swarm join --token $TOKEN ${aws_instance.docker_swarm_manager_init.public_ip}:2377\" >| join_worker.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "TOKEN=$(ssh -i ${var.private_key_path} -o StrictHostKeyChecking=no ubuntu@${aws_instance.docker_swarm_manager_init.public_ip} docker swarm join-token -q manager); echo \"#!/usr/bin/env bash\ndocker swarm join --token $TOKEN ${aws_instance.docker_swarm_manager_init.public_ip}:2377\" >| join_manager.sh"
+  }
 }
 
 resource "aws_instance" "docker_swarm_managers" {
@@ -171,23 +179,6 @@ resource "null_resource" "launch_weave_scope" {
       "nohup caddy -conf Caddyfile.scope &",
       "sleep 1",
     ]
-  }
-}
-
-resource "null_resource" "create_join_scripts" {
-  depends_on = ["aws_instance.docker_swarm_manager_init"]
-
-  connection {
-    user        = "ubuntu"
-    private_key = "${file("${var.private_key_path}")}"
-  }
-
-  provisioner "local-exec" {
-    command = "TOKEN=$(ssh -i ${var.private_key_path} -o StrictHostKeyChecking=no ubuntu@${aws_instance.docker_swarm_manager_init.public_ip} docker swarm join-token -q worker); echo \"#!/usr/bin/env bash\ndocker swarm join --token $TOKEN ${aws_instance.docker_swarm_manager_init.public_ip}:2377\" >| join_worker.sh"
-  }
-
-  provisioner "local-exec" {
-    command = "TOKEN=$(ssh -i ${var.private_key_path} -o StrictHostKeyChecking=no ubuntu@${aws_instance.docker_swarm_manager_init.public_ip} docker swarm join-token -q manager); echo \"#!/usr/bin/env bash\ndocker swarm join --token $TOKEN ${aws_instance.docker_swarm_manager_init.public_ip}:2377\" >| join_manager.sh"
   }
 }
 
