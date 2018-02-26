@@ -69,7 +69,7 @@ node('docker') {
                 def masterAddress = ''
                 try {
                     stage('deploy staging') {
-                        sh "${terraform()} apply $tfplan"
+                        sh "${terraform(false)} apply $tfplan"
                         masterAddress = getMasterAddress()
                         publishStagedInfo(masterAddress) 
                     }
@@ -125,7 +125,7 @@ node('docker') {
                     }
 
                     stage('deploy to prod') {
-                        sh "${terraform()} apply $tfplan"
+                        sh "${terraform(false)} apply $tfplan"
                         publishProdInfo(getMasterAddress())
                     }
                 } catch(e) {
@@ -199,8 +199,12 @@ def notifySlack(String buildStatus) {
     }
 }
 
-def terraform() {
-    return "docker run --rm -u \$(id -u):\$(id -g) -v ${env.WORKSPACE}:/usr/src/ -w /usr/src/$TERRAFORM_DIR hashicorp/terraform:light"
+def terraform(def asUser = true) {
+    def docker = "docker run --rm -v ${env.WORKSPACE}:/usr/src/ -w /usr/src/$TERRAFORM_DIR"
+    if (asUser) {
+        docker = "$docker -u \$(id -u):\$(id -g)"
+    }
+    return "$docker hashicorp/terraform:light"
 }
 
 def getMasterAddress() {
