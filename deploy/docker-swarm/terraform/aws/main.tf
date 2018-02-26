@@ -44,7 +44,7 @@ resource "aws_instance" "docker_swarm_manager_init" {
 }
 
 resource "aws_instance" "docker_swarm_managers" {
-  depends_on                  = ["null_resource.create_join_scripts"]
+  depends_on                  = ["aws_instance.docker_swarm_manager_init"]
   count                       = "${var.additional_manager_nodes}"
   instance_type               = "${var.instance_type}"
   ami                         = "${data.aws_ami.pqvp_kmt_ami.id}"
@@ -80,7 +80,7 @@ resource "aws_instance" "docker_swarm_managers" {
 }
 
 resource "aws_instance" "docker_swarm_workers" {
-  depends_on             = ["null_resource.create_join_scripts"]
+  depends_on             = ["aws_instance.docker_swarm_manager_init"]
   count                  = "${var.num_nodes}"
   instance_type          = "${var.instance_type}"
   ami                    = "${data.aws_ami.pqvp_kmt_ami.id}"
