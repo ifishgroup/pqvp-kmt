@@ -111,7 +111,7 @@ node('docker') {
                         sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
                         sh "cp docker-compose.yml $TERRAFORM_DIR"
                         sh "${terraform()} init -backend-config=config/prod-state-store.tfvars -force-copy ."
-                        sh "${terraform()} taint null_resource.deploy_docker_stack"
+                        taintResources()
                         sh """${terraform()} plan \
                             -var-file=config/prod.tfvars \
                             -var tag=latest \
@@ -205,6 +205,16 @@ def terraform(def asUser = true) {
         docker = "$docker -u \$(id -u):\$(id -g)"
     }
     return "$docker hashicorp/terraform:light"
+}
+
+def taintResources() {
+    try {
+        sh "${terraform()} taint null_resource.create_join_scripts"
+        sh "${terraform()} taint null_resource.deploy_docker_stack"
+        sh "${terraform()} taint null_resource.deploy_monitoring_stack"
+    } catch(e) {
+        println e
+    }
 }
 
 def getMasterAddress() {
