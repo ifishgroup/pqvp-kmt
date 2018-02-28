@@ -1,23 +1,33 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+<div id="app">
+    <div class="page home-page">
+        <top-nav></top-nav>
+        <authenticated></authenticated>
+        <footer-area>
+        </footer-area>
+    </div>
+</div>
 </template>
 
 <script>
+import { TopNav,FooterArea,Authenticated, Anonymous } from "@/components/index";
+import { mapActions, mapState } from "vuex";
+
 export default {
-  name: 'App',
+  name: "app",
+  created() {},
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState(["user"])
+  },
+  components: {
+    TopNav,
+    Authenticated,
+    Anonymous,
+    FooterArea
+  }
 };
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

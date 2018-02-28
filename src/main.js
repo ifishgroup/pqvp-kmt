@@ -1,15 +1,26 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
-import App from './App';
-import router from './router';
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+import store from './store'
+import plugins from './plugins'
 
-Vue.config.productionTip = false;
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import '@/assets/css/themify-icons.css'
+import '@/style/main.css'
+
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
   template: '<App/>',
-});
+  components: { App },
+  store,
+  mounted () {
+    this.$toastr.defaultPosition = 'toast-top-full-width'
+  }
+})

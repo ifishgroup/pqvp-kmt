@@ -1,0 +1,37 @@
+[{
+    "_id": ObjectId("5a8dd99387f2ab36a4479091"),
+    "tokens": [],
+    "name": "Connie Smith",
+    "email": "csmith@insight-kmt.com",
+    "password": "$2a$10$PCu8NicTflJyRnc8ymrZ.uS0/CO9w/mh2hcRcRVW98L/qzr1tCQjy",
+    "role": "contentAuth",
+    "photo": "ConnieSmith_ContentManager.png"
+  },
+  {
+    "_id": ObjectId("5a8dd9b087f2ab36a4479093"),
+    "tokens": [],
+    "name": "Patricia Jacobs",
+    "email": "pjacobs@insight-kmt.com",
+    "password": "$2a$10$2NMubiI0mjtqzox50Hq6oOKpVzVcUAgXek2tec3wHIFxbHpjOij9W",
+    "role": "authorAuth",
+    "photo": "PatriciaJacobs_Publisher.jpg"
+  },
+  {
+    "_id": ObjectId("5a8dd9d287f2ab36a4479095"),
+    "tokens": [],
+    "name": "Bill Boss",
+    "email": "bboss@insight-kmt.com",
+    "password": "$2a$10$F0uA89V9Telj68605DTX7eKZJdY1fondwbnB1VNrktyNMDcIanKVe",
+    "role": "executiveAuth",
+    "photo": "BillBoss_BusinessExecutive.jpg"
+  },
+  {
+    "_id": ObjectId("5a938cedd21498184069adbc"),
+    "tokens": [],
+    "name": "Simon Sined",
+    "email": "ssined@insight-kmt.com",
+    "password": "$2a$10$PJrN1lVwc7d4BWpUJRGtme3pDUz.jwjaE33rasQ7CO4w1mK3qsfxi",
+    "role": "adminAuth",
+    "photo": "SimonSined_SystemAdmin.png"
+  }
+]

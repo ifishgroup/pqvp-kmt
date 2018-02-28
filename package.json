@@ -2,10 +2,12 @@
   "name": "playground",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "Dustin Lish <dlish27@gmail.com>",
+  "author": "Dustin Lish <dlish@ifishgroup.com>;Ernie Lopez <elopez@ifishgroup.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "client": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "server": "npm start --prefix ./api",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
@@ -17,8 +19,18 @@
     "docker-e2e": "docker-compose -f docker-compose-e2e.yml run --rm e2e"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "bootstrap": "^4.0.0",
+    "concurrently": "^3.5.1",
+    "lodash": "^4.17.5",
+    "vee-validate": "^2.0.4",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-simplemde": "^0.4.6",
+    "vue-toastr": "^2.0.12",
+    "vue2-editor": "^2.4.2",
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
