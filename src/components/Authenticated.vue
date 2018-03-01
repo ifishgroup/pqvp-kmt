@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import HeaderBreadcrumb from "./Layout/HeaderBreadcrumb";
-import SideBar from "./Layout/SideBar";
-import { mapActions,mapState } from "vuex";
+import { mapState } from 'vuex';
+import HeaderBreadcrumb from './Layout/HeaderBreadcrumb';
+import SideBar from './Layout/SideBar';
 
 export default {
   created() {},
@@ -19,11 +19,11 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["user","config"])
+    ...mapState(['user', 'config']),
   },
   components: {
     HeaderBreadcrumb,
-    SideBar
-  }
+    SideBar,
+  },
 };
 </script>

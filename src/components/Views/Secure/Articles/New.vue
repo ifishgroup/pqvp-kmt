@@ -72,42 +72,42 @@
 </template>
 
 <script>
-import { CardDefault } from "@/components/index";
-import markdownEditor from "vue-simplemde/src/markdown-editor";
-import "simplemde/dist/simplemde.min.css";
+import { CardDefault } from '@/components/index';
+import markdownEditor from 'vue-simplemde/src/markdown-editor';
 
-import axios from "axios";
-import { mapGetters } from "vuex";
+import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default {
   created() {},
   data() {
     return {
       form: {
-        author_id: "",
-        author: "",
-        author_email: "",
-        title: "",
-        status: "draft",
-        content: "",
-        keywords: "",
-        permalink: "",
-        featured: "false",
-        last_updated: "",
-        last_update_user: "",
-        published_date: "",
+        author_id: '',
+        author: '',
+        author_email: '',
+        title: '',
+        status: 'draft',
+        content: '',
+        keywords: '',
+        permalink: '',
+        featured: 'false',
+        last_updated: '',
+        last_update_user: '',
+        published_date: '',
         viewcount: 0,
-        votes: 0
-      }
+        votes: 0,
+      },
     };
   },
   computed: {
-    ...mapGetters({ config: "getConfig", user: "getUser" })
+    ...mapGetters({ config: 'getConfig', user: 'getUser' }),
   },
   methods: {
     onSubmit() {
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
+          /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
           this.form.author_id = this.user.info._id;
           this.form.author = this.user.info.name;
           this.form.author_email = this.user.info.email;
@@ -116,39 +116,36 @@ export default {
 
           axios
             .post(this.config.newArticleUrl, this.form, {
-              headers: { "x-auth": this.user.info.token }
+              headers: { 'x-auth': this.user.info.token },
             })
-            .then(response => {
+            .then((response) => {
               if (response.status === 200) {
-                this.$toastr.s("Article was successfully created!", "Success");
+                this.$toastr.s('Article was successfully created!', 'Success');
                 this.resetForm();
-              } else console.log("Article Error", response);
+              } else this.$toastr.e(response, 'Article Error');
             })
-            .catch(e => {
-              console.log("error-obj", e.response);
-              this.$toastr.e(e, "Error");
+            .catch((e) => {
+              this.$toastr.e(e, 'Article Error');
             });
         }
       });
     },
     resetForm() {
-      this.form.author = "";
-      this.form.title = "";
-      this.form.status = "draft";
-      this.form.content = "";
-      this.form.keywords = "";
-      this.form.permalink = "";
+      this.form.author = '';
+      this.form.title = '';
+      this.form.status = 'draft';
+      this.form.content = '';
+      this.form.keywords = '';
+      this.form.permalink = '';
       this.$nextTick(() => {
         this.$validator.reset();
       });
-    }
+    },
   },
   components: {
     CardDefault,
-    markdownEditor
-  }
+    markdownEditor,
+  },
 };
 </script>
-
-
 

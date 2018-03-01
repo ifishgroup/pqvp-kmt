@@ -10,24 +10,24 @@
 </template>
 
 <script>
-import { TopNav,FooterArea,Authenticated, Anonymous } from "@/components/index";
-import { mapActions, mapState } from "vuex";
+import { TopNav, FooterArea, Authenticated, Anonymous } from '@/components/index';
+import { mapState } from 'vuex';
 
 export default {
-  name: "app",
+  name: 'app',
   created() {},
   data() {
     return {};
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(['user']),
   },
   components: {
     TopNav,
     Authenticated,
     Anonymous,
-    FooterArea
-  }
+    FooterArea,
+  },
 };
 </script>
 

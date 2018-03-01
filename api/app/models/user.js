@@ -1,14 +1,15 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
 const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     require: true,
-    minlength: 1
+    minlength: 1,
   },
   email: {
     type: String,
@@ -18,73 +19,71 @@ var UserSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: validator.isEmail,
-      message: '{VALUE} is not a valid email'
-    }
+      message: '{VALUE} is not a valid email',
+    },
   },
   password: {
     type: String,
     require: true,
-    minlength: 6
+    minlength: 6,
   },
   role: {
     type: String,
-    require: true
+    require: true,
   },
   photo: {
     type: String,
-    required: false
+    required: false,
   },
   tokens: [{
     access: {
       type: String,
-      required: true
+      required: true,
     },
     token: {
       type: String,
-      required: true
-    }
-  }]
+      required: true,
+    },
+  }],
 });
 
 UserSchema.methods.toJSON = function () {
-  var user = this;
-  var userObject = user.toObject();
+  const user = this;
+  const userObject = user.toObject();
 
   return _.pick(userObject, ['_id', 'name', 'email', 'role', 'photo']);
 };
 
 UserSchema.methods.generateAuthToken = function () {
-  var user = this;
-  var access = 'auth';
-  var token = jwt.sign({
+  const user = this;
+  const access = 'auth';
+  const token = jwt.sign({
     _id: user._id.toHexString(),
-    access
+    access,
   }, process.env.JWT_SECRET).toString();
 
   user.tokens.push({
     access,
-    token
+    token,
   });
 
-  return user.save().then(() => {
-    return token;
-  });
+  return user.save().then(() => token);
 };
 
 UserSchema.methods.removeToken = function (deletetoken) {
-  var user = this;
+  const user = this;
 
   return user.update({
-    $pull: {tokens: {
-        token: deletetoken
-      }
-    }
+    $pull: { tokens: {
+      token: deletetoken,
+    },
+    },
   });
 };
 
 UserSchema.statics.findByToken = function (token) {
-  var User = this;
-  var decoded;
+  const User = this;
+  let decoded;
 
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -93,17 +92,17 @@ UserSchema.statics.findByToken = function (token) {
   }
 
   return User.findOne({
-    '_id': decoded._id,
+    _id: decoded._id,
     'tokens.token': token,
-    'tokens.access': 'auth'
+    'tokens.access': 'auth',
   });
 };
 
 UserSchema.statics.findByCredentials = function (email, password) {
-  var User = this;
+  const User = this;
 
   return User.findOne({
-    email
+    email,
   }).then((user) => {
     if (!user) {
       return Promise.reject();
@@ -123,58 +122,49 @@ UserSchema.statics.findByCredentials = function (email, password) {
 };
 
 UserSchema.statics.findById = function (id) {
-  var User = this;
+  const User = this;
 
   return User.findOne({
-    _id: id
+    _id: id,
   }).then((user) => {
     if (!user) {
       return Promise.reject();
     }
 
     return user;
-
   });
 };
 
 UserSchema.statics.UpdateById = function (form) {
-  var User = this;
+  const User = this;
 
   return User.findOne({
-    _id:form._id
+    _id: form._id,
   }).then((user) => {
     if (!user) {
       return Promise.reject();
     }
 
     return new Promise((resolve, reject) => {
-        user.set({name: form.name,role: form.role, password:form.password})
-        user.save(function (err, updatedUser) {if (err) reject(); else resolve();})
+      user.set({ name: form.name, role: form.role, password: form.password });
+      user.save((err) => { if (err) reject(); else resolve(); });
     });
   });
-
 };
 
 
 UserSchema.statics.findByIdAndRemove = function (id) {
-  var User = this;
+  const User = this;
 
   return User.remove({
-    _id: id
-  }, function (err) {
-
-    return new Promise((resolve, reject) => {
-      if (err)
-        reject();
-      else
-        resolve();
-    })
-  });
-
+    _id: id,
+  }, err => new Promise((resolve, reject) => {
+    if (err) { reject(); } else { resolve(); }
+  }));
 };
 
 UserSchema.statics.getAll = function () {
-  var User = this;
+  const User = this;
 
   return User.find({}).then((all) => {
     if (!all) {
@@ -182,17 +172,15 @@ UserSchema.statics.getAll = function () {
     }
 
     return all;
-
   });
-
 };
 
 UserSchema.pre('save', function (next) {
-  var user = this;
+  const user = this;
 
   if (user.isModified('password')) {
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(user.password, salt, (err, hash) => {
+      bcrypt.hash(user.password, salt, (errr, hash) => {
         user.password = hash;
         next();
       });
@@ -202,8 +190,8 @@ UserSchema.pre('save', function (next) {
   }
 });
 
-var User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = {
-  User
-}
+  User,
+};

@@ -24,7 +24,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(_user, index) in users">
+                  <tr v-for="(_user, index) in users" :key="_user._id">
                     <th scope="row">{{index += 1}}</th>
                     <td>{{_user.name}}</td>
                     <td>{{_user.email}}</td>
@@ -44,57 +44,57 @@
 </template>
 
 <script>
-import axios from "axios";
-import { CardDefault } from "@/components/index";
-import { mapGetters } from "vuex";
-import helper from "../../../Mixins/helper";
+import axios from 'axios';
+import { CardDefault } from '@/components/index';
+import { mapGetters } from 'vuex';
+import helper from '../../../Mixins/helper';
 
 export default {
   mixins: [helper],
   created() {
     axios
-      .get(this.config.allUsersUrl, { headers: { "x-auth": this.user.info.token } })
-      .then(response => {
+      .get(this.config.allUsersUrl, { headers: { 'x-auth': this.user.info.token } })
+      .then((response) => {
         this.users = response.data;
       })
-      .catch(e => {
-        this.$toastr.e(e, "Error Getting Users List");
+      .catch((e) => {
+        this.$toastr.e(e, 'Error Getting Users List');
       });
   },
   data() {
     return {
       counter: 1,
-      users: []
+      users: [],
     };
   },
   methods: {
     deleteUser(name, userid) {
-      var msg = "Are you sure you want to delete user '" + name + "'?";
+      const msg = `Are you sure you want to delete user '${name}'?`;
       if (confirm(msg)) {
-        var url = this.config.deleteUserUrl + '/' + userid;
+        const url = `${this.config.deleteUserUrl}/${userid}`;
         axios
           .get(url, {
-            headers: { "x-auth": this.user.info.token }
+            headers: { 'x-auth': this.user.info.token },
           })
-          .then(response => {
+          .then((response) => {
             this.users = response.data;
           })
-          .catch(e => {
-            this.$toastr.e(e, "Error Deleting User");
+          .catch((e) => {
+            this.$toastr.e(e, 'Error Deleting User');
           });
       }
     },
-    editUser(id){
-        var route = "/users/edit/" + id
-        this.$router.push(route);
-    }
+    editUser(id) {
+      const route = `/users/edit/${id}`;
+      this.$router.push(route);
+    },
   },
   computed: {
-    ...mapGetters({ config: "getConfig", user: "getUser" })
+    ...mapGetters({ config: 'getConfig', user: 'getUser' }),
   },
   components: {
-    CardDefault
-  }
+    CardDefault,
+  },
 };
 </script>
 
@@ -104,5 +104,4 @@ export default {
   color: #0073e5;
 }
 </style>
-
 

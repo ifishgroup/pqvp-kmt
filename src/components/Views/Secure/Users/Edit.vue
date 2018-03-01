@@ -95,77 +95,75 @@
 </template>
 
 <script>
-import { CardDefault } from "@/components/index";
-import axios from "axios";
-import { mapGetters } from "vuex";
-import helper from "../../../Mixins/helper";
+import { CardDefault } from '@/components/index';
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+import helper from '../../../Mixins/helper';
 
 export default {
   mixins: [helper],
   created() {
-    var _id;
+    /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+    let _id;
     if (this.$route.params.id) _id = this.$route.params.id;
     else _id = this.user.info._id;
 
-    this.editUrl = this.config.editUserUrl + "/" + _id;
+    this.editUrl = `${this.config.editUserUrl}/${_id}`;
 
     axios
-      .get(this.editUrl, { headers: { "x-auth": this.user.info.token } })
-      .then(response => {
+      .get(this.editUrl, { headers: { 'x-auth': this.user.info.token } })
+      .then((response) => {
         this.form = response.data;
       })
-      .catch(e => {
-        this.$toastr.e(e, "Error Getting User");
+      .catch((e) => {
+        this.$toastr.e(e, 'Error Getting User');
       });
   },
   data() {
     return {
-      editUrl: "",
-      form: {}
+      editUrl: '',
+      form: {},
     };
   },
   computed: {
-    ...mapGetters({ config: "getConfig", user: "getUser" }),
+    ...mapGetters({ config: 'getConfig', user: 'getUser' }),
     cancelUrl() {
-      if (this.isCurrentUserAdmin) return "/users/edit";
-      else return "/";
+      if (this.isCurrentUserAdmin) return '/users/edit';
+      return '/';
     },
     userPhoto() {
-      var imgsrc = "/static/img/users/default-avatar.png";
+      let imgsrc = '/static/img/users/default-avatar.png';
 
       if (this.form) {
-        if (this.form.photo == null || this.form.photo == "")
-          imgsrc = "/static/img/users/default-avatar.png";
-        else imgsrc = "/static/img/users/" + this.form.photo;
+        if (this.form.photo === null || this.form.photo === '') { imgsrc = '/static/img/users/default-avatar.png'; } else imgsrc = `/static/img/users/${this.form.photo}`;
       }
       return imgsrc;
-    }
+    },
   },
   methods: {
     onSubmit() {
-        
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
           axios
             .post(this.editUrl, this.form, {
-              headers: { "x-auth": this.user.info.token }
+              headers: { 'x-auth': this.user.info.token },
             })
-            .then(response => {
+            .then((response) => {
               // JSON responses are automatically parsed.
               if (response.status === 200) {
-                this.$toastr.s("Profile was successfully update!", "Success");
-              } else console.log("Bad Authentication", response);
+                this.$toastr.s('Profile was successfully update!', 'Success');
+              } else this.$toastr.e(response, 'Bad Authentication');
             })
-            .catch(e => {
-              this.$toastr.e(e, "Error");
+            .catch((e) => {
+              this.$toastr.e(e, 'Error');
             });
         }
       });
-    }
+    },
   },
   components: {
-    CardDefault
-  }
+    CardDefault,
+  },
 };
 </script>
 

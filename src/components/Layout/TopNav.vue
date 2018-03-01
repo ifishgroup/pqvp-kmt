@@ -29,29 +29,30 @@
 </template>
 
 <script>
-import { mapActions,mapState } from "vuex";
+import { mapActions, mapState } from 'vuex';
+
 export default {
   ready() {
   },
   data() {
     return {
-        showSearch:false
-    }
+      showSearch: false,
+    };
   },
   methods: {
     ...mapActions(['menuToggle']),
 
-    search(){
+    search() {
 
-    }
+    },
   },
   computed: {
-    ...mapState(["user","config"])
+    ...mapState(['user', 'config']),
   },
   components: {
 
-  }
+  },
 
-}
+};
 </script>
 

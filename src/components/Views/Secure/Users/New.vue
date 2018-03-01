@@ -35,7 +35,7 @@
                                     <label class="col-sm-3 form-control-label">Confirm Password:*</label>
                                     <div class="col-sm-9">
                                         <input type="password" name="confirmed" v-validate="'required|confirmed:password'" class="form-control">
-                                        <span v-show="errors.has('confirmed')" class="error">{{ errors.first('confirm') }}</span>
+                                        <span v-show="errors.has('confirmed')" class="error">{{ errors.first('confirmed') }}</span>
                                     </div>
                                 </div>
                                 <div class="line"></div>
@@ -43,7 +43,7 @@
                                     <label class="col-sm-3 form-control-label">Role:*</label>
                                     <div class="col-sm-9">
                                         <div class="i-checks">
-                                            <input v-model="form.role" id="roleAdmin" name="" type="radio" value="adminAuth" name="role" v-validate="'required'" class="radio-template">
+                                            <input v-model="form.role" id="roleAdmin" type="radio" value="adminAuth" name="role" v-validate="'required'" class="radio-template">
                                             <label for="roleAdmin">Admin</label>
                                         </div>
                                         <div class="i-checks">
@@ -79,50 +79,48 @@
 </template>
 
 <script>
-import { CardDefault } from "@/components/index";
-import axios from "axios";
-import { mapGetters } from "vuex";
+import { CardDefault } from '@/components/index';
+import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
       form: {
-        name: "",
-        email: "",
-        password: "",
-        role: ""
-      }
+        name: '',
+        email: '',
+        password: '',
+        role: '',
+      },
     };
   },
   computed: {
-    ...mapGetters({ config: "getConfig", user: "getUser" })
+    ...mapGetters({ config: 'getConfig', user: 'getUser' }),
   },
   methods: {
     onSubmit() {
-
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
           axios
             .post(this.config.registerUrl, this.form, {
-              headers: { "x-auth": this.user.info.token }
+              headers: { 'x-auth': this.user.info.token },
             })
-            .then(response => {
+            .then((response) => {
               // JSON responses are automatically parsed.
               if (response.status === 200) {
-                var _json = response.data;
-                this.$router.push("/users/edit");
-              } else this.$toastr.e(response, "Error Creating User");
+                this.$router.push('/users/edit');
+              } else this.$toastr.e(response, 'Error Creating User');
             })
-            .catch(e => {
-              this.$toastr.e(e.response.data.message, "Error Creating User");
+            .catch((e) => {
+              this.$toastr.e(e.response.data.message, 'Error Creating User');
             });
         }
       });
-    }
+    },
   },
   components: {
-    CardDefault
-  }
+    CardDefault,
+  },
 };
 </script>
 

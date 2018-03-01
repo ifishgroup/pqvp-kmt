@@ -24,16 +24,15 @@ Nulla facilisi. Morbi ac nisi non ipsum vehicula molestie ac eget eros. Aliquam 
 </template>
 
 <script>
-import { CardDefault } from "@/components/index";
+import { CardDefault } from '@/components/index';
 
 export default {
   data() {
     return {};
   },
   components: {
-    CardDefault
-  }
+    CardDefault,
+  },
 };
 </script>
-
 

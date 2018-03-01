@@ -24,7 +24,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(article, index) in articles">
+                  <tr v-for="(article, index) in articles" :key="article._id">
                     <th scope="row">{{index += 1}}</th>
                     <td><a class="article" @click.prevent="editArticle(`${article._id}`)">{{article.title}}</a></td>
                     <td>{{article.author}}</td>
@@ -44,59 +44,59 @@
 </template>
 
 <script>
-import axios from "axios";
-import { CardDefault } from "@/components/index";
-import { mapGetters } from "vuex";
-import helper from "../../../Mixins/helper";
+import axios from 'axios';
+import { CardDefault } from '@/components/index';
+import { mapGetters } from 'vuex';
+import helper from '../../../Mixins/helper';
 
 export default {
   mixins: [helper],
   created() {
     axios
       .get(this.config.allArticlesUrl, {
-        headers: { "x-auth": this.user.info.token }
+        headers: { 'x-auth': this.user.info.token },
       })
-      .then(response => {
+      .then((response) => {
         this.articles = response.data;
       })
-      .catch(e => {
-        this.$toastr.e(e, "Error Getting Articles List");
+      .catch((e) => {
+        this.$toastr.e(e, 'Error Getting Articles List');
       });
   },
   data() {
     return {
       counter: 1,
-      articles: []
+      articles: [],
     };
   },
   methods: {
     deleteArticle(article, articleid) {
-      var msg = "Are you sure you want to delete article '" + article + "'?";
+      const msg = `Are you sure you want to delete article '${article}'?`;
       if (confirm(msg)) {
-        var url = this.config.deleteArticleUrl + "/" + articleid;
+        const url = `${this.config.deleteArticleUrl}/${articleid}`;
         axios
           .get(url, {
-            headers: { "x-auth": this.user.info.token }
+            headers: { 'x-auth': this.user.info.token },
           })
-          .then(response => {
+          .then((response) => {
             this.articles = response.data;
           })
-          .catch(e => {
-            this.$toastr.e(e, "Error Deleting Article");
+          .catch((e) => {
+            this.$toastr.e(e, 'Error Deleting Article');
           });
       }
     },
     editArticle(id) {
-      var route = "/articles/edit/" + id;
+      const route = `/articles/edit/${id}`;
       this.$router.push(route);
-    }
+    },
   },
   computed: {
-    ...mapGetters({ config: "getConfig", user: "getUser" })
+    ...mapGetters({ config: 'getConfig', user: 'getUser' }),
   },
   components: {
-    CardDefault
-  }
+    CardDefault,
+  },
 };
 </script>
 
@@ -115,5 +115,4 @@ a.article:hover {
   text-decoration: underline;
 }
 </style>
-
 

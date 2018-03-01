@@ -17,12 +17,12 @@
 
 <script>
 export default {
-    data() {
-            return {}
-        },
-        methods: {},
-        computed: {},
-        components: {}
-}
+  data() {
+    return {};
+  },
+  methods: {},
+  computed: {},
+  components: {},
+};
 </script>
 

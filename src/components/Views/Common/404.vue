@@ -9,7 +9,7 @@
                 <div class="col-md-12">
                     <button class="btn btn-info btn-block btn-lg" @click="$router.push('/')">HOME</button>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
 export default {
   data() {
     return {};
-  }
+  },
 };
 </script>
 
@@ -86,6 +86,6 @@ export default {
 .error-container404 .error-actions404 {
   float: left;
   width: 100%;
- 
+
 }
 </style>

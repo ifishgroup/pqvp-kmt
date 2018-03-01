@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import SideBar from "./Layout/SideBar";
-   export default {
+import SideBar from './Layout/SideBar';
+
+export default {
   created() {
 
   },
@@ -18,8 +19,8 @@ import SideBar from "./Layout/SideBar";
   methods: {},
   computed: {},
   components: {
-    SideBar
-  }
+    SideBar,
+  },
 };
 </script>
 

@@ -34,16 +34,16 @@
                             <ul class="list-unstyled">
                                 <li>
                                     <b>System Admin</b>
-                                    </br>ssined@insight-kmt.com</li>
+                                    <br>ssined@insight-kmt.com</li>
                                 <li>
                                     <b>Executive</b>
-                                    </br>bboss@insight-kmt.com</li>
+                                    <br>bboss@insight-kmt.com</li>
                                 <li>
                                     <b>Content Manager</b>
-                                    </br>csmith@insight-kmt.com</li>
+                                    <br>csmith@insight-kmt.com</li>
                                 <li>
                                     <b>Author</b>
-                                    </br>pjacobs@insight-kmt.com</li>
+                                    <br>pjacobs@insight-kmt.com</li>
                                 <li><br>
                                     <b>Password</b>:"abcd1234!"</li>
                             </ul>
@@ -59,55 +59,51 @@
 </template>
 
 <script>
-import { CardDefault } from "@/components/index";
-import axios from "axios";
-import { mapActions, mapGetters } from "vuex";
+import { CardDefault } from '@/components/index';
+import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
       form: {
-        email: "",
-        password: ""
-      }
+        email: '',
+        password: '',
+      },
     };
   },
   components: { CardDefault },
   computed: {
-    ...mapGetters({ config: "getConfig", app: "getApp" })
+    ...mapGetters({ config: 'getConfig', app: 'getApp' }),
   },
   methods: {
-    ...mapActions(["loginUser"]),
+    ...mapActions(['loginUser']),
 
     onSubmit() {
-  
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
           axios
             .post(this.config.loginUrl, this.form)
-            .then(response => {
+            .then((response) => {
               // JSON responses are automatically parsed.
               if (response.status === 200) {
-                let json = response.data;
-                json["token"] = response.headers["x-auth"];
+                const json = response.data;
+                json.token = response.headers['x-auth'];
                 this.loginUser(json).then(() => {
-                  this.$router.push("/");
+                  this.$router.push('/');
                 });
-              } else console.log("Bad Authentication", response);
+              } else this.$toastr.e(response, 'Bad Authentication');
             })
-            .catch(e => {
-              let title = e.response.status + "-" + e.response.statusText;
+            .catch((e) => {
+              const title = `${e.response.status}-${e.response.statusText}`;
               let msg = e.message;
-              if (e.response.status === 401)
-                msg = "Invalid username or password.  Please try again.";
+              if (e.response.status === 401) { msg = 'Invalid username or password.  Please try again.'; }
               this.$toastr.e(msg, title);
             });
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
-
-
 

@@ -75,70 +75,67 @@
 </template>
 
 <script>
-import { CardDefault } from "@/components/index";
-import markdownEditor from "vue-simplemde/src/markdown-editor";
-import "simplemde/dist/simplemde.min.css";
+import { CardDefault } from '@/components/index';
+import markdownEditor from 'vue-simplemde/src/markdown-editor';
 
-import axios from "axios";
-import { mapGetters } from "vuex";
-import helper from "../../../Mixins/helper";
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+import helper from '../../../Mixins/helper';
 
 export default {
   mixins: [helper],
   created() {
-    var _id = this.$route.params.id;
-    this.editUrl = this.config.editArticleUrl + "/" + _id;
+    const articleid = this.$route.params.id;
+    this.editUrl = `${this.config.editArticleUrl}/${articleid}`;
 
     axios
-      .get(this.editUrl, { headers: { "x-auth": this.user.info.token } })
-      .then(response => {
+      .get(this.editUrl, { headers: { 'x-auth': this.user.info.token } })
+      .then((response) => {
         this.form = response.data;
       })
-      .catch(e => {
-        this.$toastr.e(e, "Error Getting Article");
+      .catch((e) => {
+        this.$toastr.e(e, 'Error Getting Article');
       });
   },
   data() {
     return {
-      editUrl: "",
+      editUrl: '',
       form: {},
       configs: {
-        showIcons: ["code", "table", "horizontal-rule"]
-      }
+        showIcons: ['code', 'table', 'horizontal-rule'],
+      },
     };
   },
   computed: {
-    ...mapGetters({ config: "getConfig", user: "getUser" })
+    ...mapGetters({ config: 'getConfig', user: 'getUser' }),
   },
   methods: {
     onSubmit() {
-
-      this.$validator.validateAll().then(result => {
+      this.$validator.validateAll().then((result) => {
         if (result) {
           this.form.last_updated = new Date();
           this.form.last_update_user = this.user.info.name;
 
           axios
             .post(this.editUrl, this.form, {
-              headers: { "x-auth": this.user.info.token }
+              headers: { 'x-auth': this.user.info.token },
             })
-            .then(response => {
+            .then((response) => {
               if (response.status === 200) {
-                this.$toastr.s("Article was successfully updated!", "Success");
-              } else console.log("Article Error", response);
+                this.$toastr.s('Article was successfully updated!', 'Success');
+              } else this.$toastr.e(response, 'Article Error');
             })
-            .catch(e => {
-              console.log("error-obj", e.response);
-              this.$toastr.e(e, "Error");
+            .catch((e) => {
+              this.$toastr.e(e, 'Article Error');
             });
         }
       });
-    }
+    },
   },
   components: {
     CardDefault,
-    markdownEditor
-  }
+    markdownEditor,
+  },
 };
 </script>
 
@@ -160,7 +157,4 @@ div.editor-toolbar a {
   color: #000000 !important;
 }
 </style>
-
-
-
 

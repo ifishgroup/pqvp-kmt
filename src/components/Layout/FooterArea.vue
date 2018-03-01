@@ -20,14 +20,14 @@ export default {
   },
   methods: {},
   computed: {
-    copyright: function() {
-      var d = new Date();
-      var n = d.getFullYear();
+    copyright() {
+      const d = new Date();
+      const n = d.getFullYear();
 
-      return "&copy; iFish Group " + n;
-    }
+      return `&copy; iFish Group ${n}`;
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
 

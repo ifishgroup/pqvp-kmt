@@ -14,6 +14,9 @@
     "e2e-docker": "node test/e2e/runner.js --config test/e2e/docker.nightwatch.conf.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
+    "lint:fix": "yarn lint --fix",
+    "lint-api":"eslint api/app",
+    "lint-api:fix":"yarn lint-api --fix",
     "build": "node build/build.js",
     "docker-build": "docker build -t ifishgroup/pqvp-kmt .",
     "docker-e2e": "docker-compose -f docker-compose-e2e.yml run --rm e2e"
@@ -58,6 +61,7 @@
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-vue": "^4.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",

@@ -4,8 +4,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import axios from "axios";
+import { mapActions, mapState } from 'vuex';
 
 export default {
   created() {
@@ -15,14 +14,13 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["user", "config"])
+    ...mapState(['user', 'config']),
   },
   methods: {
-    ...mapActions(["logoffUser"]),
+    ...mapActions(['logoffUser']),
     logOff() {
-      
       this.logoffUser().then(() => {
-        this.$router.push("/welcome");
+        this.$router.push('/welcome');
       });
 
       // axios
@@ -39,8 +37,8 @@ export default {
       //   .catch(e => {
       //     this.$toastr.e(e, "Error Logging Off");
       //   });
-    }
-  }
+    },
+  },
 };
 </script>
 

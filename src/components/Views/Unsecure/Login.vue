@@ -20,7 +20,7 @@
               <form id="login-form" @submit="onSubmit">
                 <div class="form-group">
                   <input id="email" v-model="form.email" type="text" name="email" required placeholder="Email" class="input-material">
-                  
+
                 </div>
                 <div class="form-group">
                   <input id="password" v-model="form.password" type="password" name="password" required placeholder="Password" class="input-material">
@@ -33,8 +33,8 @@
                   <li>pjacobs@insight-kmt.com - [Author]</li>
                   <li>Password:"abcd1234!"</li>
                 </ul>
-              </p>
-              
+
+
             </div>
           </div>
         </div>
@@ -45,47 +45,44 @@
 </template>
 
 <script>
-import axios from "axios";
-import { mapActions, mapGetters } from "vuex";
+import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
       form: {
-        email: "",
-        password: ""
-      }
+        email: '',
+        password: '',
+      },
     };
   },
   components: {},
   computed: {
-    ...mapGetters({ config: "getConfig",app:"getApp" })
+    ...mapGetters({ config: 'getConfig', app: 'getApp' }),
   },
   methods: {
-    ...mapActions(["loginUser"]),
+    ...mapActions(['loginUser']),
 
     onSubmit(evt) {
       evt.preventDefault();
 
       axios
         .post(this.config.loginUrl, this.form)
-        .then(response => {
+        .then((response) => {
           // JSON responses are automatically parsed.
           if (response.status === 200) {
-            var _json = response.data;
-            _json['token']=response.headers['x-auth']
-            this.loginUser(_json).then(() => {
-              this.$router.push("/");
+            const json = response.data;
+            json.token = response.headers['x-auth'];
+            this.loginUser(json).then(() => {
+              this.$router.push('/');
             });
-          }
-          else
-            console.log('Bad Authentication',response);
+          } else { this.$toastr.e(response, 'Bad Authentication'); }
         })
-        .catch(e => {
-          console.log('error-obj',e.response);
-          this.$toastr.e(e,"Error");
+        .catch((e) => {
+          this.$toastr.e(e, 'Error');
         });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,42 +1,39 @@
 export default {
   methods: {
     getRoleName(role) {
-      var roleName;
+      let roleName;
 
       switch (role) {
-        case "adminAuth":
-          roleName = "System Admin";
+        case 'adminAuth':
+          roleName = 'System Admin';
           break;
-        case "contentAuth":
-          roleName = "Content Manager";
+        case 'contentAuth':
+          roleName = 'Content Manager';
           break;
-        case "authorAuth":
-          roleName = "Author";
+        case 'authorAuth':
+          roleName = 'Author';
           break;
-        case "executiveAuth":
-          roleName = "Executive";
+        case 'executiveAuth':
+          roleName = 'Executive';
           break;
         default:
-          roleName = "N/A";
+          roleName = 'N/A';
       }
       return roleName;
     },
     showEditIcons(article) {
-      if (article.status == "draft")
-        return true;
+      if (article.status === 'draft') { return true; }
 
-      if (article.status == "rejected" && this.$store.state.user.info.role == "authorAuth")
-        return true;
+      if (article.status === 'rejected' && this.$store.state.user.info.role === 'authorAuth') { return true; }
 
-      if (article.status != "draft" && this.$store.state.user.info.role == "contentAuth")
-        return true;
+      if (article.status !== 'draft' && this.$store.state.user.info.role === 'contentAuth') { return true; }
 
       return false;
-    }
+    },
   },
   computed: {
     isCurrentUserAdmin() {
-      return this.$store.state.user ? this.$store.state.user.info.role == "adminAuth" ? true : false : false;
-    }
-  }
+      return this.$store.state.user ? this.$store.state.user.info.role === 'adminAuth' : false;
+    },
+  },
 };
