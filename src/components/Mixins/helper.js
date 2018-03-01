@@ -22,7 +22,7 @@ export default {
       return roleName;
     },
     showEditIcons(article) {
-      if (article.status == "draft" && this.$store.state.user.info.role == "authorAuth")
+      if (article.status == "draft")
         return true;
 
       if (article.status == "rejected" && this.$store.state.user.info.role == "authorAuth")

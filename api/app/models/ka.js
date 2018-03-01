@@ -96,7 +96,7 @@ KaSchema.statics.getAll = function (user) {
   var KA = this;
 
   if (user.role == 'contentAuth')
-    return KA.find({status: { $ne: 'draft' }}).then((all) => {
+    return KA.find({$or: [{status: { $ne: 'draft' }},{author_id: { $eq: user._id }}]}).then((all) => {
       if (!all) {
         return Promise.reject();
       }

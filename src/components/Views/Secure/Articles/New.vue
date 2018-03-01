@@ -1,5 +1,5 @@
 <template>
-<section class="forms">
+    <section class="forms">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -7,41 +7,44 @@
                         <div slot="header-card">
                             Add New Article
                             <div class="card-close">
-                              <div class="dropdown">
-                                  <button type="button" @click="$router.push('/articles/edit')" class="btn btn-primary btn-sm">Back to Articles</button>
-                              </div>
+                                <div class="dropdown">
+                                    <button type="button" @click="$router.push('/articles/edit')" class="btn btn-primary btn-sm">Back to Articles</button>
+                                </div>
                             </div>
                         </div>
                         <div slot="body-card">
-                            <form class="form-horizontal" @submit="onSubmit">
-                              <div class="form-group row">
+                            <form class="form-horizontal" @submit.prevent="onSubmit">
+                                <div class="form-group row">
                                     <label class="col-sm-3 form-control-label">Status:*</label>
                                     <div class="col-sm-9">
-                                      <select class="form-control"  id="status"   required v-model="form.status">
-                                          <option value="pending approval">Submit For Approval</option>
-                                          <option value="draft">Draft</option>
-                                      </select>
+                                        <select class="form-control" id="status" required v-model="form.status">
+                                            <option value="pending approval">Submit For Approval</option>
+                                            <option value="draft">Draft</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 form-control-label">Article Title:*</label>
                                     <div class="col-sm-9">
-                                        <input type="text" autofocus v-model="form.title" id="fullname"  required class="form-control">
+                                        <input type="text" autofocus v-model="form.title" name="title" v-validate="'required'" class="form-control">
+                                        <span v-show="errors.has('title')" class="error">{{ errors.first('title') }}</span>
                                     </div>
                                 </div>
                                 <div class="line"></div>
-                                 <div class="form-group row">
+                                <div class="form-group row">
                                     <label class="col-sm-3 form-control-label">Article Body:*</label>
                                     <div class="col-sm-9">
-                                         <markdown-editor v-model="form.content"></markdown-editor>
+                                        <markdown-editor v-validate="'required'" v-model="form.content" name="article"></markdown-editor>
+                                        <span v-show="errors.has('article')" class="error">{{ errors.first('article') }}</span>
                                     </div>
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 form-control-label">Keywords:*</label>
                                     <div class="col-sm-9">
-                                        <input type="text" v-model="form.keywords" id="tags" placeholder="comma seperated list"  required class="form-control">
+                                        <input type="text" v-model="form.keywords" name="categories" v-validate="'required'" placeholder="comma seperated list" class="form-control">
+                                        <span v-show="errors.has('categories')" class="error">{{ errors.first('categories') }}</span>
                                     </div>
                                 </div>
                                 <div class="line"></div>
@@ -81,7 +84,7 @@ export default {
   data() {
     return {
       form: {
-        author_id:"",
+        author_id: "",
         author: "",
         author_email: "",
         title: "",
@@ -102,29 +105,31 @@ export default {
     ...mapGetters({ config: "getConfig", user: "getUser" })
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      
-    this.form.author_id = this.user.info._id;
-    this.form.author = this.user.info.name;
-    this.form.author_email = this.user.info.email;
-    this.form.last_updated = new Date();
-    this.form.last_update_user = this.user.info.name;
+    onSubmit() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.form.author_id = this.user.info._id;
+          this.form.author = this.user.info.name;
+          this.form.author_email = this.user.info.email;
+          this.form.last_updated = new Date();
+          this.form.last_update_user = this.user.info.name;
 
-    axios
-        .post(this.config.newArticleUrl, this.form, {
-          headers: { "x-auth": this.user.info.token }
-        })
-        .then(response => {
-          if (response.status === 200) {
-            this.$toastr.s("Article was successfully created!", "Success");
-            this.resetForm();
-          } else console.log("Article Error", response);
-        })
-        .catch(e => {
-          console.log("error-obj", e.response);
-          this.$toastr.e(e, "Error");
-        });
+          axios
+            .post(this.config.newArticleUrl, this.form, {
+              headers: { "x-auth": this.user.info.token }
+            })
+            .then(response => {
+              if (response.status === 200) {
+                this.$toastr.s("Article was successfully created!", "Success");
+                this.resetForm();
+              } else console.log("Article Error", response);
+            })
+            .catch(e => {
+              console.log("error-obj", e.response);
+              this.$toastr.e(e, "Error");
+            });
+        }
+      });
     },
     resetForm() {
       this.form.author = "";
@@ -133,6 +138,9 @@ export default {
       this.form.content = "";
       this.form.keywords = "";
       this.form.permalink = "";
+      this.$nextTick(() => {
+        this.$validator.reset();
+      });
     }
   },
   components: {
