@@ -81,7 +81,7 @@ import "simplemde/dist/simplemde.min.css";
 
 import axios from "axios";
 import { mapGetters } from "vuex";
-import helper from "../../../mixins/helper";
+import helper from "../../../Mixins/helper";
 
 export default {
   mixins: [helper],

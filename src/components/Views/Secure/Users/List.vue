@@ -47,7 +47,7 @@
 import axios from "axios";
 import { CardDefault } from "@/components/index";
 import { mapGetters } from "vuex";
-import helper from "../../../mixins/helper";
+import helper from "../../../Mixins/helper";
 
 export default {
   mixins: [helper],

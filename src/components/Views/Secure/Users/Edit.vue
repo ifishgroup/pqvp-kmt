@@ -98,7 +98,7 @@
 import { CardDefault } from "@/components/index";
 import axios from "axios";
 import { mapGetters } from "vuex";
-import helper from "../../../mixins/helper";
+import helper from "../../../Mixins/helper";
 
 export default {
   mixins: [helper],

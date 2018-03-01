@@ -24,7 +24,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 
-import helper from "../mixins/helper";
+import helper from "../Mixins/helper";
 
 export default {
   mixins: [helper],
