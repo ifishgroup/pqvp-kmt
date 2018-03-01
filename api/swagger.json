@@ -6,21 +6,16 @@
     "version": "1.0.0"
   },
   "host": "localhost:3003",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "basePath": "/api",
   "paths": {
     "/users/create": {
       "post": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "summary": "Create User",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [{
+        "produces": ["application/json"],
+        "parameters": [
+          {
             "in": "body",
             "name": "body",
             "description": "create a new Insight KMT user",
@@ -52,22 +47,20 @@
     },
     "/users/login": {
       "post": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "summary": "Login User",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [{
-          "in": "body",
-          "name": "body",
-          "description": "credentials sent to login a user",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/User"
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "credentials sent to login a user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -95,22 +88,20 @@
     },
     "/users/edit/{id}": {
       "get": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "summary": "Retreive specific user profile by id",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [{
-          "in": "path",
-          "name": "id",
-          "description": "string id of the user to retreive",
-          "required": true,
-          "schema": {
-            "type": "string"
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "string id of the user to retreive",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -126,33 +117,30 @@
           }
         }
       },
-     "post": {
-        "tags": [
-          "users"
-        ],
+      "post": {
+        "tags": ["users"],
         "summary": "Update specific user profile by id",
-        "produces": [
-          "application/json"
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "string id of the user to retreive; Currently not being used.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user profile to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReturnUserJson"
+            }
+          }
         ],
-        "parameters": [{
-          "in": "path",
-          "name": "id",
-          "description": "string id of the user to retreive; Currently not being used.",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "in": "body",
-          "name": "body",
-          "description": "user profile to update",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/ReturnUserJson"
-          }
-        }
-      ],
         "responses": {
           "200": {
             "description": "OK",
@@ -168,22 +156,20 @@
     },
     "/users/delete/{id}": {
       "get": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "summary": "Delete User and return updated user list",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [{
-          "in": "path",
-          "name": "id",
-          "description": "string id of the user to delete",
-          "required": true,
-          "schema": {
-            "type": "string"
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "string id of the user to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -208,20 +194,18 @@
     },
     "/users/all": {
       "get": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "summary": "Get list of all users",
-        "produces": [
-          "application/json"
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
         ],
-        "parameters": [{
-          "name": "x-auth",
-          "in": "header",
-          "description": "an authorization jwt token in header",
-          "required": true,
-          "type": "string"
-        }],
         "responses": {
           "200": {
             "description": "OK",
@@ -243,20 +227,18 @@
     },
     "/users/me": {
       "get": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "summary": "Get user information for logged in user",
-        "produces": [
-          "application/json"
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
         ],
-        "parameters": [{
-          "name": "x-auth",
-          "in": "header",
-          "description": "an authorization jwt token in header",
-          "required": true,
-          "type": "string"
-        }],
         "responses": {
           "200": {
             "description": "OK",
@@ -275,23 +257,199 @@
     },
     "/users/logout": {
       "delete": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "summary": "Logs out current logged in user session",
-        "produces": [
-          "application/json"
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
         ],
-        "parameters": [{
-          "name": "x-auth",
-          "in": "header",
-          "description": "an authorization jwt token in header",
-          "required": true,
-          "type": "string"
-        }],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/articles/create": {
+      "post": {
+        "tags": ["articles"],
+        "summary": "Create New Knowledge Article",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create a new Insight KMT article",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/KA"
+            }
+          },
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/articles/edit/{id}": {
+      "get": {
+        "tags": ["articles"],
+        "summary": "Retreive specific knowledge article profile by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "string id of the knowledge article to retreive",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "5XX": {
+              "description": "Unexpected error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["articles"],
+        "summary": "Update specific knowledge article by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "string id of the knowledge article to retreive; Currently not being used.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "knowledge article to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "401": {
+              "description": "Unauthorized"
+            },
+            "5XX": {
+              "description": "Unexpected error"
+            }
+          }
+        }
+      }
+    },
+    "/articles/delete/{id}": {
+      "get": {
+        "tags": ["articles"],
+        "summary": "Delete knowledge article and return updated user list",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "string id of the knowledge article to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            },
+            "headers": {
+              "x-auth": {
+                "type": "string",
+                "description": "valid jwt token"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/articles/all": {
+      "get": {
+        "tags": ["articles"],
+        "summary": "Get list of all knowledge articles",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -352,6 +510,103 @@
         },
         "photo": {
           "type": "string"
+        }
+      }
+    },
+    "KA": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "author_id": {
+          "type": "string"
+        },
+        "author_email": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string"
+        },
+        "last_updated_user": {
+          "type": "string"
+        },
+        "permalink": {
+          "type": "string"
+        },
+        "published_date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "viewcount": {
+          "type": "integer"
+        },
+        "votes": {
+          "type": "integer"
+        }
+      }
+    },
+    "ReturnKAJson": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "author_id": {
+          "type": "string"
+        },
+        "author_email": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "last_updated": {
+          "type": "string"
+        },
+        "last_updated_user": {
+          "type": "string"
+        },
+        "permalink": {
+          "type": "string"
+        },
+        "published_date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "viewcount": {
+          "type": "integer"
+        },
+        "votes": {
+          "type": "integer"
         }
       }
     }

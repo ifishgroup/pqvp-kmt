@@ -1,4 +1,5 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_router"] }] */
+/* eslint-disable func-names */
 
 const { authenticate } = require('../middleware/authenticate');
 const userController = require('../controllers/userController');
