@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "mongoimport --db Insight --collection users --type json --file ./app/data/insertUsers.json --drop --upsert --jsonArray",
+    "import": "mongoimport --db Insight --collection users --type json --file ./app/data/insertUsers.json --drop --upsert --jsonArray",
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
