@@ -45,7 +45,7 @@
                                     <b>Author</b>
                                     <br>pjacobs@insight-kmt.com</li>
                                 <li><br>
-                                    <b>Password</b>:"abcd1234!"</li>
+                                    <b>Password</b>: abcd1234!</li>
                             </ul>
                         </div>
                     </card-default>
