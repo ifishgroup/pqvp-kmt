@@ -1,4 +1,4 @@
-FROM node:9.5.0 AS build
+FROM node:9.7.0 AS build
 
 COPY . /usr/src/
 WORKDIR /usr/src/
