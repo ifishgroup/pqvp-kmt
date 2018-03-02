@@ -90,3 +90,8 @@ variable "worker_volume_size" {
   description = "AWS EC2 worker volume size"
   default     = "8"
 }
+
+variable "base_url" {
+  description = "Base url for Insight Api"
+  default     = "http://api:3003/api/"
+}

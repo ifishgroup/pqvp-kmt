@@ -20,6 +20,8 @@ services:
       - "80:80"
     depends_on:
       - "api"
+    environment:
+      - BASE_URL=${BASE_URL}
     deploy:
       update_config:
         parallelism: 1

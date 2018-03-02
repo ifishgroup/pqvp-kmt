@@ -172,6 +172,7 @@ resource "null_resource" "deploy_docker_stack" {
   provisioner "remote-exec" {
     inline = [
       "export TAG=${var.tag}",
+      "export BASE_URL=${var.base_url}",
       "docker-compose -f docker-compose.yml pull",
       "docker stack deploy -c docker-compose.yml pqvp-kmt",
     ]
