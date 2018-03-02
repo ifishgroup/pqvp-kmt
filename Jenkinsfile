@@ -2,7 +2,6 @@
 
 def version          = "0.0.${env.BUILD_NUMBER}"
 def repo             = "ifishgroup/pqvp-kmt"
-def nodeVersion      = '9.5.0'
 
 TERRAFORM_DIR        = 'deploy/docker-swarm/terraform/aws'
 NOTIFICATIONS        = true
@@ -158,7 +157,17 @@ def notifyTeardownEvent(String ip) {
 def publishProdInfo(String ip) {
     if (NOTIFICATIONS) {
         slackSend(color: 'good',
-            message: "${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Deployed to production, can be viewed at: http://$ip.")
+            message: """
+            ${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Deployed to production
+            
+            Insight: http://insight.ifglabs.com
+            Docs: http://insight.docs.ifglabs.com
+            Weave Scope: http://insight.ifglabs.com:4041
+            Grafana: http://insight.ifglabs.com:3000
+            Prometheus: http://insight.ifglabs.com:9090
+            Alert Manager: http://insight.ifglabs.com:9093
+            Unseen: http://insight.ifglabs.com:9094
+            """)
     }
 }
 
