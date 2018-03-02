@@ -116,6 +116,8 @@ node('docker') {
                             -var-file=config/prod.tfvars \
                             -var tag=latest \
                             -var private_key_path=pem.txt \
+                            -var manager_volume_size=50 \
+                            -var worker_volume_size=25 \
                             -var git_commit=${gitCommit()} \
                             -var git_branch=${env.BRANCH_NAME} \
                             -var version=${version} \
