@@ -5,7 +5,7 @@ volumes:
 
 services:
   insight:
-    image: ifishgroup/insight:${TAG}
+    image: ifishgroup/insight:dev
     ports:
       - "80:80"
     depends_on:
@@ -21,7 +21,7 @@ services:
         window: 120s
 
   api:
-    image: ifishgroup/insight-api:${TAG}
+    image: ifishgroup/insight-api:dev
     depends_on:
       - "mongodb"
     ports:
@@ -35,11 +35,11 @@ services:
     volumes: 
       - db:/data/db
 
-  mongoimport:
-    image: mongo:3.6.3
-    working_dir: "/usr/src/"
-    depends_on:
-      - mongodb
-    volumes:
-      - "./api/app/data/:/usr/src/"
-    command: ["mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]
+  # mongoimport:
+  #   image: mongo:3.6.3
+  #   working_dir: "/usr/src/"
+  #   depends_on:
+  #     - mongodb
+  #   volumes:
+  #     - "./api/app/data/:/usr/src/"
+  #   command: [V"mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]
