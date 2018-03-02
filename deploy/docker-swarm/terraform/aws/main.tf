@@ -19,7 +19,7 @@ resource "aws_instance" "docker_swarm_manager_init" {
     Environment = "${var.environment}"
     GitCommit   = "${var.git_commit}"
     GitBranch   = "${var.git_branch}"
-    Build       = "${var.git_branch}"
+    Version     = "${var.version}"
   }
 
   connection {
@@ -49,7 +49,7 @@ resource "aws_instance" "docker_swarm_managers" {
     Environment = "${var.environment}"
     GitCommit   = "${var.git_commit}"
     GitBranch   = "${var.git_branch}"
-    Build       = "${var.git_branch}"
+    Version     = "${var.version}"
   }
 
   connection {
@@ -84,7 +84,7 @@ resource "aws_instance" "docker_swarm_workers" {
     Environment = "${var.environment}"
     GitCommit   = "${var.git_commit}"
     GitBranch   = "${var.git_branch}"
-    Build       = "${var.git_branch}"
+    Version     = "${var.version}"
   }
 
   connection {
