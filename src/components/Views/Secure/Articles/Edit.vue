@@ -44,7 +44,7 @@
                 </div>
                 <div class="line"></div>
                 <div class="form-group row">
-                  <label class="col-sm-3 form-control-label">Keywords:*</label>
+                  <label class="col-sm-3 form-control-label">Categories:*</label>
                   <div class="col-sm-9">
                     <input type="text" v-model="form.keywords" name="categories" placeholder="comma seperated list" v-validate="'required'" class="form-control">
                     <span v-show="errors.has('categories')" class="error">{{ errors.first('categories') }}</span>

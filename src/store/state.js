@@ -14,6 +14,9 @@ const config = {
   editArticleUrl: `${baseUrl}articles/edit`,
   deleteArticleUrl: `${baseUrl}articles/delete`,
   allArticlesUrl: `${baseUrl}articles/all`,
+  featuredArticlesUrl: `${baseUrl}articles/featured`,
+  topArticlesUrl: `${baseUrl}articles/top`,
+  searchUrl: `${baseUrl}articles/search`,
 };
 
 const app = {

@@ -45,8 +45,18 @@ module.exports = function (app) {
   app.route('/articles/delete/:id')
     .get(authenticate, kaController.delete_article);
 
+  app.route('/articles/search')
+    .post(kaController.search);
+
+  app.route('/articles/featured')
+    .get(kaController.get_featured);
+
+  app.route('/articles/top')
+    .get(kaController.get_top);
+
   app.route('/articles/all')
     .get(authenticate, kaController.get_all_articles);
+
   // setup swagger documentation
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

@@ -15,7 +15,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "lint:fix": "yarn lint --fix",
-    "lint-api": "eslint api/app",
+    "lint-api": "eslint  api/app",
     "lint-api:fix": "yarn lint-api --fix",
     "build": "node build/build.js",
     "docker-build": "docker build -t ifishgroup/pqvp-kmt .",
