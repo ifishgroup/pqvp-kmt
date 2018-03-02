@@ -83,10 +83,10 @@ variable "admin_password" {
 
 variable "manager_volume_size" {
   description = "AWS EC2 manger volume size"
-  default     = "8" 
+  default     = "8"
 }
 
 variable "worker_volume_size" {
   description = "AWS EC2 worker volume size"
-  default     = "8" 
+  default     = "8"
 }

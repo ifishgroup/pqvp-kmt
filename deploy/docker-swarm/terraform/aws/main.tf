@@ -28,6 +28,10 @@ resource "aws_instance" "docker_swarm_manager_init" {
     volume_size = "${var.manager_volume_size}"
   }
 
+  lifecycle {
+    ignore_changes = ["ebs_block_device"]
+  }
+
   connection {
     user        = "ubuntu"
     private_key = "${file("${var.private_key_path}")}"
@@ -62,7 +66,11 @@ resource "aws_instance" "docker_swarm_managers" {
     device_name = "/dev/sda1"
     volume_type = "gp2"
     volume_size = "${var.manager_volume_size}"
-  } 
+  }
+
+  lifecycle {
+    ignore_changes = ["ebs_block_device"]
+  }
 
   connection {
     user        = "ubuntu"
@@ -103,6 +111,10 @@ resource "aws_instance" "docker_swarm_workers" {
     device_name = "/dev/sda1"
     volume_type = "gp2"
     volume_size = "${var.worker_volume_size}"
+  }
+
+  lifecycle {
+    ignore_changes = ["ebs_block_device"]
   }
 
   connection {
