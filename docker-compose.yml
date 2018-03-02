@@ -1,10 +1,15 @@
 version: '3'
 
+volumes:
+  db: {}
+
 services:
-  ui:
-    image: ifishgroup/pqvp-kmt:${TAG}
+  insight:
+    image: ifishgroup/pqvp-kmt:${INSIGHT_TAG}
     ports:
       - "80:80"
+    depends_on:
+      - "api"
     deploy:
       update_config:
         parallelism: 1
@@ -14,3 +19,27 @@ services:
         delay: 10s
         max_attempts: 3
         window: 120s
+
+  api:
+    image: ifishgroup/insight-api:${API_TAG}
+    depends_on:
+      - "mongodb"
+    ports:
+      - "3003:3003"
+  
+  mongodb:
+    image: mongo:3.6.3
+    working_dir: "/usr/src/"
+    ports:
+      - "27017:27017"
+    volumes: 
+      - db:/data/db
+
+  mongoimport:
+    image: mongo:3.6.3
+    working_dir: "/usr/src/"
+    depends_on:
+      - mongodb
+    volumes:
+      - "./api/app/data/:/usr/src/"
+    command: ["mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]
