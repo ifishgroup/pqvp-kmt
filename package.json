@@ -18,6 +18,7 @@
     "lint-api": "eslint api/app",
     "lint-api:fix": "yarn lint-api --fix",
     "build": "node build/build.js",
+    "build-all": "npm run build-insight && npm run build-api",
     "build-insight": "docker build -t ifishgroup/insight:latest .",
     "build-api": "docker build -t ifishgroup/insight-api:latest ./api/",
     "up": "docker-compose up -d",
