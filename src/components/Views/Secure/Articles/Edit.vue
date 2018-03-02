@@ -77,7 +77,7 @@
 <script>
 import { CardDefault } from '@/components/index';
 import markdownEditor from 'vue-simplemde/src/markdown-editor';
-
+import 'simplemde/dist/simplemde.min.css';
 import axios from 'axios';
 import { mapGetters } from 'vuex';
 import helper from '../../../Mixins/helper';
