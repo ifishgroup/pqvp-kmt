@@ -1,7 +1,8 @@
 #!groovy
 
 def version          = "0.0.${env.BUILD_NUMBER}"
-def repo             = "ifishgroup/pqvp-kmt"
+def insightRepo      = "ifishgroup/insight"
+def insightApiRepo   = "ifishgroup/insight-api"
 
 TERRAFORM_DIR        = 'deploy/docker-swarm/terraform/aws'
 NOTIFICATIONS        = true
@@ -13,8 +14,12 @@ node('docker') {
 
     def tag = "git-${gitCommit()}"
 
-    stage('docker build/unit/lint') {
-        sh "docker build -t $repo:$tag ."
+    stage('docker build Insight') {
+        sh "docker build -t $insightRepo:$tag ."
+    }
+
+    stage('docker build Insight API') {
+        sh "docker build -t $insightApiRepo:$tag ."
     }
 
     if (isMaster() || isPR()) {
@@ -42,7 +47,8 @@ node('docker') {
 
                 stage('docker publish') {
                     sh "docker login -u $USERNAME -p $PASSWORD"
-                    sh "docker push $repo:$tag"
+                    sh "docker push $insightRepo:$tag"
+                    sh "docker push $insightApiRepo:$tag"
                 }
 
                 stage('plan') {
@@ -99,8 +105,10 @@ node('docker') {
                 }
 
                 stage('docker tag latest') {
-                    sh "docker tag $repo:$tag $repo:latest"
-                    sh "docker push $repo:latest"
+                    sh "docker tag $insightRepo:$tag $insightRepo:latest"
+                    sh "docker tag $insightApiRepo:$tag $insightApiRepo:latest"
+                    sh "docker push $insightRepo:latest"
+                    sh "docker push $insightApiRepo:latest"
                 }
             } else {
                 def tfplan = "prod-${version}.tfplan"

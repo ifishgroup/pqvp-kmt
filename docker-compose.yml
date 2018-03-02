@@ -5,7 +5,7 @@ volumes:
 
 services:
   insight:
-    image: ifishgroup/pqvp-kmt:${INSIGHT_TAG}
+    image: ifishgroup/insight:${TAG}
     ports:
       - "80:80"
     depends_on:
@@ -21,7 +21,7 @@ services:
         window: 120s
 
   api:
-    image: ifishgroup/insight-api:${API_TAG}
+    image: ifishgroup/insight-api:${TAG}
     depends_on:
       - "mongodb"
     ports:

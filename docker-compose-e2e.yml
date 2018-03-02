@@ -14,7 +14,7 @@ services:
     command: ["./wait-for-it.sh", "hub:4444", "--", "bash", "-c", "yarn install && yarn e2e-docker"]
 
   pqvp-kmt:
-    image: "ifishgroup/pqvp-kmt:${TAG}"
+    image: "ifishgroup/insight:${TAG}"
 
   chrome:
     image: selenium/node-chrome:3.9.1-actinium
