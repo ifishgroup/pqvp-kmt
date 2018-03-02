@@ -80,3 +80,13 @@ variable "admin_password" {
   description = "Admin password for weave scope"
   default     = "admin"
 }
+
+variable "manager_volume_size" {
+  description = "AWS EC2 manger volume size"
+  default     = "8" 
+}
+
+variable "worker_volume_size" {
+  description = "AWS EC2 worker volume size"
+  default     = "8" 
+}

@@ -22,6 +22,12 @@ resource "aws_instance" "docker_swarm_manager_init" {
     Version     = "${var.version}"
   }
 
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_type = "gp2"
+    volume_size = "${var.manager_volume_size}"
+  }
+
   connection {
     user        = "ubuntu"
     private_key = "${file("${var.private_key_path}")}"
@@ -51,6 +57,12 @@ resource "aws_instance" "docker_swarm_managers" {
     GitBranch   = "${var.git_branch}"
     Version     = "${var.version}"
   }
+
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_type = "gp2"
+    volume_size = "${var.manager_volume_size}"
+  } 
 
   connection {
     user        = "ubuntu"
@@ -85,6 +97,12 @@ resource "aws_instance" "docker_swarm_workers" {
     GitCommit   = "${var.git_commit}"
     GitBranch   = "${var.git_branch}"
     Version     = "${var.version}"
+  }
+
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_type = "gp2"
+    volume_size = "${var.worker_volume_size}"
   }
 
   connection {
