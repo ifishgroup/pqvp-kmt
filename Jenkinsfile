@@ -23,15 +23,15 @@ node('docker') {
             "COMPOSE_FILE=docker-compose-e2e.yml",
             "TAG=$tag"
         ]) {
-            stage('e2e tests') {
-                try {
-                    sh "docker-compose run --rm e2e"
-                } catch(e) {
-                    error "Failed: ${e}"
-                } finally {
-                    sh "docker-compose down"
-                }
-            }
+            // stage('e2e tests') {
+            //     try {
+            //         sh "docker-compose run --rm e2e"
+            //     } catch(e) {
+            //         error "Failed: ${e}"
+            //     } finally {
+            //         sh "docker-compose down"
+            //     }
+            // }
         }
 
         withCredentials([
