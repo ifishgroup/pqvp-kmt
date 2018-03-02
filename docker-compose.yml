@@ -1,4 +1,12 @@
-version: '3'
+version: '3.5'
+
+networks:
+  web:
+    driver: overlay
+    attachable: true
+  backend:
+    driver: overlay
+    attachable: true
 
 volumes:
   db: {}
@@ -6,6 +14,8 @@ volumes:
 services:
   insight:
     image: ifishgroup/insight:${TAG}
+    networks:
+      - web
     ports:
       - "80:80"
     depends_on:
@@ -22,14 +32,18 @@ services:
 
   api:
     image: ifishgroup/insight-api:${TAG}
-    depends_on:
-      - "mongodb"
+    networks:
+      - web
+      - backend
     ports:
       - "3003:3003"
+    depends_on:
+      - "mongodb"
   
   mongodb:
     image: mongo:3.6.3
-    working_dir: "/usr/src/"
+    networks:
+      - backend
     ports:
       - "27017:27017"
     volumes: 
