@@ -80,11 +80,11 @@ export default {
     ...mapActions(['loginUser']),
 
     onSubmit() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           axios
             .post(this.config.loginUrl, this.form)
-            .then((response) => {
+            .then(response => {
               // JSON responses are automatically parsed.
               if (response.status === 200) {
                 const json = response.data;
@@ -94,10 +94,12 @@ export default {
                 });
               } else this.$toastr.e(response, 'Bad Authentication');
             })
-            .catch((e) => {
+            .catch(e => {
               const title = `${e.response.status}-${e.response.statusText}`;
               let msg = e.message;
-              if (e.response.status === 401) { msg = 'Invalid username or password.  Please try again.'; }
+              if (e.response.status === 401) {
+                msg = 'Invalid username or password.  Please try again.';
+              }
               this.$toastr.e(msg, title);
             });
         }
