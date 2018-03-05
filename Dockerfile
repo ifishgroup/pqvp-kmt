@@ -10,5 +10,8 @@ RUN yarn run build --production
 
 
 FROM nginx:1.13.9-alpine
+COPY --from=build /usr/src/entrypoint.sh /
 COPY --from=build /usr/src/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /usr/src/dist /usr/share/nginx/html/
+RUN chmod +x entrypoint.sh
+ENTRYPOINT [ "./entrypoint.sh" ]

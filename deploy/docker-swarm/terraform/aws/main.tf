@@ -183,6 +183,7 @@ resource "null_resource" "deploy_docker_stack" {
   provisioner "remote-exec" {
     inline = [
       "export TAG=${var.tag}",
+      "export BASE_URL=http://${aws_instance.docker_swarm_manager_init.public_ip}/api",
       "docker-compose -f docker-stack.yml pull",
       "docker stack deploy -c docker-stack.yml pqvp-kmt",
     ]

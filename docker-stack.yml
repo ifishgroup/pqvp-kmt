@@ -37,6 +37,7 @@ services:
         delay: 5s
         max_attempts: 5
         window: 120s
+    command: [ "${BASE_URL}" ]
 
   api:
     image: ifishgroup/insight-api:${TAG}
