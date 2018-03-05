@@ -18,7 +18,12 @@
     "lint-api": "eslint api/app",
     "lint-api:fix": "yarn lint-api --fix",
     "build": "node build/build.js",
-    "docker-build": "docker build -t ifishgroup/pqvp-kmt .",
+    "build-all": "npm run build-insight && npm run build-api && npm run build-import",
+    "build-insight": "docker build -t ifishgroup/insight:dev .",
+    "build-api": "docker build -t ifishgroup/insight-api:dev ./api/",
+    "build-import": "docker build -t ifishgroup/insight-import:dev ./api/data/",
+    "up": "docker-compose up -d",
+    "down": "docker-compose down",
     "docker-e2e": "docker-compose -f docker-compose-e2e.yml run --rm e2e"
   },
   "dependencies": {
