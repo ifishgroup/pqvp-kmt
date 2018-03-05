@@ -93,7 +93,7 @@ module.exports = {
       .refresh()
   },
 
-  'Author can edit KA 2' : function (browser) {
+  'Author can edit and submit KA 2' : function (browser) {
     browser
       .waitForElementPresent('i[class=ti-layers', 5000)
       .click('i[class=ti-layers')
@@ -116,7 +116,7 @@ module.exports = {
       .refresh() 
   },
 
-  'Author can edit KA' : function (browser) {
+  'Author can edit and submit KA 1' : function (browser) {
     browser
       .waitForElementPresent('i[class=ti-layers', 5000)
       .click('i[class=ti-layers')
@@ -141,7 +141,7 @@ module.exports = {
       .click('i[class=ti-unlock')      
   },
 
-  'CM can Reject KA' : function (browser) {
+  'CM can Reject KA 1' : function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .assert.elementPresent('i[class=ti-lock]')
@@ -173,7 +173,7 @@ module.exports = {
       .refresh()   
   },
 
-  'CM can edit, Approve, and Publish KA' : function (browser) {
+  'CM can edit, Approve, and Publish KA 1' : function (browser) {
     browser
       .waitForElementPresent('i[class=ti-unlock]', 5000)
       .assert.elementPresent('i[class=ti-unlock]')
@@ -188,6 +188,8 @@ module.exports = {
       .assert.elementPresent('input[name=title]')
       .clearValue('input[name=title]')
       .setValue('input[name=title]', 'CM edited title text - KA 1 - Approved')
+      .clearValue('input[name=categories]')
+      .setValue('input[name=categories]', 'CM, Approved, Categories')
       .click('select[id=status')
       .click('option[value="approved"]')
       .useXpath()
@@ -198,7 +200,7 @@ module.exports = {
       .refresh()   
   },
 
-  'CM can Remove Article' : function (browser) {
+  'CM can Remove KA 1' : function (browser) {
     browser
       .click('i[class=ti-layers]')
       .useXpath()
