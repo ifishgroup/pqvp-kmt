@@ -1,4 +1,4 @@
-cd ..// For authoring Nightwatch tests, see
+// For authoring Nightwatch tests, see
 // http://nightwatchjs.org/guide#usage
 // System Admin // ssined@insight-kmt.com
 // Executive // bboss@insight-kmt.com
