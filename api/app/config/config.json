@@ -1,0 +1,17 @@
+{
+    "test": {
+      "PORT": 3003,
+      "MONGODB_URI": "mongodb://localhost:27017/InsightTest",
+      "JWT_SECRET": "poijasdf98435jpgfdpoij3"
+    },
+    "development": {
+      "PORT": 3003,
+      "MONGODB_URI": "mongodb://localhost:27017/Insight",
+      "JWT_SECRET": "pojiaj234oi234oij234oij4"
+    },
+    "production": {
+      "PORT": 3003,
+      "MONGODB_URI": "mongodb://mongodb:27017/Insight",
+      "JWT_SECRET": "pojiaj234oi234oij234oij5"
+    }
+}
