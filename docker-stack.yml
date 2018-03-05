@@ -16,7 +16,6 @@ services:
     image: nginx:1.13.9-alpine
     ports:
       - "80:80"
-      - "3003:3003"
     networks:
       - web
     volumes:
