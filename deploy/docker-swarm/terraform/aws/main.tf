@@ -156,12 +156,18 @@ resource "null_resource" "create_join_scripts" {
 }
 
 resource "null_resource" "deploy_docker_stack" {
-  depends_on = ["aws_instance.docker_swarm_workers"]
+  depends_on = ["aws_instance.docker_swarm_manager_init"]
 
   connection {
     user        = "ubuntu"
     private_key = "${file("${var.private_key_path}")}"
     host        = "${aws_instance.docker_swarm_manager_init.public_ip}"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p resources/nginx",
+    ]
   }
 
   provisioner "file" {
@@ -176,7 +182,6 @@ resource "null_resource" "deploy_docker_stack" {
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir -p ./resources/nginx",
       "export TAG=${var.tag}",
       "docker-compose -f docker-stack.yml pull",
       "docker stack deploy -c docker-stack.yml pqvp-kmt",
