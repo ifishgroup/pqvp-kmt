@@ -66,9 +66,9 @@ variable "tag" {
   default     = "latest"
 }
 
-variable "docker_compose_file" {
-  description = "Full path to main docker-compose.yml file"
-  default     = "docker-compose.yml"
+variable "docker_stack_file" {
+  description = "Full path to main docker-stack.yml file"
+  default     = "docker-stack.yml"
 }
 
 variable "admin_user" {
@@ -91,7 +91,7 @@ variable "worker_volume_size" {
   default     = "8"
 }
 
-variable "base_url" {
-  description = "Base url for Insight Api"
-  default     = "http://api:3003/api/"
+variable "nginx_conf" {
+  description = "Nginx conf"
+  default     = "nginx.conf"
 }

@@ -1,8 +1,9 @@
 #!groovy
 
-def version          = "0.0.${env.BUILD_NUMBER}"
-def insightRepo      = "ifishgroup/insight"
-def insightApiRepo   = "ifishgroup/insight-api"
+def version           = "0.0.${env.BUILD_NUMBER}"
+def insightRepo       = "ifishgroup/insight"
+def insightApiRepo    = "ifishgroup/insight-api"
+def insightImportRepo = "ifishgroup/insight-import"
 
 TERRAFORM_DIR        = 'deploy/docker-swarm/terraform/aws'
 NOTIFICATIONS        = true
@@ -19,7 +20,11 @@ node('docker') {
     }
 
     stage('docker build Insight API') {
-        sh "docker build -t $insightApiRepo:$tag ."
+        sh "docker build -t $insightApiRepo:$tag ./api/"
+    }
+
+    stage('docker build Mongo Import') {
+        sh "docker build -t $insightImportRepo:$tag ./api/data/"
     }
 
     if (isMaster() || isPR()) {
@@ -42,6 +47,11 @@ node('docker') {
             usernamePassword(credentialsId: 'docker-hub-id', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME'),
             file(credentialsId: 'pqvp-kmt-pem', variable: 'PQVP_KMT_PEM')
         ]) {
+
+            sh "cp docker-stack.yml $TERRAFORM_DIR"
+            sh "cp resources/nginx/nginx.conf $TERRAFORM_DIR"
+            sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
+
             if (isPR()) {
                 def tfplan = "staging-${version}.tfplan"
 
@@ -49,11 +59,10 @@ node('docker') {
                     sh "docker login -u $USERNAME -p $PASSWORD"
                     sh "docker push $insightRepo:$tag"
                     sh "docker push $insightApiRepo:$tag"
+                    sh "docker push $insightImportRepo:$tag"
                 }
 
                 stage('plan') {
-                    sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
-                    sh "cp docker-compose.yml $TERRAFORM_DIR"
                     sh """${terraform()} init \
                         -backend-config=config/staging-state-store.tfvars \
                         -backend-config='key=tf/staging/git-${gitCommit()}.tfstate' \
@@ -107,16 +116,16 @@ node('docker') {
                 stage('docker tag latest') {
                     sh "docker tag $insightRepo:$tag $insightRepo:latest"
                     sh "docker tag $insightApiRepo:$tag $insightApiRepo:latest"
+                    sh "docker tag $insightImportRepo:$tag $insightImportRepo:latest"
                     sh "docker push $insightRepo:latest"
                     sh "docker push $insightApiRepo:latest"
+                    sh "docker push $insightImportRepo:latest"
                 }
             } else {
                 def tfplan = "prod-${version}.tfplan"
 
                 try {
                     stage('plan') {
-                        sh "cat $PQVP_KMT_PEM > $TERRAFORM_DIR/pem.txt"
-                        sh "cp docker-compose.yml $TERRAFORM_DIR"
                         sh "${terraform()} init -backend-config=config/prod-state-store.tfvars -force-copy ."
                         taintResources()
                         sh """${terraform()} plan \

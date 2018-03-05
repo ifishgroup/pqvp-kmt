@@ -165,16 +165,20 @@ resource "null_resource" "deploy_docker_stack" {
   }
 
   provisioner "file" {
-    source      = "${var.docker_compose_file}"
-    destination = "docker-compose.yml"
+    source      = "${var.docker_stack_file}"
+    destination = "docker-stack.yml"
+  }
+
+  provisioner "file" {
+    source      = "${var.nginx_conf}"
+    destination = "nginx.conf"
   }
 
   provisioner "remote-exec" {
     inline = [
       "export TAG=${var.tag}",
-      "export BASE_URL=${var.base_url}",
-      "docker-compose -f docker-compose.yml pull",
-      "docker stack deploy -c docker-compose.yml pqvp-kmt",
+      "docker-compose -f docker-stack.yml pull",
+      "docker stack deploy -c docker-stack.yml pqvp-kmt",
     ]
   }
 }
