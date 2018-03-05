@@ -248,6 +248,32 @@ module.exports = {
       .click('i[class=ti-unlock')      
   },
 
+
+  'CM can Remove KA 2' : function (browser) {
+    browser
+      .waitForElementPresent('i[class=ti-lock]', 5000)
+      .assert.elementPresent('i[class=ti-lock]')
+      .click('i[class=ti-lock]')
+      .assert.elementPresent('input[id=email]')
+      .setValue('input[id=email]', 'csmith@insight-kmt.com')      
+      .assert.elementPresent('input[id=password]')
+      .setValue('input[id=password]', 'abcd1234!')
+      .click('button[type=submit]')
+      .waitForElementPresent('i[class=ti-unlock]', 5000)
+      .assert.elementPresent('i[class=ti-unlock]')
+      .click('i[class=ti-layers]')
+      .useXpath()
+      .click('//a[text()="Edit"]')
+      .waitForElementPresent('//table/tbody/tr/th[2]/a[2]/i', 5000)
+      .click('//table/tbody/tr[2]/th[2]/a[2]/i')
+      .pause(1000)
+      .acceptAlert()
+      .useCss()
+      .waitForElementPresent('i[class=ti-unlock]', 5000)
+      .click('i[class=ti-unlock]')
+      .assert.elementPresent('i[class=ti-lock]')   
+  },
+
   'SA can Remove User and User can no longer Log In' : function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
