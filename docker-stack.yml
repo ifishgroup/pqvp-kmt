@@ -21,9 +21,6 @@ services:
       - web
     volumes:
       - ./resources/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - insight
-      - api
     deploy:
       placement:
         constraints: [node.role == manager]
@@ -32,30 +29,30 @@ services:
     image: ifishgroup/insight:dev
     networks:
       - web
-    # ports:
-    #   - "80:80"
-    depends_on:
-      - api
-    # deploy:
-    #   update_config:
-    #     parallelism: 1
-    #     delay: 10s
-    #   restart_policy:
-    #     condition: on-failure
-    #     delay: 10s
-    #     max_attempts: 3
-    #     window: 120s
+    deploy:
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
 
   api:
     image: ifishgroup/insight-api:dev
     networks:
       - web
       - backend
-    # ports:
-    #   - "3003:3003"
-    depends_on:
-      - "mongodb"
-      - "mongoimport"
+    deploy:
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
   
   mongodb:
     image: mongo:3.6.3
