@@ -41,6 +41,7 @@ resource "aws_instance" "docker_swarm_manager_init" {
     inline = [
       "sudo service docker start",
       "docker swarm init",
+      "mkdir -p resources/nginx"
     ]
   }
 }
@@ -87,6 +88,7 @@ resource "aws_instance" "docker_swarm_managers" {
       "sudo service docker start",
       "chmod +x /tmp/join_manager.sh",
       "/tmp/join_manager.sh",
+      "mkdir -p resources/nginx"
     ]
   }
 }
@@ -171,7 +173,7 @@ resource "null_resource" "deploy_docker_stack" {
 
   provisioner "file" {
     source      = "${var.nginx_conf}"
-    destination = "nginx.conf"
+    destination = "./resources/nginx/nginx.conf"
   }
 
   provisioner "remote-exec" {
