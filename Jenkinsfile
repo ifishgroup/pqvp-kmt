@@ -178,7 +178,7 @@ def publishProdInfo(String ip) {
             ${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Deployed to production
             
             Insight: http://insight.ifglabs.com
-            Docs: http://insight.docs.ifglabs.com
+            Docs: http://insight.ifglabs.com/api/docs
             Weave Scope: http://insight.ifglabs.com:4041
             Grafana: http://insight.ifglabs.com:3000
             Prometheus: http://insight.ifglabs.com:9090
