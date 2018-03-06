@@ -223,8 +223,7 @@ KaSchema.statics.search = function(ka) {
       { $and: [{ status: 'approved' }, { title: { $regex: new RegExp(query, 'i') } }] },
       { $and: [{ status: 'approved' }, { keywords: { $regex: new RegExp(query, 'i') } }] },
     ],
-  })
-    .sort({ viewcount: -1 })
+  }).sort({ viewcount: -1 })
     .then(all => {
       if (!all) {
         return Promise.reject();
