@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>swagger.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "api/swagger.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>swagger.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"swagger"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"info"</span>: {
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OpenAPI information about Insight KMT Api"</span>,
+    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Insight KMT Api"</span>,
+    <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>
+  },
+  <span class="hljs-attr">"host"</span>: <span class="hljs-string">"localhost:3003"</span>,
+  <span class="hljs-attr">"schemes"</span>: [<span class="hljs-string">"http"</span>],
+  <span class="hljs-attr">"basePath"</span>: <span class="hljs-string">"/api"</span>,
+  <span class="hljs-attr">"paths"</span>: {
+    <span class="hljs-attr">"/users/create"</span>: {
+      <span class="hljs-attr">"post"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Create User"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"create a new Insight KMT user"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/User"</span>
+            }
+          },
+          {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"x-auth"</span>,
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"header"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"an authorization jwt token in header"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>
+          },
+          <span class="hljs-attr">"400"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Bad Request"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/users/login"</span>: {
+      <span class="hljs-attr">"post"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Login User"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"credentials sent to login a user"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/User"</span>
+            }
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnUserJson"</span>
+            },
+            <span class="hljs-attr">"headers"</span>: {
+              <span class="hljs-attr">"x-auth"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"valid jwt token"</span>
+              }
+            }
+          },
+          <span class="hljs-attr">"400"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Invalid username/password supplied"</span>
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/users/edit/{id}"</span>: {
+      <span class="hljs-attr">"get"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Retreive specific user profile by id"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"path"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"id"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string id of the user to retreive"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnUserJson"</span>
+            },
+            <span class="hljs-attr">"401"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+            },
+            <span class="hljs-attr">"5XX"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected error"</span>
+            }
+          }
+        }
+      },
+      <span class="hljs-attr">"post"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Update specific user profile by id"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"path"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"id"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string id of the user to retreive; Currently not being used."</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          },
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"user profile to update"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnUserJson"</span>
+            }
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"401"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+            },
+            <span class="hljs-attr">"5XX"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected error"</span>
+            }
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/users/delete/{id}"</span>: {
+      <span class="hljs-attr">"get"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Delete User and return updated user list"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"path"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"id"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string id of the user to delete"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnUserJson"</span>
+            },
+            <span class="hljs-attr">"headers"</span>: {
+              <span class="hljs-attr">"x-auth"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"valid jwt token"</span>
+              }
+            }
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected Error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/users/all"</span>: {
+      <span class="hljs-attr">"get"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Get list of all users"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"x-auth"</span>,
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"header"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"an authorization jwt token in header"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnUserJson"</span>
+            }
+          },
+          <span class="hljs-attr">"400"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Bad Request"</span>
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected Error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/users/me"</span>: {
+      <span class="hljs-attr">"get"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Get user information for logged in user"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"x-auth"</span>,
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"header"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"an authorization jwt token in header"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnUserJson"</span>
+            }
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected Error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/users/logout"</span>: {
+      <span class="hljs-attr">"delete"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"users"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Logs out current logged in user session"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"x-auth"</span>,
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"header"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"an authorization jwt token in header"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected Error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/articles/create"</span>: {
+      <span class="hljs-attr">"post"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"articles"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Create New Knowledge Article"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"create a new Insight KMT article"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/KA"</span>
+            }
+          },
+          {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"x-auth"</span>,
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"header"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"an authorization jwt token in header"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>
+          },
+          <span class="hljs-attr">"400"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Bad Request"</span>
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/articles/edit/{id}"</span>: {
+      <span class="hljs-attr">"get"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"articles"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Retreive specific knowledge article profile by id"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"path"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"id"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string id of the knowledge article to retreive"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnKAJson"</span>
+            },
+            <span class="hljs-attr">"401"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+            },
+            <span class="hljs-attr">"5XX"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected error"</span>
+            }
+          }
+        }
+      },
+      <span class="hljs-attr">"post"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"articles"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Update specific knowledge article by id"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"path"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"id"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string id of the knowledge article to retreive; Currently not being used."</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          },
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"body"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"knowledge article to update"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnKAJson"</span>
+            }
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"401"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+            },
+            <span class="hljs-attr">"5XX"</span>: {
+              <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected error"</span>
+            }
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/articles/delete/{id}"</span>: {
+      <span class="hljs-attr">"get"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"articles"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Delete knowledge article and return updated user list"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"path"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"id"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string id of the knowledge article to delete"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnKAJson"</span>
+            },
+            <span class="hljs-attr">"headers"</span>: {
+              <span class="hljs-attr">"x-auth"</span>: {
+                <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+                <span class="hljs-attr">"description"</span>: <span class="hljs-string">"valid jwt token"</span>
+              }
+            }
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected Error"</span>
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"/articles/all"</span>: {
+      <span class="hljs-attr">"get"</span>: {
+        <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"articles"</span>],
+        <span class="hljs-attr">"summary"</span>: <span class="hljs-string">"Get list of all knowledge articles"</span>,
+        <span class="hljs-attr">"produces"</span>: [<span class="hljs-string">"application/json"</span>],
+        <span class="hljs-attr">"parameters"</span>: [
+          {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"x-auth"</span>,
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"header"</span>,
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"an authorization jwt token in header"</span>,
+            <span class="hljs-attr">"required"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+          }
+        ],
+        <span class="hljs-attr">"responses"</span>: {
+          <span class="hljs-attr">"200"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"OK"</span>,
+            <span class="hljs-attr">"schema"</span>: {
+              <span class="hljs-attr">"$ref"</span>: <span class="hljs-string">"#/definitions/ReturnKAJson"</span>
+            }
+          },
+          <span class="hljs-attr">"400"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Bad Request"</span>
+          },
+          <span class="hljs-attr">"401"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unauthorized"</span>
+          },
+          <span class="hljs-attr">"5XX"</span>: {
+            <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Unexpected Error"</span>
+          }
+        }
+      }
+    }
+  },
+  <span class="hljs-attr">"definitions"</span>: {
+    <span class="hljs-attr">"User"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"name"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"email"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"password"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"role"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"photo"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"tokens"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"properties"</span>: {
+            <span class="hljs-attr">"access"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            },
+            <span class="hljs-attr">"token"</span>: {
+              <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+            }
+          }
+        }
+      }
+    },
+    <span class="hljs-attr">"ReturnUserJson"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"_id"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"name"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"email"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"role"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"photo"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        }
+      }
+    },
+    <span class="hljs-attr">"KA"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"author"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"author_id"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"author_email"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"content"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"featured"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"boolean"</span>
+        },
+        <span class="hljs-attr">"keywords"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"last_updated"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"last_updated_user"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"permalink"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"published_date"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"status"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"title"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"viewcount"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>
+        },
+        <span class="hljs-attr">"votes"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>
+        }
+      }
+    },
+    <span class="hljs-attr">"ReturnKAJson"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"_id"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"author"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"author_id"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"author_email"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"content"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"featured"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"boolean"</span>
+        },
+        <span class="hljs-attr">"keywords"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"last_updated"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"last_updated_user"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"permalink"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"published_date"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"status"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"title"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>
+        },
+        <span class="hljs-attr">"viewcount"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>
+        },
+        <span class="hljs-attr">"votes"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"integer"</span>
+        }
+      }
+    }
+  },
+  <span class="hljs-attr">"externalDocs"</span>: {
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Find out more about iFish"</span>,
+    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://www.ifishgroup.com"</span>
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

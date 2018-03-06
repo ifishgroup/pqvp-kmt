@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ka.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "api/app/models/ka.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>ka.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */</span>
+
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<span class="hljs-keyword">const</span> validator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'validator'</span>);
+
+<span class="hljs-keyword">const</span> KaSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  <span class="hljs-attr">author_id</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">author</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">author_email</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">minlength</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">unique</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">validate</span>: {
+      <span class="hljs-attr">validator</span>: validator.isEmail,
+      <span class="hljs-attr">message</span>: <span class="hljs-string">'{VALUE} is not a valid email'</span>,
+    },
+  },
+  <span class="hljs-attr">title</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">status</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">content</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">keywords</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">permalink</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">featured</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">Boolean</span>,
+    <span class="hljs-attr">default</span>: <span class="hljs-literal">false</span>,
+  },
+  <span class="hljs-attr">last_updated</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">default</span>: <span class="hljs-built_in">Date</span>.now,
+  },
+  <span class="hljs-attr">last_update_user</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">published_date</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">Date</span>,
+  },
+  <span class="hljs-attr">viewcount</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">default</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">votes</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">Number</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">default</span>: <span class="hljs-number">0</span>,
+  },
+});
+
+KaSchema.statics.findById = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">const</span> KA = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> KA.findOne({
+    <span class="hljs-attr">_id</span>: id,
+  }).then(<span class="hljs-function">(<span class="hljs-params">ka</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!ka) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+    }
+
+    <span class="hljs-keyword">return</span> ka;
+  });
+};
+
+KaSchema.statics.getAll = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
+  <span class="hljs-keyword">const</span> KA = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">if</span> (user.role === <span class="hljs-string">'contentAuth'</span>) {
+    <span class="hljs-keyword">return</span> KA.find({ <span class="hljs-attr">$or</span>: [{ <span class="hljs-attr">status</span>: { <span class="hljs-attr">$ne</span>: <span class="hljs-string">'draft'</span> } }, { <span class="hljs-attr">author_id</span>: { <span class="hljs-attr">$eq</span>: user._id } }] }).then(<span class="hljs-function">(<span class="hljs-params">all</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (!all) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+      }
+
+      <span class="hljs-keyword">return</span> all;
+    });
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (user.role === <span class="hljs-string">'authorAuth'</span>) {
+    <span class="hljs-keyword">return</span> KA.find({ <span class="hljs-attr">author_id</span>: user._id }).then(<span class="hljs-function">(<span class="hljs-params">all</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (!all) {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+      }
+
+      <span class="hljs-keyword">return</span> all;
+    });
+  }
+  <span class="hljs-keyword">return</span> {};
+};
+
+KaSchema.statics.findById = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">const</span> KA = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> KA.findOne({
+    <span class="hljs-attr">_id</span>: id,
+  }).then(<span class="hljs-function">(<span class="hljs-params">ka</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!ka) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+    }
+
+    <span class="hljs-keyword">return</span> ka;
+  });
+};
+
+KaSchema.statics.findByIdAndRemove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">const</span> KA = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> KA.remove({
+    <span class="hljs-attr">_id</span>: id,
+  }, err =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) { reject(); } <span class="hljs-keyword">else</span> { resolve(); }
+  }));
+};
+
+KaSchema.statics.UpdateById = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">form</span>) </span>{
+  <span class="hljs-keyword">const</span> KA = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> KA.findOne({
+    <span class="hljs-attr">_id</span>: form._id,
+  }).then(<span class="hljs-function">(<span class="hljs-params">ka</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!ka) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+      ka.set({ <span class="hljs-attr">title</span>: form.title, <span class="hljs-attr">status</span>: form.status, <span class="hljs-attr">content</span>: form.content, <span class="hljs-attr">keywords</span>: form.keywords, <span class="hljs-attr">permalink</span>: form.permalink, <span class="hljs-attr">featured</span>: form.featured, <span class="hljs-attr">last_updated</span>: form.last_updated, <span class="hljs-attr">last_update_user</span>: form.last_update_user, <span class="hljs-attr">published_date</span>: form.published_date });
+      ka.save(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> { <span class="hljs-keyword">if</span> (err) reject(); <span class="hljs-keyword">else</span> resolve(); });
+    });
+  });
+};
+
+<span class="hljs-keyword">const</span> KA = mongoose.model(<span class="hljs-string">'KA'</span>, KaSchema, <span class="hljs-string">'ka'</span>);
+
+<span class="hljs-built_in">module</span>.exports = {
+  KA,
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

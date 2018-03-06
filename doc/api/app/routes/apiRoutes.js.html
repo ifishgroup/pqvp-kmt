@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>apiRoutes.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "api/app/routes/apiRoutes.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>apiRoutes.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* eslint no-underscore-dangle: ["error", { "allow": ["_router"] }] */</span>
+<span class="hljs-comment">/* eslint-disable func-names */</span>
+
+<span class="hljs-keyword">const</span> { authenticate } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../middleware/authenticate'</span>);
+<span class="hljs-keyword">const</span> userController = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../controllers/userController'</span>);
+<span class="hljs-keyword">const</span> kaController = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../controllers/kaController'</span>);
+
+<span class="hljs-keyword">const</span> swaggerUi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'swagger-ui-express'</span>);
+<span class="hljs-keyword">const</span> swaggerDocument = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../swagger.json'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  app.route(<span class="hljs-string">'/users/login'</span>)
+    .post(userController.login_user);
+
+  app.route(<span class="hljs-string">'/users/create'</span>)
+    .post(authenticate, userController.register_user);
+
+  app.route(<span class="hljs-string">'/users/delete/:id'</span>)
+    .get(authenticate, userController.delete_user);
+
+  app.route(<span class="hljs-string">'/users/edit/:id'</span>)
+    .get(authenticate, userController.edit_user);
+
+  app.route(<span class="hljs-string">'/users/edit/:id'</span>)
+    .post(authenticate, userController.update_user);
+
+  app.route(<span class="hljs-string">'/users/all'</span>)
+    .get(authenticate, userController.get_all_users);
+
+  app.route(<span class="hljs-string">'/users/me'</span>)
+    .get(authenticate, userController.get_user_info);
+
+  app.route(<span class="hljs-string">'/users/logout'</span>)
+    .delete(authenticate, userController.logout_user);
+
+  app.route(<span class="hljs-string">'/articles/create'</span>)
+    .post(authenticate, kaController.create_article);
+
+  app.route(<span class="hljs-string">'/articles/edit/:id'</span>)
+    .get(authenticate, kaController.edit_article);
+
+  app.route(<span class="hljs-string">'/articles/edit/:id'</span>)
+    .post(authenticate, kaController.update_article);
+
+  app.route(<span class="hljs-string">'/articles/delete/:id'</span>)
+    .get(authenticate, kaController.delete_article);
+
+  app.route(<span class="hljs-string">'/articles/all'</span>)
+    .get(authenticate, kaController.get_all_articles);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>setup swagger documentation</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  app.use(<span class="hljs-string">'/api/docs'</span>, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>add url prefix '/api' to routes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  app.use(<span class="hljs-string">'/api'</span>, app._router);
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

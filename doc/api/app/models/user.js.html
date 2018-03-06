@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>user.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "api/app/models/user.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>user.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */</span>
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<span class="hljs-keyword">const</span> validator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'validator'</span>);
+<span class="hljs-keyword">const</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jsonwebtoken'</span>);
+<span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+<span class="hljs-keyword">const</span> bcrypt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bcryptjs'</span>);
+
+<span class="hljs-keyword">const</span> UserSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  <span class="hljs-attr">name</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">require</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">minlength</span>: <span class="hljs-number">1</span>,
+  },
+  <span class="hljs-attr">email</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">minlength</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">validate</span>: {
+      <span class="hljs-attr">validator</span>: validator.isEmail,
+      <span class="hljs-attr">message</span>: <span class="hljs-string">'{VALUE} is not a valid email'</span>,
+    },
+  },
+  <span class="hljs-attr">password</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">require</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">minlength</span>: <span class="hljs-number">6</span>,
+  },
+  <span class="hljs-attr">role</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">require</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">photo</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">false</span>,
+  },
+  <span class="hljs-attr">tokens</span>: [{
+    <span class="hljs-attr">access</span>: {
+      <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">token</span>: {
+      <span class="hljs-attr">type</span>: <span class="hljs-built_in">String</span>,
+      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    },
+  }],
+});
+
+UserSchema.methods.toJSON = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">const</span> userObject = user.toObject();
+
+  <span class="hljs-keyword">return</span> _.pick(userObject, [<span class="hljs-string">'_id'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'email'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'photo'</span>]);
+};
+
+UserSchema.methods.generateAuthToken = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">const</span> access = <span class="hljs-string">'auth'</span>;
+  <span class="hljs-keyword">const</span> token = jwt.sign({
+    <span class="hljs-attr">_id</span>: user._id.toHexString(),
+    access,
+  }, process.env.JWT_SECRET).toString();
+
+  user.tokens.push({
+    access,
+    token,
+  });
+
+  <span class="hljs-keyword">return</span> user.save().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> token);
+};
+
+UserSchema.methods.removeToken = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">deletetoken</span>) </span>{
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> user.update({
+    <span class="hljs-attr">$pull</span>: { <span class="hljs-attr">tokens</span>: {
+      <span class="hljs-attr">token</span>: deletetoken,
+    },
+    },
+  });
+};
+
+UserSchema.statics.findByToken = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">token</span>) </span>{
+  <span class="hljs-keyword">const</span> User = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">let</span> decoded;
+
+  <span class="hljs-keyword">try</span> {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } <span class="hljs-keyword">catch</span> (e) {
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+  }
+
+  <span class="hljs-keyword">return</span> User.findOne({
+    <span class="hljs-attr">_id</span>: decoded._id,
+    <span class="hljs-string">'tokens.token'</span>: token,
+    <span class="hljs-string">'tokens.access'</span>: <span class="hljs-string">'auth'</span>,
+  });
+};
+
+UserSchema.statics.findByCredentials = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">email, password</span>) </span>{
+  <span class="hljs-keyword">const</span> User = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> User.findOne({
+    email,
+  }).then(<span class="hljs-function">(<span class="hljs-params">user</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!user) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Use bcrypt.compare to compare password and user.password</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      bcrypt.compare(password, user.password, (err, res) =&gt; {
+        <span class="hljs-keyword">if</span> (res) {
+          resolve(user);
+        } <span class="hljs-keyword">else</span> {
+          reject();
+        }
+      });
+    });
+  });
+};
+
+UserSchema.statics.findById = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">const</span> User = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> User.findOne({
+    <span class="hljs-attr">_id</span>: id,
+  }).then(<span class="hljs-function">(<span class="hljs-params">user</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!user) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+    }
+
+    <span class="hljs-keyword">return</span> user;
+  });
+};
+
+UserSchema.statics.UpdateById = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">form</span>) </span>{
+  <span class="hljs-keyword">const</span> User = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> User.findOne({
+    <span class="hljs-attr">_id</span>: form._id,
+  }).then(<span class="hljs-function">(<span class="hljs-params">user</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!user) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+      user.set({ <span class="hljs-attr">name</span>: form.name, <span class="hljs-attr">role</span>: form.role, <span class="hljs-attr">password</span>: form.password });
+      user.save(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> { <span class="hljs-keyword">if</span> (err) reject(); <span class="hljs-keyword">else</span> resolve(); });
+    });
+  });
+};
+
+
+UserSchema.statics.findByIdAndRemove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-keyword">const</span> User = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> User.remove({
+    <span class="hljs-attr">_id</span>: id,
+  }, err =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) { reject(); } <span class="hljs-keyword">else</span> { resolve(); }
+  }));
+};
+
+UserSchema.statics.getAll = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> User = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">return</span> User.find({}).then(<span class="hljs-function">(<span class="hljs-params">all</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!all) {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject();
+    }
+
+    <span class="hljs-keyword">return</span> all;
+  });
+};
+
+UserSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) </span>{
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">this</span>;
+
+  <span class="hljs-keyword">if</span> (user.isModified(<span class="hljs-string">'password'</span>)) {
+    bcrypt.genSalt(<span class="hljs-number">10</span>, (err, salt) =&gt; {
+      bcrypt.hash(user.password, salt, (errr, hash) =&gt; {
+        user.password = hash;
+        next();
+      });
+    });
+  } <span class="hljs-keyword">else</span> {
+    next();
+  }
+});
+
+<span class="hljs-keyword">const</span> User = mongoose.model(<span class="hljs-string">'User'</span>, UserSchema);
+
+<span class="hljs-built_in">module</span>.exports = {
+  User,
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

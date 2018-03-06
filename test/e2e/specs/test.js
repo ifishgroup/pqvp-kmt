@@ -30,11 +30,16 @@ module.exports = {
 
   'SA can Add User and User can Log In': function (browser) {
     browser
+      .assert.elementPresent('i[class=ti-user]')
       .click('i[class=ti-user]')
+      .waitForElementPresent('i[class=ti-user]', 5000)
+      .assert.elementPresent('i[class=ti-user]')
       .useXpath()
+      .waitForElementPresent('//a[text()="New"]', 5000)
+      .assert.elementPresent('//a[text()="New"]')
       .click('//a[text()="New"]')
-      .useCss()
-      .waitForElementPresent('input[name=fullname]', 10000)
+      .useCss()npm
+      .waitForElementPresent('input[name=fullname]', 5000)
       .assert.elementPresent('input[name=fullname]')
       .setValue('input[name=fullname]', 'Test User')
       .assert.elementPresent('input[name=email]')
