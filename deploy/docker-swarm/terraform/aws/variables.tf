@@ -66,9 +66,9 @@ variable "tag" {
   default     = "latest"
 }
 
-variable "docker_compose_file" {
-  description = "Full path to main docker-compose.yml file"
-  default     = "docker-compose.yml"
+variable "docker_stack_file" {
+  description = "Full path to main docker-stack.yml file"
+  default     = "docker-stack.yml"
 }
 
 variable "admin_user" {
@@ -79,4 +79,19 @@ variable "admin_user" {
 variable "admin_password" {
   description = "Admin password for weave scope"
   default     = "admin"
+}
+
+variable "manager_volume_size" {
+  description = "AWS EC2 manger volume size"
+  default     = "8"
+}
+
+variable "worker_volume_size" {
+  description = "AWS EC2 worker volume size"
+  default     = "8"
+}
+
+variable "nginx_conf" {
+  description = "Nginx conf"
+  default     = "nginx.conf"
 }

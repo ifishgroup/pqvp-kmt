@@ -19,7 +19,17 @@ resource "aws_instance" "docker_swarm_manager_init" {
     Environment = "${var.environment}"
     GitCommit   = "${var.git_commit}"
     GitBranch   = "${var.git_branch}"
-    Build       = "${var.git_branch}"
+    Version     = "${var.version}"
+  }
+
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_type = "gp2"
+    volume_size = "${var.manager_volume_size}"
+  }
+
+  lifecycle {
+    ignore_changes = ["ebs_block_device"]
   }
 
   connection {
@@ -49,7 +59,17 @@ resource "aws_instance" "docker_swarm_managers" {
     Environment = "${var.environment}"
     GitCommit   = "${var.git_commit}"
     GitBranch   = "${var.git_branch}"
-    Build       = "${var.git_branch}"
+    Version     = "${var.version}"
+  }
+
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_type = "gp2"
+    volume_size = "${var.manager_volume_size}"
+  }
+
+  lifecycle {
+    ignore_changes = ["ebs_block_device"]
   }
 
   connection {
@@ -84,7 +104,17 @@ resource "aws_instance" "docker_swarm_workers" {
     Environment = "${var.environment}"
     GitCommit   = "${var.git_commit}"
     GitBranch   = "${var.git_branch}"
-    Build       = "${var.git_branch}"
+    Version     = "${var.version}"
+  }
+
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_type = "gp2"
+    volume_size = "${var.worker_volume_size}"
+  }
+
+  lifecycle {
+    ignore_changes = ["ebs_block_device"]
   }
 
   connection {
@@ -126,7 +156,7 @@ resource "null_resource" "create_join_scripts" {
 }
 
 resource "null_resource" "deploy_docker_stack" {
-  depends_on = ["aws_instance.docker_swarm_workers"]
+  depends_on = ["aws_instance.docker_swarm_manager_init"]
 
   connection {
     user        = "ubuntu"
@@ -134,16 +164,28 @@ resource "null_resource" "deploy_docker_stack" {
     host        = "${aws_instance.docker_swarm_manager_init.public_ip}"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p resources/nginx",
+    ]
+  }
+
   provisioner "file" {
-    source      = "${var.docker_compose_file}"
-    destination = "docker-compose.yml"
+    source      = "${var.docker_stack_file}"
+    destination = "docker-stack.yml"
+  }
+
+  provisioner "file" {
+    source      = "${var.nginx_conf}"
+    destination = "./resources/nginx/nginx.conf"
   }
 
   provisioner "remote-exec" {
     inline = [
       "export TAG=${var.tag}",
-      "docker-compose -f docker-compose.yml pull",
-      "docker stack deploy -c docker-compose.yml pqvp-kmt",
+      "export BASE_URL=http://${aws_instance.docker_swarm_manager_init.public_ip}/api/",
+      "docker-compose -f docker-stack.yml pull",
+      "docker stack deploy -c docker-stack.yml pqvp-kmt",
     ]
   }
 }
