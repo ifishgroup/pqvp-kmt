@@ -1211,8 +1211,21 @@ div.card.secondary-card {
     padding: 0;
   }
   
-  #result-articles li,
-  #featured-articles li {
+  #featured-articles
+  {
+    padding-bottom:10px;
+    padding-top: 10px;
+  }
+
+  #featured-articles li
+  {
+    display: inline;
+    list-style-type: none;
+    padding-left:15px;
+    font-weight: 500;
+  }
+
+  #result-articles li {
     position: relative;
     display: block;
     padding: 10px 15px;

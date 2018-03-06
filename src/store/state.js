@@ -16,6 +16,8 @@ const config = {
   allArticlesUrl: `${baseUrl}articles/all`,
   featuredArticlesUrl: `${baseUrl}articles/featured`,
   topArticlesUrl: `${baseUrl}articles/top`,
+  readArticleUrl: `${baseUrl}articles/read`,
+  voteArticleUrl: `${baseUrl}articles/vote`,
   searchUrl: `${baseUrl}articles/search`,
 };
 

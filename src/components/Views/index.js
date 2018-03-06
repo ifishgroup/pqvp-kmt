@@ -6,6 +6,7 @@ import ArticleEdit from './Secure/Articles/Edit';
 import ArticleNew from './Secure/Articles/New';
 import Logoff from './Secure/Users/Logoff';
 import Search from './Common/Search';
+import Ka from './Common/Ka';
 import Error404 from './Common/404';
 import Login from './Unsecure/Login2';
 import SignUp from './Unsecure/SignUp';
@@ -20,6 +21,7 @@ export {
   Login,
   SignUp,
   Search,
+  Ka,
   Logoff,
   Error404,
 };
