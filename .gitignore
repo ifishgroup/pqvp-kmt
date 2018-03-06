@@ -25,3 +25,6 @@ selenium-debug.log
 .terraform/
 
 *.tfplan
+
+#Misc saved code
+helper.txt
