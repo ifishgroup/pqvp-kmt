@@ -15,7 +15,7 @@ module.exports = {
     const devServer = browser.globals.devServerURL;
 
     browser
-      .url(devServer)
+      .url('http://54.183.234.174')
       .maximizeWindow()
       .assert.elementPresent('i[class=ti-lock]')
       .click('i[class=ti-lock]')
@@ -38,7 +38,7 @@ module.exports = {
       .waitForElementPresent('//a[text()="New"]', 5000)
       .assert.elementPresent('//a[text()="New"]')
       .click('//a[text()="New"]')
-      .useCss()npm
+      .useCss()
       .waitForElementPresent('input[name=fullname]', 5000)
       .assert.elementPresent('input[name=fullname]')
       .setValue('input[name=fullname]', 'Test User')
