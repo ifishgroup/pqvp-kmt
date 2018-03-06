@@ -10,7 +10,9 @@ var app = express();
 
 app.use(bodyParser.json());
 
+const host = process.env.BASE_URL;
 const port = process.env.PORT;
+const apiPath = process.env.API_PATH;
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Expose-Headers", 'x-auth');
@@ -23,9 +25,10 @@ app.use(function(req, res, next) {
 var routes = require('./app/routes/apiRoutes'); //importing route
 routes(app); //register the route
 
-app.listen(port, () => {
-  console.log(`\n Your api is running here http://localhost:${port}/api` + `\n`);
-  console.log(`\n Your api documentation is running here http://localhost:${port}/api/docs` + `\n`);
-});
+app.listen(port, () => {});
 
-module.exports = {app};
+if (process.env.NODE_ENV !== 'production') {
+  console.log(`\n Your api is running here http://${host}:${port}/${apiPath}\n`);
+  console.log(`\n Your api documentation is running here http://${host}:${port}/${apiPath}/docs\n`);
+}
+module.exports = { app };
