@@ -1,10 +1,25 @@
-version: '3'
+version: '3.5'
+
+networks:
+  web:
+    driver: overlay
+    attachable: true
+  backend:
+    driver: overlay
+    attachable: true
+
+volumes:
+  db: {}
 
 services:
-  ui:
-    image: ifishgroup/pqvp-kmt:${TAG}
+  insight:
+    image: ifishgroup/insight:dev
+    networks:
+      - web
     ports:
-      - "80:80"
+      - "80:5000"
+    depends_on:
+      - "api"
     deploy:
       update_config:
         parallelism: 1
@@ -14,3 +29,31 @@ services:
         delay: 10s
         max_attempts: 3
         window: 120s
+
+  api:
+    image: ifishgroup/insight-api:dev
+    networks:
+      - web
+      - backend
+    ports:
+      - "3003:3003"
+    depends_on:
+      - "mongodb"
+      - "mongoimport"
+  
+  mongodb:
+    image: mongo:3.6.3
+    networks:
+      - backend
+    ports:
+      - "27017:27017"
+    volumes: 
+      - db:/data/db
+
+  mongoimport:
+    image: ifishgroup/insight-import:dev
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+    command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]

@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3003/api/';
+const baseUrl = process.env.BASE_URL || 'http://localhost:3003/api/';
 
 const config = {
   wideMenu: false,
