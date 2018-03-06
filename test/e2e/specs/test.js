@@ -20,15 +20,15 @@ module.exports = {
       .assert.elementPresent('i[class=ti-lock]')
       .click('i[class=ti-lock]')
       .assert.elementPresent('input[id=email]')
-      .setValue('input[id=email]', 'ssined@insight-kmt.com')      
+      .setValue('input[id=email]', 'ssined@insight-kmt.com')
       .assert.elementPresent('input[id=password]')
       .setValue('input[id=password]', 'abcd1234!')
       .click('button[type=submit]')
       .waitForElementPresent('i[class=ti-unlock]', 5000)
-      .assert.elementPresent('i[class=ti-unlock]')
+      .assert.elementPresent('i[class=ti-unlock]');
   },
 
-  'SA can Add User and User can Log In' : function (browser) {
+  'SA can Add User and User can Log In': function (browser) {
     browser
       .click('i[class=ti-user]')
       .useXpath()
@@ -36,29 +36,29 @@ module.exports = {
       .useCss()
       .waitForElementPresent('input[name=fullname]', 10000)
       .assert.elementPresent('input[name=fullname]')
-      .setValue('input[name=fullname]', "Test User")
+      .setValue('input[name=fullname]', 'Test User')
       .assert.elementPresent('input[name=email]')
-      .setValue('input[name=email]', "testuser@test.com")
+      .setValue('input[name=email]', 'testuser@test.com')
       .assert.elementPresent('input[name=password]')
-      .setValue('input[name=password]', "abcd1234!")
+      .setValue('input[name=password]', 'abcd1234!')
       .assert.elementPresent('input[name=confirmed]')
-      .setValue('input[name=confirmed]', "abcd1234!")
+      .setValue('input[name=confirmed]', 'abcd1234!')
       .click('input[id=roleAuthor]')
       .click('button[type=submit]')
       .click('i[class=ti-unlock]')
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .click('i[class=ti-lock')
       .assert.elementPresent('input[id=email]')
-      .setValue('input[id=email]', 'testuser@test.com')      
+      .setValue('input[id=email]', 'testuser@test.com')
       .assert.elementPresent('input[id=password]')
       .setValue('input[id=password]', 'abcd1234!')
       .click('button[type=submit]')
       .waitForElementPresent('i[class=ti-layers]', 5000)
-      .assert.elementPresent('i[class=ti-layers]')
+      .assert.elementPresent('i[class=ti-layers]');
   },
 
-  'Author can create KA 1' : function (browser) {
-    browser      
+  'Author can create KA 1': function (browser) {
+    browser
       .click('i[class=ti-layers')
       .useXpath()
       .click('//a[text()="New"]')
@@ -74,11 +74,11 @@ module.exports = {
       .click('button[type=submit]')
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-      .refresh()
+      .refresh();
   },
 
-  'Author can create KA 2' : function (browser) {
-    browser      
+  'Author can create KA 2': function (browser) {
+    browser
       .waitForElementPresent('input[name=title]', 5000)
       .assert.elementPresent('input[name=title]')
       .setValue('input[name=title]', 'Test KA 2')
@@ -90,10 +90,10 @@ module.exports = {
       .click('button[type=submit]')
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-      .refresh()
+      .refresh();
   },
 
-  'Author can edit and submit KA 2' : function (browser) {
+  'Author can edit and submit KA 2': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-layers', 5000)
       .click('i[class=ti-layers')
@@ -113,10 +113,10 @@ module.exports = {
       .useCss()
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-      .refresh() 
+      .refresh();
   },
 
-  'Author can edit and submit KA 1' : function (browser) {
+  'Author can edit and submit KA 1': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-layers', 5000)
       .click('i[class=ti-layers')
@@ -138,16 +138,16 @@ module.exports = {
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
       .refresh()
       .waitForElementPresent('i[class=ti-unlock]', 5000)
-      .click('i[class=ti-unlock')      
+      .click('i[class=ti-unlock');
   },
 
-  'CM can Reject KA 1' : function (browser) {
+  'CM can Reject KA 1': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .assert.elementPresent('i[class=ti-lock]')
       .click('i[class=ti-lock]')
       .assert.elementPresent('input[id=email]')
-      .setValue('input[id=email]', 'csmith@insight-kmt.com')      
+      .setValue('input[id=email]', 'csmith@insight-kmt.com')
       .assert.elementPresent('input[id=password]')
       .setValue('input[id=password]', 'abcd1234!')
       .click('button[type=submit]')
@@ -170,10 +170,10 @@ module.exports = {
       .useCss()
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-      .refresh()   
+      .refresh();
   },
 
-  'CM can edit, Approve, and Publish KA 1' : function (browser) {
+  'CM can edit, Approve, and Publish KA 1': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-unlock]', 5000)
       .assert.elementPresent('i[class=ti-unlock]')
@@ -197,10 +197,10 @@ module.exports = {
       .useCss()
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-      .refresh()   
+      .refresh();
   },
 
-  'CM can Remove KA 1' : function (browser) {
+  'CM can Remove KA 1': function (browser) {
     browser
       .click('i[class=ti-layers]')
       .useXpath()
@@ -212,15 +212,15 @@ module.exports = {
       .useCss()
       .waitForElementPresent('i[class=ti-unlock]', 5000)
       .click('i[class=ti-unlock]')
-      .assert.elementPresent('i[class=ti-lock]')   
+      .assert.elementPresent('i[class=ti-lock]');
   },
 
-  'Author can edit KA after Rejection' : function (browser) {
+  'Author can edit KA after Rejection': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .click('i[class=ti-lock')
       .assert.elementPresent('input[id=email]')
-      .setValue('input[id=email]', 'testuser@test.com')      
+      .setValue('input[id=email]', 'testuser@test.com')
       .assert.elementPresent('input[id=password]')
       .setValue('input[id=password]', 'abcd1234!')
       .click('button[type=submit]')
@@ -245,17 +245,17 @@ module.exports = {
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
       .refresh()
       .waitForElementPresent('i[class=ti-unlock]', 5000)
-      .click('i[class=ti-unlock')      
+      .click('i[class=ti-unlock');
   },
 
 
-  'CM can Remove KA 2' : function (browser) {
+  'CM can Remove KA 2': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .assert.elementPresent('i[class=ti-lock]')
       .click('i[class=ti-lock]')
       .assert.elementPresent('input[id=email]')
-      .setValue('input[id=email]', 'csmith@insight-kmt.com')      
+      .setValue('input[id=email]', 'csmith@insight-kmt.com')
       .assert.elementPresent('input[id=password]')
       .setValue('input[id=password]', 'abcd1234!')
       .click('button[type=submit]')
@@ -271,15 +271,15 @@ module.exports = {
       .useCss()
       .waitForElementPresent('i[class=ti-unlock]', 5000)
       .click('i[class=ti-unlock]')
-      .assert.elementPresent('i[class=ti-lock]')   
+      .assert.elementPresent('i[class=ti-lock]');
   },
 
-  'SA can Remove User and User can no longer Log In' : function (browser) {
+  'SA can Remove User and User can no longer Log In': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .click('i[class=ti-lock]')
       .assert.elementPresent('input[id=email]')
-      .setValue('input[id=email]', 'ssined@insight-kmt.com')      
+      .setValue('input[id=email]', 'ssined@insight-kmt.com')
       .assert.elementPresent('input[id=password]')
       .setValue('input[id=password]', 'abcd1234!')
       .click('button[type=submit]')
@@ -297,12 +297,12 @@ module.exports = {
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .click('i[class=ti-lock')
       .assert.elementPresent('input[id=email]')
-      .setValue('input[id=email]', 'testuser@test.com')      
+      .setValue('input[id=email]', 'testuser@test.com')
       .assert.elementPresent('input[id=password]')
       .setValue('input[id=password]', 'abcd1234!')
       .click('button[type=submit]')
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-      .end()
+      .end();
   },
 };
