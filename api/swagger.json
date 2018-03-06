@@ -360,7 +360,8 @@
           {
             "in": "path",
             "name": "id",
-            "description": "string id of the knowledge article to retreive; Currently not being used.",
+            "description":
+              "string id of the knowledge article to retreive; Currently not being used.",
             "required": true,
             "schema": {
               "type": "string"
@@ -427,6 +428,46 @@
         }
       }
     },
+    "/articles/search": {
+      "post": {
+        "tags": ["articles"],
+        "summary": "Return approved knowledge articles by search term",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "search for knowledge articles by term(s)",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "search_terms": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
     "/articles/all": {
       "get": {
         "tags": ["articles"],
@@ -441,6 +482,56 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/articles/featured": {
+      "get": {
+        "tags": ["articles"],
+        "summary": "Get list of all approved featured knowledge articles",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/articles/top": {
+      "get": {
+        "tags": ["articles"],
+        "summary": "Get list of top 5 most viewed approved knowledge articles",
+        "produces": ["application/json"],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",

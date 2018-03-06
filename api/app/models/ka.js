@@ -1,4 +1,5 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+/* eslint-disable */
 
 const mongoose = require('mongoose');
 const validator = require('validator');
@@ -78,12 +79,12 @@ const KaSchema = new mongoose.Schema({
   },
 });
 
-KaSchema.statics.findById = function (id) {
+KaSchema.statics.findById = function(id) {
   const KA = this;
 
   return KA.findOne({
     _id: id,
-  }).then((ka) => {
+  }).then(ka => {
     if (!ka) {
       return Promise.reject();
     }
@@ -92,19 +93,21 @@ KaSchema.statics.findById = function (id) {
   });
 };
 
-KaSchema.statics.getAll = function (user) {
+KaSchema.statics.getAll = function(user) {
   const KA = this;
 
   if (user.role === 'contentAuth') {
-    return KA.find({ $or: [{ status: { $ne: 'draft' } }, { author_id: { $eq: user._id } }] }).then((all) => {
-      if (!all) {
-        return Promise.reject();
-      }
+    return KA.find({ $or: [{ status: { $ne: 'draft' } }, { author_id: { $eq: user._id } }] }).then(
+      all => {
+        if (!all) {
+          return Promise.reject();
+        }
 
-      return all;
-    });
+        return all;
+      },
+    );
   } else if (user.role === 'authorAuth') {
-    return KA.find({ author_id: user._id }).then((all) => {
+    return KA.find({ author_id: user._id }).then(all => {
       if (!all) {
         return Promise.reject();
       }
@@ -115,12 +118,12 @@ KaSchema.statics.getAll = function (user) {
   return {};
 };
 
-KaSchema.statics.findById = function (id) {
+KaSchema.statics.findById = function(id) {
   const KA = this;
 
   return KA.findOne({
     _id: id,
-  }).then((ka) => {
+  }).then(ka => {
     if (!ka) {
       return Promise.reject();
     }
@@ -129,31 +132,101 @@ KaSchema.statics.findById = function (id) {
   });
 };
 
-KaSchema.statics.findByIdAndRemove = function (id) {
+KaSchema.statics.findByIdAndRemove = function(id) {
   const KA = this;
 
-  return KA.remove({
-    _id: id,
-  }, err => new Promise((resolve, reject) => {
-    if (err) { reject(); } else { resolve(); }
-  }));
+  return KA.remove(
+    {
+      _id: id,
+    },
+    err =>
+      new Promise((resolve, reject) => {
+        if (err) {
+          reject();
+        } else {
+          resolve();
+        }
+      }),
+  );
 };
 
-KaSchema.statics.UpdateById = function (form) {
+KaSchema.statics.UpdateById = function(form) {
   const KA = this;
 
   return KA.findOne({
     _id: form._id,
-  }).then((ka) => {
+  }).then(ka => {
     if (!ka) {
       return Promise.reject();
     }
 
     return new Promise((resolve, reject) => {
-      ka.set({ title: form.title, status: form.status, content: form.content, keywords: form.keywords, permalink: form.permalink, featured: form.featured, last_updated: form.last_updated, last_update_user: form.last_update_user, published_date: form.published_date });
-      ka.save((err) => { if (err) reject(); else resolve(); });
+      ka.set({
+        title: form.title,
+        status: form.status,
+        content: form.content,
+        keywords: form.keywords,
+        permalink: form.permalink,
+        featured: form.featured,
+        last_updated: form.last_updated,
+        last_update_user: form.last_update_user,
+        published_date: form.published_date,
+      });
+      ka.save(err => {
+        if (err) reject();
+        else resolve();
+      });
     });
   });
+};
+
+KaSchema.statics.getFeatured = function(user) {
+  const KA = this;
+
+  return KA.find({ $and: [{ status: { $eq: 'approved' } }, { featured: { $eq: true } }] }).then(
+    all => {
+      if (!all) {
+        return Promise.reject();
+      }
+
+      return all;
+    },
+  );
+};
+
+KaSchema.statics.getTop = function(user) {
+  const KA = this;
+
+  return KA.find({ $and: [{ status: 'approved' }, { viewcount: { $gt: 0 } }] })
+    .sort({ viewcount: -1 })
+    .limit(5)
+    .then(all => {
+      if (!all) {
+        return Promise.reject();
+      }
+
+      return all;
+    });
+};
+
+KaSchema.statics.search = function(ka) {
+  const KA = this;
+  let query = ka.search_terms;
+
+  return KA.find({
+    $or: [
+      { $and: [{ status: 'approved' }, { title: { $regex: new RegExp(query, 'i') } }] },
+      { $and: [{ status: 'approved' }, { keywords: { $regex: new RegExp(query, 'i') } }] },
+    ],
+  })
+    .sort({ votes: -1 })
+    .then(all => {
+      if (!all) {
+        return Promise.reject();
+      }
+
+      return all;
+    });
 };
 
 const KA = mongoose.model('KA', KaSchema, 'ka');

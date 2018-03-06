@@ -58,3 +58,31 @@ exports.delete_article = function (req, res) {
     res.status(500).send(e);
   });
 };
+
+
+exports.get_featured = function (req, res) {
+  KA.getFeatured().then((all) => {
+    res.status(200).send(all);
+  }).catch((e) => {
+    res.status(500).send(e);
+  });
+};
+
+exports.get_top = function (req, res) {
+  KA.getTop().then((all) => {
+    res.status(200).send(all);
+  }).catch((e) => {
+    res.status(500).send(e);
+  });
+};
+
+exports.search = function (req, res) {
+  const body = _.pick(req.body, ['search_terms']);
+
+  KA.search(body).then((all) => {
+    res.status(200).send(all);
+  }).catch((e) => {
+    res.status(500).send(e);
+  });
+
+};

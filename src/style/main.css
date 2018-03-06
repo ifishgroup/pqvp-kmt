@@ -1186,6 +1186,63 @@ span.error{
     color:#ff0000 !important;
 }
 
+/*
+* ==========================================================
+*     6. SEARCH PAGE
+* ==========================================================
+*/
+
+div.card.secondary-card {
+    font-size: 0.9rem;
+  
+    border: solid 1px #0073e5;
+    border-radius: 0px;
+  }
+  div.card.secondary-card .card-header {
+    background: #0073e5 !important;
+    border-radius: 0px;
+  }
+  div.card.secondary-card .card-header h3 {
+    color: #ffffff;
+    font-size: 0.9rem;
+  }
+  div.card.secondary-card div.card-body {
+    font-size: 0.9rem;
+    padding: 0;
+  }
+  
+  #result-articles li,
+  #featured-articles li {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px solid #0073e5;
+    color: #0073e5;
+    font-weight: 500;
+  }
+  
+  #result-articles li:last-child,
+  #featured-articles li:last-child {
+    border-bottom: 0px;
+  }
+  
+  #result-articles li span,
+  #featured-articles li span {
+    color: #000;
+    float: right;
+  }
+  
+  #result-articles li a,
+  #featured-articles li a {
+    color: #0073e5;
+  }
+  
+  #result-articles li a:hover,
+  #featured-articles li a:hover {
+    text-decoration: underline;
+  }
+
+
 /*=============================
 =           ICONS            =
 =============================*/

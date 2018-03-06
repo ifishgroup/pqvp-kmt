@@ -1,17 +1,23 @@
 {
-    "test": {
-      "PORT": 3003,
-      "MONGODB_URI": "mongodb://localhost:27017/InsightTest",
-      "JWT_SECRET": "poijasdf98435jpgfdpoij3"
-    },
-    "development": {
-      "PORT": 3003,
-      "MONGODB_URI": "mongodb://localhost:27017/Insight",
-      "JWT_SECRET": "pojiaj234oi234oij234oij4"
-    },
-    "production": {
-      "PORT": 3003,
-      "MONGODB_URI": "mongodb://mongodb:27017/Insight",
-      "JWT_SECRET": "pojiaj234oi234oij234oij5"
-    }
+  "test": {
+    "BASE_URL": "http://localhost",
+    "PORT": 3003,
+    "API_PATH": "api",
+    "MONGODB_URI": "mongodb://localhost:27017/InsightTest",
+    "JWT_SECRET": "poijasdf98435jpgfdpoij3"
+  },
+  "development": {
+    "BASE_URL": "http://localhost",
+    "PORT": 3003,
+    "API_PATH": "api",
+    "MONGODB_URI": "mongodb://localhost:27017/Insight",
+    "JWT_SECRET": "pojiaj234oi234oij234oij4"
+  },
+  "production": {
+    "BASE_URL": "http://13.57.221.44",
+    "PORT": 3003,
+    "API_PATH": "api",
+    "MONGODB_URI": "mongodb://mongodb:27017/Insight",
+    "JWT_SECRET": "pojiaj234oi234oij234oij5"
+  }
 }
