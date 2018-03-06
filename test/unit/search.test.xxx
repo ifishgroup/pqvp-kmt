@@ -56,3 +56,4 @@ describe('search.test.js', () => {
     // expect(cmp.vm.result_articles).toEqual(topMatch);
   });
 });
+

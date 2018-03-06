@@ -9,6 +9,7 @@ import {
   ArticleNew,
   Login,
   Search,
+  Ka,
   Logoff,
   Error404,
 } from '@/components/Views';
@@ -128,6 +129,28 @@ const router = new Router({
     },
     path: '/welcome',
     component: Search,
+  },
+  {
+    name: 'search',
+    meta: {
+      requiresAuth: false,
+      title: 'Search The Knowledge Base',
+      area: 'To Attain Knowledge',
+      breadcrumb: 'add things everyday',
+    },
+    path: '/search/:keywords?',
+    component: Search,
+  },
+  {
+    name: 'ka',
+    meta: {
+      requiresAuth: false,
+      title: 'Search The Knowledge Base',
+      area: 'To Attain Knowledge',
+      breadcrumb: 'add things everyday',
+    },
+    path: '/ka/:id',
+    component: Ka,
   },
   {
     name: 'login',
