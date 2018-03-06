@@ -550,6 +550,75 @@
           }
         }
       }
+    },
+    "/articles/read/{id}": {
+      "get": {
+        "tags": ["articles"],
+        "summary": "Knowledge article to read by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "string id of the knowledge article to read",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnKAJson"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/articles/vote": {
+      "post": {
+        "tags": ["articles"],
+        "summary": "Knowledge article to vote for by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "knowledge article to vote for",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "articleid":{
+                  "type":"string"
+                },
+                "tally":{
+                  "type":"integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
     }
   },
   "definitions": {

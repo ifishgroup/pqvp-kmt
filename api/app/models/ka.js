@@ -118,7 +118,7 @@ KaSchema.statics.getAll = function(user) {
   return {};
 };
 
-KaSchema.statics.findById = function(id) {
+KaSchema.statics.findById = function(id, view) {
   const KA = this;
 
   return KA.findOne({
@@ -128,6 +128,11 @@ KaSchema.statics.findById = function(id) {
       return Promise.reject();
     }
 
+    if (view) {
+      ka.update({ $inc: { viewcount: 1 } }, err => {
+        if (err) return Promise.reject();
+      });
+    }
     return ka;
   });
 };
@@ -218,8 +223,7 @@ KaSchema.statics.search = function(ka) {
       { $and: [{ status: 'approved' }, { title: { $regex: new RegExp(query, 'i') } }] },
       { $and: [{ status: 'approved' }, { keywords: { $regex: new RegExp(query, 'i') } }] },
     ],
-  })
-    .sort({ votes: -1 })
+  }).sort({ viewcount: -1 })
     .then(all => {
       if (!all) {
         return Promise.reject();
