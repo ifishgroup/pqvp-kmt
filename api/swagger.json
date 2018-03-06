@@ -5,7 +5,7 @@
     "title": "Insight KMT Api",
     "version": "1.0.0"
   },
-  "host": "localhost:3003",
+  "host": "http://insight.ifglabs.com/api/",
   "schemes": ["http"],
   "basePath": "/api",
   "paths": {
