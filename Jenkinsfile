@@ -240,6 +240,7 @@ def taintResources() {
         sh "${terraform()} taint null_resource.create_join_scripts"
         sh "${terraform()} taint null_resource.deploy_docker_stack"
         sh "${terraform()} taint null_resource.deploy_monitoring_stack"
+        sh "${terraform()} taint null_resource.launch_weave_scope"
     } catch(e) {
         println e
     }
