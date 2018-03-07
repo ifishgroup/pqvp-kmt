@@ -47,8 +47,10 @@ module.exports = function (app) {
 
   app.route('/articles/read/:id').get(kaController.read_article);
 
+  app.route('/articles/categories').get(kaController.get_categories);
+
   app.route('/articles/vote').post(kaController.capture_vote);
-  
+
   // setup swagger documentation
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

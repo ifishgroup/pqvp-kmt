@@ -7,7 +7,21 @@
                         <div slot="header-card">Start Learning...Search for knowledge articles</div>
                         <div slot="body-card">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-sm-12 p-0">
+                                            <ul class="featured bg-gray">
+                                                <li v-if="showTree">
+                                                    <strong>Categories:</strong>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <tree :data="treeData" v-if="showTree" :options="treeOptions" @node:selected="nodeSelected" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
                                     <div class="row pb-3">
                                         <div class="col-sm-12">
                                             <form class="form-horizontal" @submit.prevent="onSubmit">
@@ -29,10 +43,13 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <ul id="featured-articles" class="bg-gray">
-                                                <li v-if="featured_articles"><strong>{{feature_title}}:</strong></li>
+                                            <ul class="featured bg-gray">
+                                                <li v-if="featured_articles">
+                                                    <strong>{{feature_title}}:</strong>
+                                                </li>
                                                 <li v-for="x in featured_articles" :key="x._id">
-                                                    <a :href="`/ka/${x._id}`"><i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{x.title}}</a>
+                                                    <a :href="`/ka/${x._id}`">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{x.title}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -80,6 +97,16 @@ export default {
         this.$toastr.e(e, 'Error Getting Featured Articles');
       });
 
+    axios
+      .get(this.config.categoriesUrl)
+      .then(response => {
+        this.treeData = response.data;
+        this.showTree = true;
+      })
+      .catch(e => {
+        this.$toastr.e(e, 'Error Getting Article Categories');
+      });
+
     if (this.$route.params.keywords) {
       this.form.search_terms = this.$route.params.keywords;
       this.onSubmit();
@@ -101,6 +128,14 @@ export default {
       results_title: 'Top Articles',
       featured_articles: '',
       result_articles: '',
+      treeData: [{ _id: 'Categories', titles: [{ _id: '', data: { articleid: '' } }] }],
+      treeOptions: {
+        propertyNames: {
+          text: '_id',
+          children: 'titles',
+        },
+      },
+      showTree: false,
     };
   },
   computed: {
@@ -124,6 +159,9 @@ export default {
         }
       });
     },
+    nodeSelected(node) {
+      this.$router.push(`/ka/${node.data('articleid')}`);
+    },
   },
   components: {
     CardDefault,
@@ -136,12 +174,29 @@ export default {
   padding-top: 0;
   padding-bottom: 0;
 }
-.form-group
-{
-    margin-bottom: 0 !important;
+.form-group {
+  margin-bottom: 0 !important;
 }
 span.input-group-btn button.btn.btn-primary {
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
+
+a.tree-anchor
+{
+    color:#0073e5 !important;
+    font-weight: bold
+}
+
+i.tree-arrow.has-child,
+.tree-arrow.has-child {
+    margin-left:5px !important;
+    color:#0073e5 !important;
+    width: 15px !important;
+}
+i.tree-arrow,
+{
+    color:#0073e5 !important;
+}
+
 </style>

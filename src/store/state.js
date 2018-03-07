@@ -19,6 +19,7 @@ const config = {
   readArticleUrl: `${baseUrl}articles/read`,
   voteArticleUrl: `${baseUrl}articles/vote`,
   searchUrl: `${baseUrl}articles/search`,
+  categoriesUrl: `${baseUrl}articles/categories`,
 };
 
 const app = {

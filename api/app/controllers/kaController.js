@@ -182,3 +182,13 @@ exports.search = function (req, res) {
   });
 
 };
+
+exports.get_categories = function (req, res) {
+
+  KA.getCategories().then((all) => {
+    res.status(200).send(all);
+  }).catch((e) => {
+    res.status(500).send(e);
+  });
+
+};
