@@ -20,6 +20,9 @@
                                     <span v-show="errors.has('password')" class="error">{{ errors.first('password') }}</span>
                                 </div>
                                 <div class="form-group">
+                                    &nbsp;
+                                </div>
+                                <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Login</button>
                                 </div>
                             </form>

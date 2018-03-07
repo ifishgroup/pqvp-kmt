@@ -106,7 +106,7 @@ KaSchema.statics.getAll = function(user) {
         return all;
       },
     );
-  } else if (user.role === 'authorAuth') {
+  } else if (user.role !== 'contentAuth') {
     return KA.find({ author_id: user._id }).then(all => {
       if (!all) {
         return Promise.reject();
@@ -214,6 +214,29 @@ KaSchema.statics.getTop = function(user) {
     });
 };
 
+KaSchema.statics.getCategories = function() {
+  const KA = this;
+
+  return KA.aggregate([
+    { $match: { status: { $eq: 'approved' } } },
+    { $project: { _id: 1, title: 1, categories: { $split: ['$keywords', ','] } } },
+    { $unwind: '$categories' },
+    {
+      $group: {
+        _id: '$categories',
+        titles: { $push: { _id: '$title', data: { articleid: '$_id' } } },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]).then(all => {
+    if (!all) {
+      return Promise.reject();
+    }
+
+    return all;
+  });
+};
+
 KaSchema.statics.search = function(ka) {
   const KA = this;
   let query = ka.search_terms;
@@ -223,7 +246,8 @@ KaSchema.statics.search = function(ka) {
       { $and: [{ status: 'approved' }, { title: { $regex: new RegExp(query, 'i') } }] },
       { $and: [{ status: 'approved' }, { keywords: { $regex: new RegExp(query, 'i') } }] },
     ],
-  }).sort({ viewcount: -1 })
+  })
+    .sort({ viewcount: -1 })
     .then(all => {
       if (!all) {
         return Promise.reject();

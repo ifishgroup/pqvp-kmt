@@ -178,7 +178,7 @@ def publishProdInfo(String ip) {
             ${env.JOB_NAME}, build #${env.BUILD_NUMBER} ${env.BUILD_URL} - Deployed to production
             
             Insight: http://insight.ifglabs.com
-            Docs: http://insight.docs.ifglabs.com
+            Docs: http://insight.ifglabs.com/api/docs
             Weave Scope: http://insight.ifglabs.com:4041
             Grafana: http://insight.ifglabs.com:3000
             Prometheus: http://insight.ifglabs.com:9090
@@ -240,6 +240,7 @@ def taintResources() {
         sh "${terraform()} taint null_resource.create_join_scripts"
         sh "${terraform()} taint null_resource.deploy_docker_stack"
         sh "${terraform()} taint null_resource.deploy_monitoring_stack"
+        sh "${terraform()} taint null_resource.launch_weave_scope"
     } catch(e) {
         println e
     }

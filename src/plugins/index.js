@@ -8,6 +8,10 @@ import 'vue-toastr/dist/vue-toastr.min.css';
 
 import VeeValidate from 'vee-validate';
 
+import LiquorTree from 'liquor-tree';
+
 // Register plugin
 Vue.use(Toastr);
 Vue.use(VeeValidate);
+Vue.use(LiquorTree);
+

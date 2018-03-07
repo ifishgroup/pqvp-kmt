@@ -5,7 +5,7 @@
     "title": "Insight KMT Api",
     "version": "1.0.0"
   },
-  "host": "localhost:3003",
+  "host": "http://insight.ifglabs.com",
   "schemes": ["http"],
   "basePath": "/api",
   "paths": {
@@ -619,6 +619,28 @@
           }
         }
       }
+    },
+    "/articles/categories":{
+      "get": {
+        "tags": ["articles"],
+        "summary": "Knowledge article list grouped by categories",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReturnCategories"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -767,6 +789,27 @@
         },
         "votes": {
           "type": "integer"
+        }
+      }
+    },
+    "ReturnCategories": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "titles": {
+          "type": "array",
+          "items":{
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "articleid": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }

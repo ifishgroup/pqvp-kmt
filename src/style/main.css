@@ -1211,18 +1211,25 @@ div.card.secondary-card {
     padding: 0;
   }
   
-  #featured-articles
+  ul.featured
   {
     padding-bottom:10px;
     padding-top: 10px;
   }
 
-  #featured-articles li
+  ul.featured li
   {
     display: inline;
     list-style-type: none;
     padding-left:15px;
     font-weight: 500;
+  }
+
+  ul.featured li a,
+  #result-articles li
+  {
+    color:#0073e5;
+    font-weight:bold
   }
 
   #result-articles li {
@@ -1235,19 +1242,19 @@ div.card.secondary-card {
   }
   
   #result-articles li:last-child,
-  #featured-articles li:last-child {
+  ul.featured li:last-child {
     border-bottom: 0px;
   }
   
   #result-articles li span,
-  #featured-articles li span {
+  ul.featured li span {
     color: #000;
     float: right;
   }
   
   #result-articles li a,
   #featured-articles li a {
-    color: #0073e5;
+    color: #0073e5 !important;
   }
   
   #result-articles li a:hover,

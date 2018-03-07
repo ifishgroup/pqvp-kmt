@@ -68,7 +68,7 @@ export default {
           class: 'ti-layers',
           link: 'Articles',
           isecure: true,
-          role: ['authorAuth', 'contentAuth'],
+          role: ['adminAuth', 'executiveAuth', 'authorAuth', 'contentAuth'],
           group: [
             { id: 'articles-new', to: '/articles/new', link: 'New' },
             { id: 'articles-edit', to: '/articles/edit', link: 'Edit' },

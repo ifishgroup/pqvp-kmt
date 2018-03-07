@@ -226,7 +226,7 @@ resource "null_resource" "launch_weave_scope" {
     inline = [
       "scope launch ${join(" ", aws_instance.docker_swarm_workers.*.private_ip)}",
       "curl https://getcaddy.com | bash -s personal http.ipfilter,http.prometheus",
-      "echo ':4041 {\nbasicauth / ${var.admin_user} ${var.admin_password}\nproxy / localhost:4040 {\nwebsocket\n}\nerrors stderr\ntls off\n}' > Caddyfile.scope",
+      "echo ':4041 { basicauth / ${var.admin_user} ${var.admin_password} proxy / localhost:4040 { websocket } errors stderr tls off }' > Caddyfile.scope",
       "sleep 1",
       "nohup caddy -conf Caddyfile.scope &",
       "sleep 1",
