@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>package.json</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "";
+    var thisFile = "package.json";
+    var defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>package.json</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"playground"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"A Vue.js project"</span>,
+  <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Dustin Lish &lt;dlish@ifishgroup.com&gt;;Ernie Lopez &lt;elopez@ifishgroup.com&gt;"</span>,
+  <span class="hljs-attr">"private"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"client"</span>: <span class="hljs-string">"webpack-dev-server --inline --progress --config build/webpack.dev.conf.js"</span>,
+    <span class="hljs-attr">"server"</span>: <span class="hljs-string">"npm start --prefix ./api"</span>,
+    <span class="hljs-attr">"dev"</span>: <span class="hljs-string">"concurrently \"npm run server\" \"npm run client\""</span>,
+    <span class="hljs-attr">"start"</span>: <span class="hljs-string">"npm run dev"</span>,
+    <span class="hljs-attr">"unit"</span>: <span class="hljs-string">"jest --config test/unit/jest.conf.js --coverage"</span>,
+    <span class="hljs-attr">"e2e"</span>: <span class="hljs-string">"node test/e2e/runner.js"</span>,
+    <span class="hljs-attr">"e2e-docker"</span>: <span class="hljs-string">"node test/e2e/runner.js --config test/e2e/docker.nightwatch.conf.js"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"npm run unit &amp;&amp; npm run e2e"</span>,
+    <span class="hljs-attr">"lint"</span>: <span class="hljs-string">"eslint --ext .js,.vue src test/unit test/e2e/specs"</span>,
+    <span class="hljs-attr">"lint:fix"</span>: <span class="hljs-string">"yarn lint --fix"</span>,
+    <span class="hljs-attr">"lint-api"</span>: <span class="hljs-string">"eslint api/app"</span>,
+    <span class="hljs-attr">"lint-api:fix"</span>: <span class="hljs-string">"yarn lint-api --fix"</span>,
+    <span class="hljs-attr">"build"</span>: <span class="hljs-string">"node build/build.js"</span>,
+    <span class="hljs-attr">"build-all"</span>: <span class="hljs-string">"npm run build-insight &amp;&amp; npm run build-api &amp;&amp; npm run build-import"</span>,
+    <span class="hljs-attr">"build-insight"</span>: <span class="hljs-string">"docker build -t ifishgroup/insight:dev ."</span>,
+    <span class="hljs-attr">"build-api"</span>: <span class="hljs-string">"docker build -t ifishgroup/insight-api:dev ./api/"</span>,
+    <span class="hljs-attr">"build-import"</span>: <span class="hljs-string">"docker build -t ifishgroup/insight-import:dev ./api/data/"</span>,
+    <span class="hljs-attr">"up"</span>: <span class="hljs-string">"docker-compose up -d"</span>,
+    <span class="hljs-attr">"down"</span>: <span class="hljs-string">"docker-compose down"</span>,
+    <span class="hljs-attr">"docker-e2e"</span>: <span class="hljs-string">"docker-compose -f docker-compose-e2e.yml -f docker-compose.yml run --rm e2e"</span>
+  },
+  <span class="hljs-attr">"dependencies"</span>: {
+    <span class="hljs-attr">"axios"</span>: <span class="hljs-string">"^0.17.1"</span>,
+    <span class="hljs-attr">"bootstrap"</span>: <span class="hljs-string">"^4.0.0"</span>,
+    <span class="hljs-attr">"concurrently"</span>: <span class="hljs-string">"^3.5.1"</span>,
+    <span class="hljs-attr">"lodash"</span>: <span class="hljs-string">"^4.17.5"</span>,
+    <span class="hljs-attr">"simplemde"</span>: <span class="hljs-string">"^1.11.2"</span>,
+    <span class="hljs-attr">"vee-validate"</span>: <span class="hljs-string">"^2.0.4"</span>,
+    <span class="hljs-attr">"vue"</span>: <span class="hljs-string">"^2.5.2"</span>,
+    <span class="hljs-attr">"vue-router"</span>: <span class="hljs-string">"^3.0.1"</span>,
+    <span class="hljs-attr">"vue-simplemde"</span>: <span class="hljs-string">"^0.4.6"</span>,
+    <span class="hljs-attr">"vue-toastr"</span>: <span class="hljs-string">"^2.0.12"</span>,
+    <span class="hljs-attr">"vuex"</span>: <span class="hljs-string">"^3.0.1"</span>,
+    <span class="hljs-attr">"vuex-persistedstate"</span>: <span class="hljs-string">"^2.4.2"</span>
+  },
+  <span class="hljs-attr">"devDependencies"</span>: {
+    <span class="hljs-attr">"autoprefixer"</span>: <span class="hljs-string">"^7.1.2"</span>,
+    <span class="hljs-attr">"babel-core"</span>: <span class="hljs-string">"^6.22.1"</span>,
+    <span class="hljs-attr">"babel-eslint"</span>: <span class="hljs-string">"^8.2.1"</span>,
+    <span class="hljs-attr">"babel-helper-vue-jsx-merge-props"</span>: <span class="hljs-string">"^2.0.3"</span>,
+    <span class="hljs-attr">"babel-jest"</span>: <span class="hljs-string">"^21.0.2"</span>,
+    <span class="hljs-attr">"babel-loader"</span>: <span class="hljs-string">"^7.1.1"</span>,
+    <span class="hljs-attr">"babel-plugin-dynamic-import-node"</span>: <span class="hljs-string">"^1.2.0"</span>,
+    <span class="hljs-attr">"babel-plugin-syntax-jsx"</span>: <span class="hljs-string">"^6.18.0"</span>,
+    <span class="hljs-attr">"babel-plugin-transform-es2015-modules-commonjs"</span>: <span class="hljs-string">"^6.26.0"</span>,
+    <span class="hljs-attr">"babel-plugin-transform-runtime"</span>: <span class="hljs-string">"^6.22.0"</span>,
+    <span class="hljs-attr">"babel-plugin-transform-vue-jsx"</span>: <span class="hljs-string">"^3.5.0"</span>,
+    <span class="hljs-attr">"babel-preset-env"</span>: <span class="hljs-string">"^1.3.2"</span>,
+    <span class="hljs-attr">"babel-preset-stage-2"</span>: <span class="hljs-string">"^6.22.0"</span>,
+    <span class="hljs-attr">"babel-register"</span>: <span class="hljs-string">"^6.22.0"</span>,
+    <span class="hljs-attr">"chalk"</span>: <span class="hljs-string">"^2.0.1"</span>,
+    <span class="hljs-attr">"chromedriver"</span>: <span class="hljs-string">"^2.27.2"</span>,
+    <span class="hljs-attr">"copy-webpack-plugin"</span>: <span class="hljs-string">"^4.0.1"</span>,
+    <span class="hljs-attr">"cross-spawn"</span>: <span class="hljs-string">"^5.0.1"</span>,
+    <span class="hljs-attr">"css-loader"</span>: <span class="hljs-string">"^0.28.0"</span>,
+    <span class="hljs-attr">"eslint"</span>: <span class="hljs-string">"^4.15.0"</span>,
+    <span class="hljs-attr">"eslint-config-airbnb-base"</span>: <span class="hljs-string">"^11.3.0"</span>,
+    <span class="hljs-attr">"eslint-friendly-formatter"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"eslint-import-resolver-webpack"</span>: <span class="hljs-string">"^0.8.3"</span>,
+    <span class="hljs-attr">"eslint-loader"</span>: <span class="hljs-string">"^1.7.1"</span>,
+    <span class="hljs-attr">"eslint-plugin-import"</span>: <span class="hljs-string">"^2.7.0"</span>,
+    <span class="hljs-attr">"eslint-plugin-prettier"</span>: <span class="hljs-string">"^2.6.0"</span>,
+    <span class="hljs-attr">"eslint-plugin-vue"</span>: <span class="hljs-string">"^4.0.0"</span>,
+    <span class="hljs-attr">"extract-text-webpack-plugin"</span>: <span class="hljs-string">"^3.0.0"</span>,
+    <span class="hljs-attr">"file-loader"</span>: <span class="hljs-string">"^1.1.4"</span>,
+    <span class="hljs-attr">"friendly-errors-webpack-plugin"</span>: <span class="hljs-string">"^1.6.1"</span>,
+    <span class="hljs-attr">"html-webpack-plugin"</span>: <span class="hljs-string">"^2.30.1"</span>,
+    <span class="hljs-attr">"jest"</span>: <span class="hljs-string">"^22.0.4"</span>,
+    <span class="hljs-attr">"jest-serializer-vue"</span>: <span class="hljs-string">"^0.3.0"</span>,
+    <span class="hljs-attr">"nightwatch"</span>: <span class="hljs-string">"^0.9.12"</span>,
+    <span class="hljs-attr">"node-notifier"</span>: <span class="hljs-string">"^5.1.2"</span>,
+    <span class="hljs-attr">"optimize-css-assets-webpack-plugin"</span>: <span class="hljs-string">"^3.2.0"</span>,
+    <span class="hljs-attr">"ora"</span>: <span class="hljs-string">"^1.2.0"</span>,
+    <span class="hljs-attr">"portfinder"</span>: <span class="hljs-string">"^1.0.13"</span>,
+    <span class="hljs-attr">"postcss-import"</span>: <span class="hljs-string">"^11.0.0"</span>,
+    <span class="hljs-attr">"postcss-loader"</span>: <span class="hljs-string">"^2.0.8"</span>,
+    <span class="hljs-attr">"postcss-url"</span>: <span class="hljs-string">"^7.2.1"</span>,
+    <span class="hljs-attr">"rimraf"</span>: <span class="hljs-string">"^2.6.0"</span>,
+    <span class="hljs-attr">"selenium-server"</span>: <span class="hljs-string">"^3.0.1"</span>,
+    <span class="hljs-attr">"semver"</span>: <span class="hljs-string">"^5.3.0"</span>,
+    <span class="hljs-attr">"shelljs"</span>: <span class="hljs-string">"^0.7.6"</span>,
+    <span class="hljs-attr">"uglifyjs-webpack-plugin"</span>: <span class="hljs-string">"^1.1.1"</span>,
+    <span class="hljs-attr">"url-loader"</span>: <span class="hljs-string">"^0.5.8"</span>,
+    <span class="hljs-attr">"vue-jest"</span>: <span class="hljs-string">"^1.0.2"</span>,
+    <span class="hljs-attr">"vue-loader"</span>: <span class="hljs-string">"^13.3.0"</span>,
+    <span class="hljs-attr">"vue-style-loader"</span>: <span class="hljs-string">"^3.0.1"</span>,
+    <span class="hljs-attr">"vue-template-compiler"</span>: <span class="hljs-string">"^2.5.2"</span>,
+    <span class="hljs-attr">"webpack"</span>: <span class="hljs-string">"^3.6.0"</span>,
+    <span class="hljs-attr">"webpack-bundle-analyzer"</span>: <span class="hljs-string">"^2.9.0"</span>,
+    <span class="hljs-attr">"webpack-dev-server"</span>: <span class="hljs-string">"^2.9.1"</span>,
+    <span class="hljs-attr">"webpack-merge"</span>: <span class="hljs-string">"^4.1.0"</span>
+  },
+  <span class="hljs-attr">"engines"</span>: {
+    <span class="hljs-attr">"node"</span>: <span class="hljs-string">"&gt;= 6.0.0"</span>,
+    <span class="hljs-attr">"npm"</span>: <span class="hljs-string">"&gt;= 3.0.0"</span>
+  },
+  <span class="hljs-attr">"browserslist"</span>: [
+    <span class="hljs-string">"&gt; 1%"</span>,
+    <span class="hljs-string">"last 2 versions"</span>,
+    <span class="hljs-string">"not ie &lt;= 8"</span>
+  ]
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

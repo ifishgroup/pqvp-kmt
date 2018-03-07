@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>webpack.dev.conf.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "build/webpack.dev.conf.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>webpack.dev.conf.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">const</span> utils = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./utils'</span>)
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config'</span>)
+<span class="hljs-keyword">const</span> merge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack-merge'</span>)
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">const</span> baseWebpackConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./webpack.base.conf'</span>)
+<span class="hljs-keyword">const</span> CopyWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'copy-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'html-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> FriendlyErrorsPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'friendly-errors-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> portfinder = <span class="hljs-built_in">require</span>(<span class="hljs-string">'portfinder'</span>)
+
+<span class="hljs-keyword">const</span> HOST = process.env.HOST
+<span class="hljs-keyword">const</span> PORT = process.env.PORT &amp;&amp; <span class="hljs-built_in">Number</span>(process.env.PORT)
+
+<span class="hljs-keyword">const</span> devWebpackConfig = merge(baseWebpackConfig, {
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: utils.styleLoaders({ <span class="hljs-attr">sourceMap</span>: config.dev.cssSourceMap, <span class="hljs-attr">usePostCSS</span>: <span class="hljs-literal">true</span> })
+  },
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>cheap-module-eval-source-map is faster for development</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  devtool: config.dev.devtool,
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>these devServer options should be customized in /config/index.js</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  devServer: {
+    <span class="hljs-attr">clientLogLevel</span>: <span class="hljs-string">'warning'</span>,
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>changed historyApiFallback:true in order to get mode:history to work in router.js</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    historyApiFallback:<span class="hljs-literal">true</span>,
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>historyApiFallback: {
+rewrites: [
+{ from: /.*/, to: path.join(config.dev.assetsPublicPath, 'index.html') },
+],
+},</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    hot: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">contentBase</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// since we use CopyWebpackPlugin.</span>
+    compress: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">host</span>: HOST || config.dev.host,
+    <span class="hljs-attr">port</span>: PORT || config.dev.port,
+    <span class="hljs-attr">open</span>: config.dev.autoOpenBrowser,
+    <span class="hljs-attr">overlay</span>: config.dev.errorOverlay
+      ? { <span class="hljs-attr">warnings</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">errors</span>: <span class="hljs-literal">true</span> }
+      : <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">publicPath</span>: config.dev.assetsPublicPath,
+    <span class="hljs-attr">proxy</span>: config.dev.proxyTable,
+    <span class="hljs-attr">quiet</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// necessary for FriendlyErrorsPlugin</span>
+    watchOptions: {
+      <span class="hljs-attr">poll</span>: config.dev.poll,
+    }
+  },
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-keyword">new</span> webpack.DefinePlugin({
+      <span class="hljs-string">'process.env'</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config/dev.env'</span>)
+    }),
+    <span class="hljs-keyword">new</span> webpack.HotModuleReplacementPlugin(),
+    <span class="hljs-keyword">new</span> webpack.NamedModulesPlugin(), <span class="hljs-comment">// HMR shows correct file names in console on update.</span>
+    <span class="hljs-keyword">new</span> webpack.NoEmitOnErrorsPlugin(),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>https://github.com/ampedandwired/html-webpack-plugin</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> HtmlWebpackPlugin({
+      <span class="hljs-attr">filename</span>: <span class="hljs-string">'index.html'</span>,
+      <span class="hljs-attr">template</span>: <span class="hljs-string">'index.html'</span>,
+      <span class="hljs-attr">inject</span>: <span class="hljs-literal">true</span>
+    }),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>copy custom static assets</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> CopyWebpackPlugin([
+      {
+        <span class="hljs-attr">from</span>: path.resolve(__dirname, <span class="hljs-string">'../static'</span>),
+        <span class="hljs-attr">to</span>: config.dev.assetsSubDirectory,
+        <span class="hljs-attr">ignore</span>: [<span class="hljs-string">'.*'</span>]
+      }
+    ])
+  ]
+})
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+  portfinder.basePort = process.env.PORT || config.dev.port
+  portfinder.getPort(<span class="hljs-function">(<span class="hljs-params">err, port</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) {
+      reject(err)
+    } <span class="hljs-keyword">else</span> {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>publish the new Port, necessary for e2e tests</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      process.env.PORT = port
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>add port to devServer config</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      devWebpackConfig.devServer.port = port
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>Add FriendlyErrorsPlugin</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      devWebpackConfig.plugins.push(<span class="hljs-keyword">new</span> FriendlyErrorsPlugin({
+        <span class="hljs-attr">compilationSuccessInfo</span>: {
+          <span class="hljs-attr">messages</span>: [<span class="hljs-string">`Your application is running here: http://<span class="hljs-subst">${devWebpackConfig.devServer.host}</span>:<span class="hljs-subst">${port}</span>`</span>],
+        },
+        <span class="hljs-attr">onErrors</span>: config.dev.notifyOnErrors
+        ? utils.createNotifierCallback()
+        : <span class="hljs-literal">undefined</span>
+      }))
+
+      resolve(devWebpackConfig)
+    }
+  })
+})
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>kaController.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "api/app/controllers/kaController.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>kaController.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* eslint-disable */</span>
+<span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-keyword">const</span> {
+  KA,
+} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../models/ka'</span>);
+
+exports.create_article = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> body = _.pick(req.body, [<span class="hljs-string">'author_id'</span>, <span class="hljs-string">'author'</span>, <span class="hljs-string">'author_email'</span>, <span class="hljs-string">'title'</span>, <span class="hljs-string">'status'</span>, <span class="hljs-string">'content'</span>, <span class="hljs-string">'keywords'</span>, <span class="hljs-string">'permalink'</span>, <span class="hljs-string">'featured'</span>, <span class="hljs-string">'last_updated'</span>, <span class="hljs-string">'last_update_user'</span>, <span class="hljs-string">'published_date'</span>, <span class="hljs-string">'viewcount'</span>, <span class="hljs-string">'votes'</span>]);
+  <span class="hljs-keyword">const</span> ka = <span class="hljs-keyword">new</span> KA(body);
+
+  ka.save().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send();
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+
+exports.get_all_articles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> body = _.pick(req.user, [<span class="hljs-string">'_id'</span>, <span class="hljs-string">'role'</span>]);
+
+  KA.getAll(body).then(<span class="hljs-function">(<span class="hljs-params">all</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send(all);
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+
+exports.edit_article = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> id = req.params.id;
+
+  KA.findById(id).then(<span class="hljs-function">(<span class="hljs-params">ka</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send(ka);
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+exports.update_article = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> form = _.pick(req.body, [<span class="hljs-string">'_id'</span>, <span class="hljs-string">'author_id'</span>, <span class="hljs-string">'author'</span>, <span class="hljs-string">'author_email'</span>, <span class="hljs-string">'title'</span>, <span class="hljs-string">'status'</span>, <span class="hljs-string">'content'</span>, <span class="hljs-string">'keywords'</span>, <span class="hljs-string">'permalink'</span>, <span class="hljs-string">'featured'</span>, <span class="hljs-string">'last_updated'</span>, <span class="hljs-string">'last_update_user'</span>, <span class="hljs-string">'published_date'</span>]);
+
+  KA.UpdateById(form).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send();
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+
+exports.delete_article = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> id = req.params.id;
+  <span class="hljs-keyword">const</span> body = _.pick(req.user, [<span class="hljs-string">'_id'</span>, <span class="hljs-string">'role'</span>]);
+
+  KA.findByIdAndRemove(id).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    KA.getAll(body).then(<span class="hljs-function">(<span class="hljs-params">all</span>) =&gt;</span> {
+      res.status(<span class="hljs-number">200</span>).send(all);
+    });
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log({ e });
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

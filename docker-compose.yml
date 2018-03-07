@@ -1,40 +1,16 @@
 version: '3.5'
 
-networks:
-  web:
-    driver: overlay
-    attachable: true
-  backend:
-    driver: overlay
-    attachable: true
-
-volumes:
-  db: {}
-
 services:
   insight:
-    image: ifishgroup/insight:dev
-    networks:
-      - web
+    image: ifishgroup/insight:${TAG}
     ports:
-      - "80:5000"
+      - "80:80"
     depends_on:
       - "api"
-    deploy:
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 3
-        window: 120s
+    command: [ "${BASE_URL}" ]
 
   api:
-    image: ifishgroup/insight-api:dev
-    networks:
-      - web
-      - backend
+    image: ifishgroup/insight-api:${TAG}
     ports:
       - "3003:3003"
     depends_on:
@@ -43,17 +19,11 @@ services:
   
   mongodb:
     image: mongo:3.6.3
-    networks:
-      - backend
     ports:
       - "27017:27017"
-    volumes: 
-      - db:/data/db
 
   mongoimport:
-    image: ifishgroup/insight-import:dev
-    networks:
-      - backend
+    image: ifishgroup/insight-import:${TAG}
     depends_on:
       - mongodb
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]

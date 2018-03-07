@@ -29,18 +29,18 @@ node('docker') {
 
     if (isMaster() || isPR()) {
         withEnv([
-            "COMPOSE_FILE=docker-compose-e2e.yml",
             "TAG=$tag"
         ]) {
-            // stage('e2e tests') {
-            //     try {
-            //         sh "docker-compose run --rm e2e"
-            //     } catch(e) {
-            //         error "Failed: ${e}"
-            //     } finally {
-            //         sh "docker-compose down"
-            //     }
-            // }
+            stage('e2e tests') {
+                try {
+                    sh "docker-compose -f docker-compose-e2e.yml -f docker-compose.yml run --rm e2e"
+                } catch(e) {
+                    error "Failed: ${e}"
+                } finally {
+                    sh "docker-compose -f docker-compose-e2e.yml -f docker-compose.yml down"
+                    sh "docker volume prune -f"
+                }
+            }
         }
 
         withCredentials([

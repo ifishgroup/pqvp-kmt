@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>userController.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "api/app/controllers/userController.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>userController.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-comment">/* eslint-disable */</span>
+
+<span class="hljs-keyword">const</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lodash'</span>);
+
+<span class="hljs-keyword">const</span> {
+  User,
+} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../models/user'</span>);
+
+exports.register_user = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> body = _.pick(req.body, [<span class="hljs-string">'name'</span>, <span class="hljs-string">'email'</span>, <span class="hljs-string">'password'</span>, <span class="hljs-string">'role'</span>, <span class="hljs-string">'photo'</span>]);
+  <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> User(body);
+
+  user.save().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send();
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log({ e });
+    res.status(<span class="hljs-number">400</span>).send(e);
+  });
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>user.save().then(() =&gt; {
+return user.generateAuthToken();
+}).then((token) =&gt; {
+//res.header('x-auth', token).send(user);
+res.status(200).send();
+}).catch((e) =&gt; {
+res.status(400).send(e);
+})</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">};
+
+exports.login_user = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> body = _.pick(req.body, [<span class="hljs-string">'email'</span>, <span class="hljs-string">'password'</span>]);
+
+  User.findByCredentials(body.email, body.password).then(<span class="hljs-function"><span class="hljs-params">user</span> =&gt;</span> user.generateAuthToken().then(<span class="hljs-function">(<span class="hljs-params">token</span>) =&gt;</span> {
+    res.header(<span class="hljs-string">'x-auth'</span>, token).send(user);
+  })).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">401</span>).send(e);
+  });
+};
+
+exports.delete_user = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> id = req.params.id;
+
+  User.findByIdAndRemove(id).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    User.getAll().then(<span class="hljs-function">(<span class="hljs-params">all</span>) =&gt;</span> {
+      res.status(<span class="hljs-number">200</span>).send(all);
+    });
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+
+exports.edit_user = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> id = req.params.id;
+
+  User.findById(id).then(<span class="hljs-function">(<span class="hljs-params">user</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send(user);
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+
+exports.update_user = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> form = _.pick(req.body, [<span class="hljs-string">'_id'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'email'</span>, <span class="hljs-string">'password'</span>, <span class="hljs-string">'role'</span>]);
+  <span class="hljs-built_in">console</span>.log(form);
+  User.UpdateById(form).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send();
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(e);
+    res.status(<span class="hljs-number">500</span>).send(e);
+  });
+};
+
+exports.get_user_info = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  res.send(req.user);
+};
+
+exports.get_all_users = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  User.getAll().then(<span class="hljs-function">(<span class="hljs-params">all</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send(all);
+  }).catch(<span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
+    res.status(<span class="hljs-number">401</span>).send(e);
+  });
+};
+
+exports.logout_user = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+  req.user.removeToken(req.token).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    res.status(<span class="hljs-number">200</span>).send();
+  }, (e) =&gt; {
+    res.status(<span class="hljs-number">401</span>).send(e);
+  });
+};
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

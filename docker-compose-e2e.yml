@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
   e2e:
@@ -6,15 +6,12 @@ services:
     user: 'node'
     working_dir: '/usr/src/'
     depends_on:
-      - "pqvp-kmt"
+      - "insight"
       - "chrome"
       - "hub"
     volumes:
       - ./:/usr/src/
     command: ["./wait-for-it.sh", "hub:4444", "--", "bash", "-c", "yarn install && yarn e2e-docker"]
-
-  pqvp-kmt:
-    image: "ifishgroup/insight:${TAG}"
 
   chrome:
     image: selenium/node-chrome:3.9.1-actinium

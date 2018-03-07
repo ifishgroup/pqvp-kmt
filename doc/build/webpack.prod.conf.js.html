@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>webpack.prod.conf.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "build/webpack.prod.conf.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>webpack.prod.conf.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">const</span> utils = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./utils'</span>)
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config'</span>)
+<span class="hljs-keyword">const</span> merge = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack-merge'</span>)
+<span class="hljs-keyword">const</span> baseWebpackConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./webpack.base.conf'</span>)
+<span class="hljs-keyword">const</span> CopyWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'copy-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'html-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> ExtractTextPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extract-text-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> OptimizeCSSPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'optimize-css-assets-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> UglifyJsPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'uglifyjs-webpack-plugin'</span>)
+
+<span class="hljs-keyword">const</span> env = process.env.NODE_ENV === <span class="hljs-string">'testing'</span>
+  ? <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config/test.env'</span>)
+  : <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config/prod.env'</span>)
+
+<span class="hljs-keyword">const</span> webpackConfig = merge(baseWebpackConfig, {
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: utils.styleLoaders({
+      <span class="hljs-attr">sourceMap</span>: config.build.productionSourceMap,
+      <span class="hljs-attr">extract</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">usePostCSS</span>: <span class="hljs-literal">true</span>
+    })
+  },
+  <span class="hljs-attr">devtool</span>: config.build.productionSourceMap ? config.build.devtool : <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">output</span>: {
+    <span class="hljs-attr">path</span>: config.build.assetsRoot,
+    <span class="hljs-attr">filename</span>: utils.assetsPath(<span class="hljs-string">'js/[name].[chunkhash].js'</span>),
+    <span class="hljs-attr">chunkFilename</span>: utils.assetsPath(<span class="hljs-string">'js/[id].[chunkhash].js'</span>)
+  },
+  <span class="hljs-attr">plugins</span>: [
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>http://vuejs.github.io/vue-loader/en/workflow/production.html</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> webpack.DefinePlugin({
+      <span class="hljs-string">'process.env'</span>: env
+    }),
+    <span class="hljs-keyword">new</span> UglifyJsPlugin({
+      <span class="hljs-attr">uglifyOptions</span>: {
+        <span class="hljs-attr">compress</span>: {
+          <span class="hljs-attr">warnings</span>: <span class="hljs-literal">false</span>
+        }
+      },
+      <span class="hljs-attr">sourceMap</span>: config.build.productionSourceMap,
+      <span class="hljs-attr">parallel</span>: <span class="hljs-literal">true</span>
+    }),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>extract css into its own file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> ExtractTextPlugin({
+      <span class="hljs-attr">filename</span>: utils.assetsPath(<span class="hljs-string">'css/[name].[contenthash].css'</span>),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>Setting the following option to <code>false</code> will not extract CSS from codesplit chunks.
+Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
+It's currently set to <code>true</code> because we are seeing that sourcemaps are included in the codesplit bundle as well when it's <code>false</code>,
+increasing file size: https://github.com/vuejs-templates/webpack/issues/1110</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      allChunks: <span class="hljs-literal">true</span>,
+    }),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Compress extracted CSS. We are using this plugin so that possible
+duplicated CSS from different components can be deduped.</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> OptimizeCSSPlugin({
+      <span class="hljs-attr">cssProcessorOptions</span>: config.build.productionSourceMap
+        ? { <span class="hljs-attr">safe</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">map</span>: { <span class="hljs-attr">inline</span>: <span class="hljs-literal">false</span> } }
+        : { <span class="hljs-attr">safe</span>: <span class="hljs-literal">true</span> }
+    }),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>generate dist index.html with correct asset hash for caching.
+you can customize output by editing /index.html
+see https://github.com/ampedandwired/html-webpack-plugin</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> HtmlWebpackPlugin({
+      <span class="hljs-attr">filename</span>: process.env.NODE_ENV === <span class="hljs-string">'testing'</span>
+        ? <span class="hljs-string">'index.html'</span>
+        : config.build.index,
+      <span class="hljs-attr">template</span>: <span class="hljs-string">'index.html'</span>,
+      <span class="hljs-attr">inject</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">minify</span>: {
+        <span class="hljs-attr">removeComments</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">collapseWhitespace</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">removeAttributeQuotes</span>: <span class="hljs-literal">true</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>more options:
+https://github.com/kangax/html-minifier#options-quick-reference</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      },
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>necessary to consistently work with multiple chunks via CommonsChunkPlugin</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">      chunksSortMode: <span class="hljs-string">'dependency'</span>
+    }),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>keep module.id stable when vendor modules does not change</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> webpack.HashedModuleIdsPlugin(),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>enable scope hoisting</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> webpack.optimize.ModuleConcatenationPlugin(),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>split vendor js into its own file</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> webpack.optimize.CommonsChunkPlugin({
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'vendor'</span>,
+      minChunks (<span class="hljs-built_in">module</span>) {
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>any required modules inside node_modules are extracted to vendor</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">return</span> (
+          <span class="hljs-built_in">module</span>.resource &amp;&amp;
+          <span class="hljs-regexp">/\.js$/</span>.test(<span class="hljs-built_in">module</span>.resource) &amp;&amp;
+          <span class="hljs-built_in">module</span>.resource.indexOf(
+            path.join(__dirname, <span class="hljs-string">'../node_modules'</span>)
+          ) === <span class="hljs-number">0</span>
+        )
+      }
+    }),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>extract webpack runtime and module manifest to its own file in order to
+prevent vendor hash from being updated whenever app bundle is updated</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> webpack.optimize.CommonsChunkPlugin({
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'manifest'</span>,
+      <span class="hljs-attr">minChunks</span>: <span class="hljs-literal">Infinity</span>
+    }),
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>This instance extracts shared chunks from code splitted chunks and bundles them
+in a separate chunk, similar to the vendor chunk
+see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> webpack.optimize.CommonsChunkPlugin({
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'app'</span>,
+      <span class="hljs-attr">async</span>: <span class="hljs-string">'vendor-async'</span>,
+      <span class="hljs-attr">children</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">minChunks</span>: <span class="hljs-number">3</span>
+    }),
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>copy custom static assets</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">new</span> CopyWebpackPlugin([
+      {
+        <span class="hljs-attr">from</span>: path.resolve(__dirname, <span class="hljs-string">'../static'</span>),
+        <span class="hljs-attr">to</span>: config.build.assetsSubDirectory,
+        <span class="hljs-attr">ignore</span>: [<span class="hljs-string">'.*'</span>]
+      }
+    ])
+  ]
+})
+
+<span class="hljs-keyword">if</span> (config.build.productionGzip) {
+  <span class="hljs-keyword">const</span> CompressionWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'compression-webpack-plugin'</span>)
+
+  webpackConfig.plugins.push(
+    <span class="hljs-keyword">new</span> CompressionWebpackPlugin({
+      <span class="hljs-attr">asset</span>: <span class="hljs-string">'[path].gz[query]'</span>,
+      <span class="hljs-attr">algorithm</span>: <span class="hljs-string">'gzip'</span>,
+      <span class="hljs-attr">test</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(
+        <span class="hljs-string">'\\.('</span> +
+        config.build.productionGzipExtensions.join(<span class="hljs-string">'|'</span>) +
+        <span class="hljs-string">')$'</span>
+      ),
+      <span class="hljs-attr">threshold</span>: <span class="hljs-number">10240</span>,
+      <span class="hljs-attr">minRatio</span>: <span class="hljs-number">0.8</span>
+    })
+  )
+}
+
+<span class="hljs-keyword">if</span> (config.build.bundleAnalyzerReport) {
+  <span class="hljs-keyword">const</span> BundleAnalyzerPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack-bundle-analyzer'</span>).BundleAnalyzerPlugin
+  webpackConfig.plugins.push(<span class="hljs-keyword">new</span> BundleAnalyzerPlugin())
+}
+
+<span class="hljs-built_in">module</span>.exports = webpackConfig
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

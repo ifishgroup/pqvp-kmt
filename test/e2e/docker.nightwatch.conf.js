@@ -17,7 +17,7 @@ module.exports = {
       selenium_host: 'hub',
       silent: true,
       globals: {
-        devServerURL: 'http://pqvp-kmt',
+        devServerURL: 'http://insight',
       },
     },
 

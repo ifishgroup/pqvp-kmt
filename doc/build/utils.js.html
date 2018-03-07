@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>utils.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "build/utils.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>utils.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config'</span>)
+<span class="hljs-keyword">const</span> ExtractTextPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extract-text-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> packageConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>)
+
+exports.assetsPath = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">_path</span>) </span>{
+  <span class="hljs-keyword">const</span> assetsSubDirectory = process.env.NODE_ENV === <span class="hljs-string">'production'</span>
+    ? config.build.assetsSubDirectory
+    : config.dev.assetsSubDirectory
+
+  <span class="hljs-keyword">return</span> path.posix.join(assetsSubDirectory, _path)
+}
+
+exports.cssLoaders = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
+  options = options || {}
+
+  <span class="hljs-keyword">const</span> cssLoader = {
+    <span class="hljs-attr">loader</span>: <span class="hljs-string">'css-loader'</span>,
+    <span class="hljs-attr">options</span>: {
+      <span class="hljs-attr">sourceMap</span>: options.sourceMap
+    }
+  }
+
+  <span class="hljs-keyword">const</span> postcssLoader = {
+    <span class="hljs-attr">loader</span>: <span class="hljs-string">'postcss-loader'</span>,
+    <span class="hljs-attr">options</span>: {
+      <span class="hljs-attr">sourceMap</span>: options.sourceMap
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>generate loader string to be used with extract text plugin</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateLoaders</span> (<span class="hljs-params">loader, loaderOptions</span>) </span>{
+    <span class="hljs-keyword">const</span> loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
+
+    <span class="hljs-keyword">if</span> (loader) {
+      loaders.push({
+        <span class="hljs-attr">loader</span>: loader + <span class="hljs-string">'-loader'</span>,
+        <span class="hljs-attr">options</span>: <span class="hljs-built_in">Object</span>.assign({}, loaderOptions, {
+          <span class="hljs-attr">sourceMap</span>: options.sourceMap
+        })
+      })
+    }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Extract CSS when that option is specified
+(which is the case during production build)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">if</span> (options.extract) {
+      <span class="hljs-keyword">return</span> ExtractTextPlugin.extract({
+        <span class="hljs-attr">use</span>: loaders,
+        <span class="hljs-attr">fallback</span>: <span class="hljs-string">'vue-style-loader'</span>
+      })
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">return</span> [<span class="hljs-string">'vue-style-loader'</span>].concat(loaders)
+    }
+  }
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>https://vue-loader.vuejs.org/en/configurations/extract-css.html</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">css</span>: generateLoaders(),
+    <span class="hljs-attr">postcss</span>: generateLoaders(),
+    <span class="hljs-attr">less</span>: generateLoaders(<span class="hljs-string">'less'</span>),
+    <span class="hljs-attr">sass</span>: generateLoaders(<span class="hljs-string">'sass'</span>, { <span class="hljs-attr">indentedSyntax</span>: <span class="hljs-literal">true</span> }),
+    <span class="hljs-attr">scss</span>: generateLoaders(<span class="hljs-string">'sass'</span>),
+    <span class="hljs-attr">stylus</span>: generateLoaders(<span class="hljs-string">'stylus'</span>),
+    <span class="hljs-attr">styl</span>: generateLoaders(<span class="hljs-string">'stylus'</span>)
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>Generate loaders for standalone style files (outside of .vue)</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">exports.styleLoaders = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
+  <span class="hljs-keyword">const</span> output = []
+  <span class="hljs-keyword">const</span> loaders = exports.cssLoaders(options)
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> extension <span class="hljs-keyword">in</span> loaders) {
+    <span class="hljs-keyword">const</span> loader = loaders[extension]
+    output.push({
+      <span class="hljs-attr">test</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'\\.'</span> + extension + <span class="hljs-string">'$'</span>),
+      <span class="hljs-attr">use</span>: loader
+    })
+  }
+
+  <span class="hljs-keyword">return</span> output
+}
+
+exports.createNotifierCallback = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> notifier = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-notifier'</span>)
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">severity, errors</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (severity !== <span class="hljs-string">'error'</span>) <span class="hljs-keyword">return</span>
+
+    <span class="hljs-keyword">const</span> error = errors[<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">const</span> filename = error.file &amp;&amp; error.file.split(<span class="hljs-string">'!'</span>).pop()
+
+    notifier.notify({
+      <span class="hljs-attr">title</span>: packageConfig.name,
+      <span class="hljs-attr">message</span>: severity + <span class="hljs-string">': '</span> + error.name,
+      <span class="hljs-attr">subtitle</span>: filename || <span class="hljs-string">''</span>,
+      <span class="hljs-attr">icon</span>: path.join(__dirname, <span class="hljs-string">'logo.png'</span>)
+    })
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
