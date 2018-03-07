@@ -255,6 +255,38 @@ module.exports = {
       .waitForElementPresent('i[class=ti-unlock]', 5000)
       .click('i[class=ti-unlock');
   },
+  'Reader can Read KA': function (browser) {
+    browser
+      .waitForElementPresent('i[class=ti-lock]', 5000)
+      .click('i[class=ti-lock')
+      .assert.elementPresent('input[id=email]')
+      .setValue('input[id=email]', 'testuser@test.com')
+      .assert.elementPresent('input[id=password]')
+      .setValue('input[id=password]', 'abcd1234!')
+      .click('button[type=submit]')
+      .waitForElementPresent('i[class=ti-layers]', 5000)
+      .assert.elementPresent('i[class=ti-layers]')
+      .click('i[class=ti-layers')
+      .useXpath()
+      .click('//a[text()="Edit"]')
+      .waitForElementPresent('//table/tbody/tr/th[2]/a[1]/i', 5000)
+      .click('//table/tbody/tr/th[2]/a[1]/i')
+      .assert.elementPresent('//button[text()="Update"]')
+      .useCss()
+      .assert.elementPresent('input[name=title]')
+      .clearValue('input[name=title]')
+      .setValue('input[name=title]', 'KA 1 - Previously Rejected')
+      .click('select[id=status')
+      .click('option[value="pending approval"]')
+      .useXpath()
+      .click('//button[text()="Update"]')
+      .useCss()
+      .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
+      .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
+      .refresh()
+      .waitForElementPresent('i[class=ti-unlock]', 5000)
+      .click('i[class=ti-unlock');
+  },
 
 
   'CM can Remove KA 2': function (browser) {
