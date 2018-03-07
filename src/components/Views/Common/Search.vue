@@ -29,7 +29,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <div class="input-group">
-                                                                <input type="text" v-model="form.search_terms" v-validate="'required'" name="search" class="form-control" placeholder="Search is based on Knowledge Article titles and categories">
+                                                                <input type="text" v-model="form.search_terms" v-validate="'required'" name="search" id="search" class="form-control" placeholder="Search is based on Knowledge Article titles and categories">
                                                                 <span class="input-group-btn">
                                                                     <button type="submit" class="btn btn-primary">Search</button>
                                                                 </span>
@@ -177,6 +177,11 @@ export default {
 .form-group {
   margin-bottom: 0 !important;
 }
+
+#search{
+    border-color: #A8A8A8 !important;
+}
+
 span.input-group-btn button.btn.btn-primary {
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
