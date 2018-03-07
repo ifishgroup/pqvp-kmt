@@ -106,7 +106,7 @@ KaSchema.statics.getAll = function(user) {
         return all;
       },
     );
-  } else if (user.role === 'authorAuth') {
+  } else if (user.role !== 'contentAuth') {
     return KA.find({ author_id: user._id }).then(all => {
       if (!all) {
         return Promise.reject();

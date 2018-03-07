@@ -46,7 +46,7 @@ export default {
         return true;
       }
 
-      if (article.status === 'rejected' && this.$store.state.user.info.role === 'authorAuth') {
+      if (article.status === 'rejected' && this.$store.state.user.info.role !== 'contentAuth') {
         return true;
       }
 

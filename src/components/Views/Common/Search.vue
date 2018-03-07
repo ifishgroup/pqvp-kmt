@@ -2,14 +2,14 @@
     <section class="forms">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-lg-12">
                     <card-default>
                         <div slot="header-card">Start Learning...Search for knowledge articles</div>
                         <div slot="body-card">
                             <div class="row">
-                                <div class="col-sm-3">
+                                <div class="col-lg-3">
                                     <div class="row">
-                                        <div class="col-sm-12 p-0">
+                                        <div class="col-lg-12 p-0">
                                             <ul class="featured bg-gray">
                                                 <li v-if="showTree">
                                                     <strong>Categories:</strong>
@@ -18,12 +18,12 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <tree :data="treeData" v-if="showTree" :options="treeOptions" @node:selected="nodeSelected" />
+                                        <tree class="col-sm-12" :data="treeData" v-if="showTree" :options="treeOptions" @node:selected="nodeSelected" />
                                     </div>
                                 </div>
-                                <div class="col-sm-9">
+                                <div class="col-lg-9">
                                     <div class="row pb-3">
-                                        <div class="col-sm-12">
+                                        <div class="col-lg-12">
                                             <form class="form-horizontal" @submit.prevent="onSubmit">
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-lg-12">
                                             <ul class="featured bg-gray">
                                                 <li v-if="featured_articles">
                                                     <strong>{{feature_title}}:</strong>
@@ -182,21 +182,27 @@ span.input-group-btn button.btn.btn-primary {
   border-bottom-left-radius: 0 !important;
 }
 
-a.tree-anchor
-{
-    color:#0073e5 !important;
-    font-weight: bold
+a.tree-anchor {
+  color: #0073e5 !important;
+  font-weight: bold;
 }
 
 i.tree-arrow.has-child,
 .tree-arrow.has-child {
-    margin-left:5px !important;
-    color:#0073e5 !important;
-    width: 15px !important;
+  margin-left: 5px !important;
+  color: #0073e5 !important;
+  width: 15px !important;
 }
-i.tree-arrow,
-{
-    color:#0073e5 !important;
+i.tree-arrow {
+  color: #0073e5 !important;
 }
 
+.tree-arrow.has-child:after {
+  height: 6px !important;
+  width: 6px !important;
+  border-color: #0073e5 !important;
+}
+ul.tree-children li div.tree-content {
+  padding-left: 0px !important;
+}
 </style>
