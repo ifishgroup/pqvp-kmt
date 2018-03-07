@@ -12,6 +12,7 @@ const config = {
   logoutUrl: `${baseUrl}users/logout`,
   newArticleUrl: `${baseUrl}articles/create`,
   editArticleUrl: `${baseUrl}articles/edit`,
+  updateArticleUrl: `${baseUrl}articles/update`,
   deleteArticleUrl: `${baseUrl}articles/delete`,
   allArticlesUrl: `${baseUrl}articles/all`,
   featuredArticlesUrl: `${baseUrl}articles/featured`,

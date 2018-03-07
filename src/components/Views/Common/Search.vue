@@ -7,7 +7,7 @@
                         <div slot="header-card">Start Learning...Search for knowledge articles</div>
                         <div slot="body-card">
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-3" v-if="treeData.length > 0">
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <ul class="featured bg-gray">
@@ -21,7 +21,7 @@
                                         <tree class="col-sm-12" :data="treeData" v-if="showTree" :options="treeOptions" @node:selected="nodeSelected" />
                                     </div>
                                 </div>
-                                <div class="col-lg-9">
+                                <div :class="[treeData.length > 0 ? 'col-lg-9' : 'col-lg-12']">
                                     <div class="row pb-3">
                                         <div class="col-lg-12">
                                             <form class="form-horizontal" @submit.prevent="onSubmit">

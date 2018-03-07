@@ -390,6 +390,56 @@
         }
       }
     },
+    "/articles/update": {
+      "post": {
+        "tags": ["articles"],
+        "summary": "Update knowledge article status",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update knowledge article status",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "articleid": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
     "/articles/delete/{id}": {
       "get": {
         "tags": ["articles"],
@@ -596,12 +646,12 @@
             "required": true,
             "schema": {
               "type": "object",
-              "properties":{
-                "articleid":{
-                  "type":"string"
+              "properties": {
+                "articleid": {
+                  "type": "string"
                 },
-                "tally":{
-                  "type":"integer"
+                "tally": {
+                  "type": "integer"
                 }
               }
             }
@@ -620,7 +670,7 @@
         }
       }
     },
-    "/articles/categories":{
+    "/articles/categories": {
       "get": {
         "tags": ["articles"],
         "summary": "Knowledge article list grouped by categories",
@@ -800,7 +850,7 @@
         },
         "titles": {
           "type": "array",
-          "items":{
+          "items": {
             "properties": {
               "_id": {
                 "type": "string"
