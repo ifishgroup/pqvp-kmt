@@ -4678,6 +4678,12 @@ linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
+liquor-tree@^0.2.11:
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/liquor-tree/-/liquor-tree-0.2.11.tgz#020fa9b1589f34c88af44a81746078b59dd4d7f3"
+  dependencies:
+    vue "^2.5.13"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -7899,7 +7905,7 @@ vue-toastr@^2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/vue-toastr/-/vue-toastr-2.0.12.tgz#32e5b4e9dcaf8bd3086e68ef154360237c48aca2"
 
-vue@^2.5.2:
+vue@^2.5.13, vue@^2.5.2:
   version "2.5.13"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
 
