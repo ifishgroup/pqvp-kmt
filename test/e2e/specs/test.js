@@ -13,7 +13,7 @@ module.exports = {
     // default: http://localhost:8080
     // see nightwatch.conf.js
     const devServer = browser.globals.devServerURL;
-    console.log(devServer)
+    console.log(devServer);
 
     browser
       .url('http://localhost:80/')
@@ -255,7 +255,7 @@ module.exports = {
       .waitForElementPresent('i[class=ti-unlock]', 5000)
       .click('i[class=ti-unlock');
   },
-  
+
   'CM Publish KA 1': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
@@ -287,20 +287,20 @@ module.exports = {
       .waitForElementPresent('i[class=ti-unlock]', 5000)
       .click('i[class=ti-unlock');
   },
-  
+
   'Reader can Read KA': function (browser) {
     browser
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .assert.elementPresent('input[name=search]')
-      .setValue('input[name=search]', "nightwatch")
+      .setValue('input[name=search]', 'nightwatch')
       .click('button[type=submit]')
-      .waitForElementPresent('a[text()="KA 1 - Previously Rejected"]', 5000)
+      .waitForElementPresent('a[text()="KA 1 - Previously Rejected"]')
       .click('a[text()="KA 1 - Previously Rejected"]', 5000)
       .waitForElementPresent('h1[text()="KA 1 - Previously Rejected"]', 5000)
       .assert.elementPresent('h1[text()="KA 1 - Previously Rejected"]')
       .waitForElementPresent('button[id=btnUpvote]', 5000)
       .assert.elementPresent('button[id=btnUpvote]')
-      .click('button[id=btnUpvote]')
+      .click('button[id=btnUpvote]');
   },
 
 
