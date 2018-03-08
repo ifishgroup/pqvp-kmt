@@ -16,7 +16,7 @@ module.exports = {
     console.log(devServer);
 
     browser
-      .url('http://localhost:80/')
+      .url('http://insight.ifglabs.com/')
       .maximizeWindow()
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .assert.elementPresent('i[class=ti-lock]')
@@ -176,48 +176,12 @@ module.exports = {
       .click('//div/div/button[2]')
       .acceptAlert()
       .useCss()
-      // .click('select[id=status')
-      // .click('option[value="rejected"]')
       .waitForElementPresent('button[type=submit]', 5000)
       .click('button[type=submit]')
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
       .refresh();
   },
-
-  // 'CM can edit, Approve, and Publish KA 2': function (browser) {
-  //   browser
-  //     .waitForElementPresent('i[class=ti-unlock]', 5000)
-  //     .assert.elementPresent('i[class=ti-unlock]')
-  //     .click('i[class=ti-layers')
-  //     .useXpath()
-  //     .click('//a[text()="Edit"]')
-  //     .waitForElementPresent('//table/tbody/tr[2]/th[2]/a[1]/i', 5000)
-  //     .click('//table/tbody/tr[2]/th[2]/a[1]/i')
-  //     .waitForElementPresent('//button[text()="Update"]', 5000)
-  //     .assert.elementPresent('//button[text()="Update"]')
-  //     .useCss()
-  //     .waitForElementPresent('input[name=title]', 5000)
-  //     .assert.elementPresent('input[name=title]')
-  //     .clearValue('input[name=title]')
-  //     .setValue('input[name=title]', 'CM edited title text - KA 2 - Approved')
-  //     .clearValue('input[name=categories]')
-  //     .setValue('input[name=categories]', 'CM, Approved, Categories')
-  //     .useXpath()
-  //     .assert.elementPresent('//div/div/button[1]')
-  //     .click('//div/div/button[1]')
-  //     .acceptAlert()
-  //     .useCss()
-  //     .refresh()
-  //     // .click('select[id=status')
-  //     // .click('option[value="approved"]')
-  //     .waitForElementPresent('button[type=submit]', 5000)
-  //     .assert.elementPresent('button[type=submit]')
-  //     .click('button[type=submit]')
-  //     .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
-  //     .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-  //     .refresh();
-  // },
 
   'CM can Remove KA 1': function (browser) {
     browser
@@ -294,7 +258,47 @@ module.exports = {
       .useXpath()
       .assert.elementPresent('//*[@id="app"]/div/div/div/section/div/div/div/div/div[2]/div/form/div[1]/div/div/button[1]')
       .click('//*[@id="app"]/div/div/div/section/div/div/div/div/div[2]/div/form/div[1]/div/div/button[1]')
-      .pause(5000)
+      .pause(1000)
+      .acceptAlert()
+      .refresh()
+      .useCss()
+      .waitForElementPresent('button[type=submit]', 5000)
+      .assert.elementPresent('button[type=submit]')
+      .click('button[type=submit]')
+      .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
+      .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
+      .refresh()
+      // .waitForElementPresent('i[class=ti-unlock]', 5000)
+      // .click('i[class=ti-unlock');
+  },
+
+  'CM can Improve KA 1': function (browser) {
+    browser
+      // .waitForElementPresent('i[class=ti-lock]', 5000)
+      // .assert.elementPresent('i[class=ti-lock]')
+      // .click('i[class=ti-lock]')
+      // .assert.elementPresent('input[id=email]')
+      // .setValue('input[id=email]', 'csmith@insight-kmt.com')
+      // .assert.elementPresent('input[id=password]')
+      // .setValue('input[id=password]', 'abcd1234!')
+      // .click('button[type=submit]')
+      // .waitForElementPresent('i[class=ti-unlock]', 5000)
+      // .assert.elementPresent('i[class=ti-unlock]')
+      .click('i[class=ti-layers')
+      .useXpath()
+      .click('//a[text()="Edit"]')
+      .waitForElementPresent('//table/tbody/tr/th[2]/a[1]/i', 5000)
+      .click('//table/tbody/tr/th[2]/a[1]/i')
+      .waitForElementPresent('//button[text()="Update"]', 5000)
+      .assert.elementPresent('//button[text()="Update"]')
+      .useCss()
+      .waitForElementPresent('input[name=title]', 5000)
+      .clearValue('input[name=title]')
+      .setValue('input[name=title]', 'CM Improved - KA 1')
+      .useXpath()
+      .assert.elementPresent('//*[@id="app"]/div/div/div/section/div/div/div/div/div[2]/div/form/div[1]/div/div/button[1]')
+      .click('//*[@id="app"]/div/div/div/section/div/div/div/div/div[2]/div/form/div[1]/div/div/button[1]')
+      .pause(1000)
       .acceptAlert()
       .refresh()
       .useCss()
