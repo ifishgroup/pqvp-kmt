@@ -14,15 +14,31 @@
             </div>
             <div slot="body-card">
               <form class="form-horizontal" @submit.prevent="onSubmit">
+                <div v-if="user.info.role === 'contentAuth'" class="form-group row">
+                  <label class="col-sm-3 form-control-label"></label>
+                  <div class="col-sm-9">
+                    <div class="button-list">
+                      <button type="button" @click="contentAction('approve','approved')" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5">
+                        <i class="ti-plus"></i>Approve</button>
+                      <button type="button" @click="contentAction('reject','rejected')" class="btn btn-warning btn-flat btn-addon m-b-10 m-l-5">
+                        <i class="ti-thumb-down"></i>Reject</button>
+                      <button type="button" @click="contentAction('archive','archived')" class="btn btn-dark btn-flat btn-addon m-b-10 m-l-5">
+                        <i class="ti-folder"></i>Archive</button>
+                      <button type="button" @click="contentAction('delete','deleted')" class="btn btn-danger btn-flat btn-addon m-b-10 m-l-5">
+                        <i class="ti-folder"></i>Delete</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="line"></div>
                 <div class="form-group row">
                   <label class="col-sm-3 form-control-label">Status:*</label>
                   <div class="col-sm-9">
                     <select class="form-control" id="status" required v-model="form.status">
-                      <option v-if="form.status=='approved' || user.info.role == 'contentAuth'" value="approved">Approved</option>
-                      <option value="draft">Draft</option>
-                      <option v-if="form.status=='rejected' || user.info.role == 'contentAuth'" value="rejected">Rejected</option>
-                      <option value="pending approval">Submit For Approval</option>
-
+                      <option v-if="form.status==='archived'" value="archived">Archived</option>
+                      <option v-if="form.status==='approved'" value="approved">Approved</option>
+                      <option v-if="form.status==='rejected'" value="rejected">Rejected</option>
+                      <option v-if="form.status==='draft'" value="draft">Draft</option>
+                      <option v-if="form.status!=='approved'" value="pending approval">Submit For Approval</option>
                     </select>
                   </div>
                 </div>
@@ -60,8 +76,8 @@
                 <div class="line"></div>
                 <div class="form-group row">
                   <div class="col-sm-4 offset-sm-3">
-                    <button type="button" @click.prevent="$router.push('/articles/edit')" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" v-if="form.status!='approved' || user.info.role == 'contentAuth' " class="btn btn-primary">Update</button>
+                    <button type="button" v-if="(form.status!='approved' && form.status!='archived') || user.info.role == 'contentAuth' " @click.prevent="$router.push('/articles/edit')" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" v-if="(form.status!='approved' && form.status!='archived') || user.info.role == 'contentAuth' " class="btn btn-primary">Update</button>
                   </div>
                 </div>
               </form>
@@ -85,22 +101,28 @@ import helper from '../../../Mixins/helper';
 export default {
   mixins: [helper],
   created() {
-    const articleid = this.$route.params.id;
-    this.editUrl = `${this.config.editArticleUrl}/${articleid}`;
+    this.articleid = this.$route.params.id;
+    this.editUrl = `${this.config.editArticleUrl}/${this.articleid}`;
 
     axios
       .get(this.editUrl, { headers: { 'x-auth': this.user.info.token } })
-      .then((response) => {
+      .then(response => {
         this.form = response.data;
       })
-      .catch((e) => {
+      .catch(e => {
         this.$toastr.e(e, 'Error Getting Article');
       });
   },
   data() {
     return {
+      articleid: '',
       editUrl: '',
       form: {},
+      statusForm: {
+        articleid: '',
+        status: '',
+        user: '',
+      },
       configs: {
         showIcons: ['code', 'table', 'horizontal-rule'],
       },
@@ -111,7 +133,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           this.form.last_updated = new Date();
           this.form.last_update_user = this.user.info.name;
@@ -120,16 +142,54 @@ export default {
             .post(this.editUrl, this.form, {
               headers: { 'x-auth': this.user.info.token },
             })
-            .then((response) => {
+            .then(response => {
               if (response.status === 200) {
                 this.$toastr.s('Article was successfully updated!', 'Success');
               } else this.$toastr.e(response, 'Article Error');
             })
-            .catch((e) => {
+            .catch(e => {
               this.$toastr.e(e, 'Article Error');
             });
         }
       });
+    },
+    contentAction(title, action) {
+      this.statusForm.articleid = this.articleid;
+      this.statusForm.status = action;
+      this.statusForm.user = this.user.info.name;
+
+      const msg = `Are you sure you want to ${title} article?`;
+      if (confirm(msg)) {
+        if (action === 'deleted') {
+          const deleteUrl = `${this.config.deleteArticleUrl}/${this.articleid}`;
+          axios
+            .get(deleteUrl, {
+              headers: { 'x-auth': this.user.info.token },
+            })
+            .then(response => {
+              if (response.status === 200) {
+                this.$router.push('/articles/edit');
+              } else this.$toastr.e(response, 'Error Deleting Article');
+            })
+            .catch(e => {
+              this.$toastr.e(e, 'Error Deleting Article');
+            });
+        } else {
+          axios
+            .post(this.config.updateArticleUrl, this.statusForm, {
+              headers: { 'x-auth': this.user.info.token },
+            })
+            .then(response => {
+              if (response.status === 200) {
+                this.form.status = this.statusForm.status;
+                this.$toastr.s(`Article was successfully ${action}!`, 'Article Status');
+              } else this.$toastr.e(response, 'Error Updating Article');
+            })
+            .catch(e => {
+              this.$toastr.e(e, 'Error Updating Article');
+            });
+        }
+      }
     },
   },
   components: {
