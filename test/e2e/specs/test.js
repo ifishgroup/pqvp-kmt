@@ -16,7 +16,7 @@ module.exports = {
     console.log(devServer);
 
     browser
-      .url('http://localhost:8080/')
+      .url('http://localhost:80/')
       .maximizeWindow()
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .assert.elementPresent('i[class=ti-lock]')
