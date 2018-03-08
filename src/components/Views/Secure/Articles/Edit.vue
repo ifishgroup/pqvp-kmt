@@ -182,6 +182,7 @@ export default {
             .then(response => {
               if (response.status === 200) {
                 this.form.status = this.statusForm.status;
+                this.$toastr.s(`Article was successfully ${action}!`, 'Article Status');
               } else this.$toastr.e(response, 'Error Updating Article');
             })
             .catch(e => {

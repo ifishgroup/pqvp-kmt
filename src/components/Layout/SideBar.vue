@@ -1,5 +1,5 @@
 <template>
-<nav class="side-navbar" v-bind:class="{ shrinked: !config.wideMenu }">
+<nav class="side-navbar" :class="{ shrinked: !config.wideMenu }">
     <div class="sidebar-header d-flex align-items-center" >
        <div class="avatar"><img :src="userPhoto" class="img-fluid rounded-circle"></div>
         <div class="title">
