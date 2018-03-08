@@ -26,7 +26,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 form-control-label">Password:*</label>
                                     <div class="col-sm-9">
-                                        <input type="password" v-model="form.password" name="password"  v-validate="'required|min:6'" class="form-control">
+                                        <input type="password" v-model="form.password" name="password" v-validate="'required|min:6'" class="form-control">
                                         <span v-show="errors.has('password')" class="error">{{ errors.first('password') }}</span>
                                     </div>
                                 </div>
@@ -47,15 +47,15 @@
                                             <label for="roleAdmin">Admin</label>
                                         </div>
                                         <div class="i-checks">
-                                            <input v-model="form.role" id="roleAuthor" type="radio" value="authorAuth" name="role"  class="radio-template">
+                                            <input v-model="form.role" id="roleAuthor" type="radio" value="authorAuth" name="role" class="radio-template">
                                             <label for="roleAuthor">Author</label>
                                         </div>
                                         <div class="i-checks">
-                                            <input v-model="form.role" id="roleContent" type="radio" value="contentAuth" name="role"  class="radio-template">
+                                            <input v-model="form.role" id="roleContent" type="radio" value="contentAuth" name="role" class="radio-template">
                                             <label for="roleContent">Content Manager</label>
                                         </div>
                                         <div class="i-checks">
-                                            <input v-model="form.role" id="roleExecutive" type="radio" value="executiveAuth" name="role"  class="radio-template">
+                                            <input v-model="form.role" id="roleExecutive" type="radio" value="executiveAuth" name="role" class="radio-template">
                                             <label for="roleExecutive">Executive</label>
                                         </div>
                                         <span v-show="errors.has('role')" class="error">{{ errors.first('role') }}</span>
@@ -91,6 +91,7 @@ export default {
         email: '',
         password: '',
         role: '',
+        photo: '',
       },
     };
   },
@@ -99,19 +100,19 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           axios
             .post(this.config.registerUrl, this.form, {
               headers: { 'x-auth': this.user.info.token },
             })
-            .then((response) => {
+            .then(response => {
               // JSON responses are automatically parsed.
               if (response.status === 200) {
                 this.$router.push('/users/edit');
               } else this.$toastr.e(response, 'Error Creating User');
             })
-            .catch((e) => {
+            .catch(e => {
               this.$toastr.e(e.response.data.message, 'Error Creating User');
             });
         }

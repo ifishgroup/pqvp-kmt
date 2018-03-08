@@ -94,6 +94,18 @@ exports.update_article = function(req, res) {
     });
 };
 
+exports.update_status = function(req, res) {
+  const form = _.pick(req.body, ['articleid', 'status', 'user']);
+
+  KA.UpdateStatusById(form)
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
+};
+
 exports.delete_article = function(req, res) {
   const id = req.params.id;
   const body = _.pick(req.user, ['_id', 'role']);
@@ -155,40 +167,44 @@ exports.capture_vote = function(req, res) {
     });
 };
 
-
-exports.get_featured = function (req, res) {
-  KA.getFeatured().then((all) => {
-    res.status(200).send(all);
-  }).catch((e) => {
-    res.status(500).send(e);
-  });
+exports.get_featured = function(req, res) {
+  KA.getFeatured()
+    .then(all => {
+      res.status(200).send(all);
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
 };
 
-exports.get_top = function (req, res) {
-  KA.getTop().then((all) => {
-    res.status(200).send(all);
-  }).catch((e) => {
-    res.status(500).send(e);
-  });
+exports.get_top = function(req, res) {
+  KA.getTop()
+    .then(all => {
+      res.status(200).send(all);
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
 };
 
-exports.search = function (req, res) {
+exports.search = function(req, res) {
   const body = _.pick(req.body, ['search_terms']);
 
-  KA.search(body).then((all) => {
-    res.status(200).send(all);
-  }).catch((e) => {
-    res.status(500).send(e);
-  });
-
+  KA.search(body)
+    .then(all => {
+      res.status(200).send(all);
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
 };
 
-exports.get_categories = function (req, res) {
-
-  KA.getCategories().then((all) => {
-    res.status(200).send(all);
-  }).catch((e) => {
-    res.status(500).send(e);
-  });
-
+exports.get_categories = function(req, res) {
+  KA.getCategories()
+    .then(all => {
+      res.status(200).send(all);
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
 };

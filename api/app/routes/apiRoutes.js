@@ -35,6 +35,8 @@ module.exports = function (app) {
 
   app.route('/articles/edit/:id').post(authenticate, kaController.update_article);
 
+  app.route('/articles/update').post(authenticate, kaController.update_status);
+
   app.route('/articles/delete/:id').get(authenticate, kaController.delete_article);
 
   app.route('/articles/search').post(kaController.search);

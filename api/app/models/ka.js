@@ -185,6 +185,39 @@ KaSchema.statics.UpdateById = function(form) {
   });
 };
 
+KaSchema.statics.UpdateStatusById = function(form) {
+  const KA = this;
+
+  return KA.findOne({
+    _id: form.articleid,
+  }).then(ka => {
+    if (!ka) {
+      return Promise.reject();
+    }
+
+    return new Promise((resolve, reject) => {
+      if (form.status === 'approved')
+        ka.set({
+          status: form.status,
+          last_updated: new Date(),
+          last_update_user: form.user,
+          published_date: new Date()
+        });
+      else
+        ka.set({
+          status: form.status,
+          last_updated: new Date(),
+          last_update_user: form.user
+        });
+
+      ka.save(err => {
+        if (err) reject();
+        else resolve();
+      });
+    });
+  });
+};
+
 KaSchema.statics.getFeatured = function(user) {
   const KA = this;
 
