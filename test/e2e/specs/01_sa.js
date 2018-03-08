@@ -22,10 +22,9 @@ module.exports = {
 	},
 	'SA can Add User': function (browser) {
 		browser
-			.assert.elementPresent('i[class=ti-user]')
-			.click('i[class=ti-user]')
 			.waitForElementPresent('i[class=ti-user]', 5000)
 			.assert.elementPresent('i[class=ti-user]')
+			.click('i[class=ti-user]')
 			.useXpath()
 			.waitForElementPresent('//a[text()="New"]', 5000)
 			.assert.elementPresent('//a[text()="New"]')

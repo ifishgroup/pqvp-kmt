@@ -27,7 +27,7 @@ module.exports = {
         javascriptEnabled: true,
         acceptSslCerts: true,
         chromeOptions: {
-          args: ['--no-sandbox'],
+          args: ['no sandbox', '--window-size=1920,1080'],
         },
       },
     },
