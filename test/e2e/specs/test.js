@@ -267,9 +267,9 @@ module.exports = {
       .click('button[type=submit]')
       .waitForElementPresent('div[class="toast-container toast-top-full-width"]', 5000)
       .assert.elementPresent('div[class="toast-container toast-top-full-width"]')
-      .refresh()
-      // .waitForElementPresent('i[class=ti-unlock]', 5000)
-      // .click('i[class=ti-unlock');
+      .refresh();
+    // .waitForElementPresent('i[class=ti-unlock]', 5000)
+    // .click('i[class=ti-unlock');
   },
 
   'CM can Improve KA 1': function (browser) {
