@@ -10,8 +10,11 @@ import VeeValidate from 'vee-validate';
 
 import LiquorTree from 'liquor-tree';
 
+const SocialSharing = require('vue-social-sharing');
+
 // Register plugin
 Vue.use(Toastr);
 Vue.use(VeeValidate);
 Vue.use(LiquorTree);
+Vue.use(SocialSharing);
 
