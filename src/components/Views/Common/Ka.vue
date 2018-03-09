@@ -59,10 +59,17 @@
                       </div>
                       <div class="row p-2">
                         <div class="col-sm-12 col-lg-6">
-                          <strong>Share article:</strong>
-                          <i class="fa fa-envelope fa-lg"></i>&nbsp;
-                          <i class="fa fa-facebook fa-lg"></i>&nbsp;
-                          <i class="fa fa-twitter fa-lg"></i>
+                          <social-sharing :url="article.url" :title="article.title" hashtags="insight,ifish" inline-template>
+                            <div>
+                              <strong>Share article:</strong>
+                              <network network="twitter">
+                                <i class="fa fa-twitter fa-lg"></i>
+                              </network>
+                              <network network="facebook">
+                                <i class="fa fa-facebook fa-lg"></i>
+                              </network>
+                            </div>
+                          </social-sharing>
                         </div>
                         <div class="col-sm-12 col-lg-6">
                           <strong>Author:</strong> {{article.author}}&nbsp;({{article.author_email}})
@@ -99,14 +106,15 @@ const sanitizeHtml = require('sanitize-html');
 export default {
   mixins: [helper],
   created() {
-    const articleid = this.$route.params.id;
-    this.vote.articleid = articleid;
-    this.readUrl = `${this.config.readArticleUrl}/${articleid}`;
+    this.articleid = this.$route.params.id;
+    this.vote.articleid = this.articleid;
+    this.readUrl = `${this.config.readArticleUrl}/${this.articleid}`;
 
     axios
       .get(this.readUrl)
       .then(response => {
         this.article = response.data;
+        this.article.url = window.location.href;
       })
       .catch(e => {
         this.$toastr.e(e, 'Error Getting Article');
