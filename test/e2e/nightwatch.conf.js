@@ -23,8 +23,8 @@ module.exports = {
       selenium_host: 'localhost',
       silent: true,
       globals: {
-        devServerURL: 'http://localhost:/' + (process.env.PORT || config.dev.port)
-        // devServerURL: 'http://insight.ifglabs.com/'
+        // devServerURL: 'http://localhost:/' + (process.env.PORT || config.dev.port)
+        devServerURL: 'http://insight.ifglabs.com/'
         // devServerURL: 'http://localhost:8080/'
         // devServerURL: 'http://localhost:80/'
       }
