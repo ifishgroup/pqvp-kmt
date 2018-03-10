@@ -12,7 +12,7 @@ exports.create_article = function(req, res) {
     'status',
     'content',
     'keywords',
-    'permalink',
+    'attachment',
     'featured',
     'last_updated',
     'last_update_user',
@@ -20,6 +20,40 @@ exports.create_article = function(req, res) {
     'viewcount',
     'votes',
   ]);
+
+  const ka = new KA(body);
+
+  ka
+    .save()
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
+};
+
+exports.create_attachment = function(req, res) {
+  
+  let body = _.pick(JSON.parse(req.body['newArticle']), [
+    'author_id',
+    'author',
+    'author_email',
+    'title',
+    'status',
+    'content',
+    'keywords',
+    'attachment',
+    'featured',
+    'last_updated',
+    'last_update_user',
+    'published_date',
+    'viewcount',
+    'votes',
+  ]);
+
+  body.attachment = req.file.filename;
+
   const ka = new KA(body);
 
   ka
@@ -78,7 +112,7 @@ exports.update_article = function(req, res) {
     'status',
     'content',
     'keywords',
-    'permalink',
+    'attachment',
     'featured',
     'last_updated',
     'last_update_user',

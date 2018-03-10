@@ -46,7 +46,7 @@ const KaSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  permalink: {
+  attachment: {
     type: String,
     trim: true,
   },
@@ -171,7 +171,7 @@ KaSchema.statics.UpdateById = function(form) {
         status: form.status,
         content: form.content,
         keywords: form.keywords,
-        permalink: form.permalink,
+        attachment: form.attachment,
         featured: form.featured,
         last_updated: form.last_updated,
         last_update_user: form.last_update_user,

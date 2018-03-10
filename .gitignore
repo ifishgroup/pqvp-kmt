@@ -26,5 +26,6 @@ selenium-debug.log
 
 *.tfplan
 
-#Misc saved code
+#Misc
+api/public/uploads
 helper.txt
