@@ -9,6 +9,7 @@ import {
   ArticleNew,
   Login,
   Search,
+  Settings,
   Ka,
   Logoff,
   Error404,
@@ -64,6 +65,17 @@ const router = new Router({
     },
     path: '/users/edit/:id?',
     component: UserEdit,
+  },
+  {
+    name: 'settings',
+    meta: {
+      requiresAuth: true,
+      title: 'Search The Knowledge Base',
+      area: 'Configure',
+      breadcrumb: 'Settings',
+    },
+    path: '/settings',
+    component: Settings,
   },
   {
     name: 'myaccount',

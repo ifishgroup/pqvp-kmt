@@ -23,6 +23,8 @@ const config = {
   searchUrl: `${baseUrl}articles/search`,
   categoriesUrl: `${baseUrl}articles/categories`,
   uploadUrl: `${baseUrl}public/uploads`,
+  settingsUrl: `${baseUrl}settings/all`,
+  settingsUpdateUrl: `${baseUrl}settings/update`,
 };
 
 const app = {
@@ -31,8 +33,7 @@ const app = {
 
 const user = null;
 
-export default
-{
+export default {
   config,
   app,
   user,
