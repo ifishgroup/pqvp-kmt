@@ -4,6 +4,17 @@
 const { authenticate } = require('../middleware/authenticate');
 const userController = require('../controllers/userController');
 const kaController = require('../controllers/kaController');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+const upload = multer({ storage });
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../../swagger.json');
@@ -30,6 +41,8 @@ module.exports = function (app) {
   app.route('/users/logout').delete(authenticate, userController.logout_user);
 
   app.route('/articles/create').post(authenticate, kaController.create_article);
+
+  app.post('/articles/attachment', authenticate, upload.single('attachment'), kaController.create_attachment);
 
   app.route('/articles/edit/:id').get(authenticate, kaController.edit_article);
 
