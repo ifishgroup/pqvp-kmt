@@ -25,7 +25,8 @@
     "build-import": "docker build -t ifishgroup/insight-import:dev ./api/data/",
     "up": "docker-compose up -d",
     "down": "docker-compose down",
-    "docker-e2e": "docker-compose -f docker-compose-e2e.yml -f docker-compose.yml run --rm e2e"
+    "docker-e2e": "docker-compose -f docker-compose-e2e.yml -f docker-compose.yml run --rm e2e",
+    "pull": "docker pull ifishgroup/insight && docker pull ifishgroup/insight-api && docker pull ifishgroup/insight-import"
   },
   "dependencies": {
     "axios": "^0.17.1",
