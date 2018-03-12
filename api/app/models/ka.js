@@ -237,7 +237,7 @@ KaSchema.statics.getTop = function(user) {
 
   return KA.find({ $and: [{ status: 'approved' }, { viewcount: { $gt: 0 } }] })
     .sort({ viewcount: -1 })
-    .limit(5)
+    .limit(10)
     .then(all => {
       if (!all) {
         return Promise.reject();
