@@ -1,3 +1,4 @@
+import Analytics from './Secure/Dashboard/Analytics';
 import UserList from './Secure/Users/List';
 import UserEdit from './Secure/Users/Edit';
 import UserNew from './Secure/Users/New';
@@ -13,6 +14,7 @@ import Login from './Unsecure/Login2';
 import SignUp from './Unsecure/SignUp';
 
 export {
+  Analytics,
   UserList,
   UserEdit,
   UserNew,

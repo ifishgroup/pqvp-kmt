@@ -1,89 +1,100 @@
 <template>
-    <section class="forms">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <card-default>
-                        <div slot="header-card">Start Learning...Search for knowledge articles
-                            <div class="card-close">
-                                <button v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-primary btn-flat btn-addon btn-sm m-b-10 m-l-5">
-                                    <i class="ti-plus"></i>Suggest</button>
-                            </div>
-                        </div>
-                        <div slot="body-card">
-                            <div class="row">
-                                <div class="col-lg-3" v-if="treeData.length > 0 && settings.categories ===true">
-                                    <div class="row">
-                                        <div class="col-lg-12 p-0">
-                                            <ul class="featured bg-gray">
-                                                <li v-if="showTree">
-                                                    <strong>Categories:</strong>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <tree class="col-sm-12" :data="treeData" v-if="showTree" :options="treeOptions" @node:selected="nodeSelected" />
-                                    </div>
-                                </div>
-                                <div :class="[treeData.length > 0 && settings.categories === true ? 'col-lg-9' : 'col-lg-12']">
-                                    <div class="row pb-3">
-                                        <div class="col-lg-12">
-                                            <form class="form-horizontal" @submit.prevent="onSubmit">
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <div class="input-group">
-                                                                <input type="text" v-model="form.search_terms" v-validate="'required'" name="search" id="search" class="form-control" placeholder="Search is based on Knowledge Article titles and categories">
-                                                                <span class="input-group-btn">
-                                                                    <button type="submit" class="btn btn-primary">Search</button>
-                                                                </span>
-                                                            </div>
-                                                            <span v-show="errors.has('search')" class="error">{{ errors.first('search') }}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="row" v-if="settings.featured === true">
-                                        <div class="col-lg-12">
-                                            <ul class="featured bg-gray">
-                                                <li v-if="featured_articles">
-                                                    <strong>{{feature_title}}:</strong>
-                                                </li>
-                                                <li v-for="x in featured_articles" :key="x._id">
-                                                    <a :href="`/ka/${x._id}`">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{x.title}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <card-default class="secondary-card">
-                                                <div slot="header-card" class="secondary-title">{{results_title}}</div>
-                                                <div slot="body-card">
-                                                    <ul id="result-articles" class="list-unstyled">
-                                                        <li v-if="!result_articles">&nbsp;</li>
-                                                        <li v-for="x in result_articles" :key="x._id">
-                                                            <a :href="`/ka/${x._id}`">{{x.title}}</a>
-                                                            <span class="d-none d-md-block">View count: {{x.viewcount}}</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </card-default>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </card-default>
-                </div>
+  <section class="forms">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <card-default>
+            <div slot="header-card">Start Learning...Search for knowledge articles
+              <div class="card-close">
+                <button v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-primary btn-flat btn-addon btn-sm m-b-10 m-l-5">
+                  <i class="ti-plus"></i>Suggest</button>
+              </div>
             </div>
-
+            <div slot="body-card">
+              <div class="row">
+                <div class="col-lg-3  text-center">
+                  <img id="mlogo" src="/static/img/insight-logo.png" width="150px" class="rounded-circle">
+                </div>
+                <div class="col-lg-9">
+                  <h4>
+                    For State agencies and departments who need knowledge management functionality, “Insight” is a web-based service that provides knowledge creation, sharing, and archival features.</h4>
+                  <h4>Unlike other knowledge management tools, Insight provides easy navigation, portfolio and product knowledge visibility, and an intuitive research experience.
+                  </h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3" v-if="treeData.length > 0 && settings.categories ===true">
+                  <div class="row">
+                    <div class="col-lg-12 p-0">
+                      <ul class="featured bg-gray">
+                        <li v-if="showTree">
+                          <strong>Categories:</strong>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <tree class="col-sm-12" :data="treeData" v-if="showTree" :options="treeOptions" @node:selected="nodeSelected" />
+                  </div>
+                </div>
+                <div :class="[treeData.length > 0 && settings.categories === true ? 'col-lg-9' : 'col-lg-12']">
+                  <div class="row pb-3">
+                    <div class="col-lg-12">
+                      <form class="form-horizontal" @submit.prevent="onSubmit">
+                        <div class="form-group row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <input type="text" v-model="form.search_terms" v-validate="'required'" name="search" id="search" class="form-control" placeholder="Search is based on Knowledge Article titles and categories">
+                                <span class="input-group-btn">
+                                  <button type="submit" class="btn btn-primary">Search</button>
+                                </span>
+                              </div>
+                              <span v-show="errors.has('search')" class="error">{{ errors.first('search') }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="row" v-if="settings.featured === true">
+                    <div class="col-lg-12">
+                      <ul class="featured bg-gray">
+                        <li v-if="featured_articles">
+                          <strong>{{feature_title}}:</strong>
+                        </li>
+                        <li v-for="x in featured_articles" :key="x._id">
+                          <a :href="`/ka/${x._id}`">
+                            <i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{x.title}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <card-default class="secondary-card">
+                        <div slot="header-card" class="secondary-title">{{results_title}}</div>
+                        <div slot="body-card">
+                          <ul id="result-articles" class="list-unstyled">
+                            <li v-if="!result_articles">&nbsp;</li>
+                            <li v-for="x in result_articles" :key="x._id">
+                              <a :href="`/ka/${x._id}`">{{x.title}}</a>
+                              <span class="d-none d-md-block">View count: {{x.viewcount}}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </card-default>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </card-default>
         </div>
-    </section>
+      </div>
+
+    </div>
+  </section>
 </template>
 
 <script>
@@ -185,6 +196,13 @@ export default {
 </script>
 
 <style>
+#mlogo
+{
+
+padding-top:0px !important;
+padding-bottom:20px !important;
+
+}
 .form-control {
   padding-top: 0;
   padding-bottom: 0;

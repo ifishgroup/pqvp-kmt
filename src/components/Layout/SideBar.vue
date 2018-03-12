@@ -45,7 +45,7 @@ export default {
         },
         {
           id: 'dashboard',
-          to: '/',
+          to: '/dashboard/analytics',
           class: 'ti-dashboard',
           link: 'Dashboard',
           isecure: true,

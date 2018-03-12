@@ -1,0 +1,18 @@
+[
+    {
+        "featured" : true,
+        "last_updated" : ISODate("2018-03-12T03:31:13.442Z"),
+        "viewcount" : 1,
+        "votes" : 0,
+        "author_id" : "5a8dd9b087f2ab36a4479093",
+        "author" : "Patricia Jacobs",
+        "author_email" : "pjacobs@insight-kmt.com",
+        "title" : "Boots, the programming cat.",
+        "status" : "approved",
+        "content" : "This is my **first** article!\r\n\r\n![](https://i.ytimg.com/vi/dGFSjKuJfrI/maxresdefault.jpg)\r\n\r\n```\r\n1. Code A snippet\r\n2. Code B snippet\r\n```",
+        "keywords" : "boots,cat,programming",
+        "attachment" : "",
+        "last_update_user" : "Connie Smith",
+        "published_date" : ISODate("2018-03-12T03:31:13.442Z")
+    }
+]
