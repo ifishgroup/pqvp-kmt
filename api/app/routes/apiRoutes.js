@@ -4,6 +4,7 @@
 const { authenticate } = require('../middleware/authenticate');
 const userController = require('../controllers/userController');
 const kaController = require('../controllers/kaController');
+const settingController = require('../controllers/settingController');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -42,7 +43,12 @@ module.exports = function (app) {
 
   app.route('/articles/create').post(authenticate, kaController.create_article);
 
-  app.post('/articles/attachment', authenticate, upload.single('attachment'), kaController.create_attachment);
+  app.post(
+    '/articles/attachment',
+    authenticate,
+    upload.single('attachment'),
+    kaController.create_attachment,
+  );
 
   app.route('/articles/edit/:id').get(authenticate, kaController.edit_article);
 
@@ -65,6 +71,10 @@ module.exports = function (app) {
   app.route('/articles/categories').get(kaController.get_categories);
 
   app.route('/articles/vote').post(kaController.capture_vote);
+
+  app.route('/settings/all').get(settingController.get_all_settings);
+
+  app.route('/settings/update').post(authenticate, settingController.update_settings);
 
   // setup swagger documentation
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

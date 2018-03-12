@@ -1,0 +1,10 @@
+[
+  {
+    "suggestions": true,
+    "voting": true,
+    "share": true,
+    "featured": true,
+    "top_number": 10,
+    "categories": true
+  }
+]

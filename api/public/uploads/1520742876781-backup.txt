@@ -1,0 +1,20 @@
+grey out button
+
+
+{"title":"Chrome Test","message":"Chrome Test","type":"Non-Emergency","lat":38.71250502189031,"long":-121.08199476754379,"sendSMS":0,"sendEmail":1}
+
+
+export TWILIO_ACCOUNT_SID=AC9ed3c14e9a458bb9d22b44ea8eda3873
+export TWILIO_AUTH_TOKEN=1c522ec1fc58f729ed71ee1031c07fd7
+export TWILIO_SENDING_NUMBER=19163185901 
+
+
+
+docker run --name adpq -e TWILIO_ACCOUNT_SID=AC9ed3c14e9a458bb9d22b44ea8eda3873 -e TWILIO_AUTH_TOKEN=1c522ec1fc58f729ed71ee1031c07fd7 -e TWILIO_SENDING_NUMBER=19163185901 -p 80:80 -d ifishgroup/adpq
+
+
+
+docker run --name adpq -p 80:80 -d ifishgroup/adpq
+
+
+"node inituser && node initsamplealerts.js && node app.js",
