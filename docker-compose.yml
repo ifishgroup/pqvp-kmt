@@ -41,6 +41,7 @@ services:
       - "mongodb"
       - "userimport"
       - "settingsimport"
+      - "articlesimport"
   
   mongodb:
     image: mongo:3.6.3
@@ -66,3 +67,11 @@ services:
     depends_on:
       - mongodb
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "settings", "--type", "json", "--file", "insertSettings.json", "--drop", "--upsert", "--jsonArray"]
+
+  articlesimport:
+    image: ifishgroup/insight-import:dev
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+    command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "articles", "--type", "json", "--file", "insertArticles.json", "--drop", "--upsert", "--jsonArray"]
