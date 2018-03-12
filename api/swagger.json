@@ -5,7 +5,7 @@
     "title": "Insight KMT Api",
     "version": "1.0.0"
   },
-  "host": "http://insight.ifglabs.com",
+  "host": "insight.ifglabs.com",
   "schemes": ["http"],
   "basePath": "/api",
   "paths": {
@@ -699,6 +699,67 @@
           }
         }
       }
+    },
+    "/settings/all": {
+      "get": {
+        "tags": ["settings"],
+        "summary": "Get list of applications settings",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Settings"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "5XX": {
+            "description": "Unexpected Error"
+          }
+        }
+      }
+    },
+    "/settings/update": {
+      "post": {
+        "tags": ["settings"],
+        "summary": "Update application settings",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update application settings",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Settings"
+            }
+          },
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "5XX": {
+            "description": "Unexpected error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -868,6 +929,32 @@
               }
             }
           }
+        }
+      }
+    },
+    "Settings": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "suggestions": {
+          "type": "boolean"
+        },
+        "voting": {
+          "type": "boolean"
+        },
+        "share": {
+          "type": "boolean"
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "top_number": {
+          "type": "integer"
+        },
+        "categories": {
+          "type": "boolean"
         }
       }
     }

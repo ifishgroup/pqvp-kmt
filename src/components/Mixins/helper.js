@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const moment = require('moment');
 
 export default {
@@ -55,7 +57,7 @@ export default {
       }
 
       return false;
-    },
+    }
   },
   computed: {
     isCurrentUserAdmin() {

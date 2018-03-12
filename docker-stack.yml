@@ -63,7 +63,7 @@ services:
     volumes: 
       - db:/data/db
 
-  mongoimport:
+  userimport:
     image: ifishgroup/insight-import:${TAG}
     networks:
       - backend
@@ -73,3 +73,14 @@ services:
     deploy:
       restart_policy:
         condition: none
+
+  settingsimport:
+      image: ifishgroup/insight-import:${TAG}
+      networks:
+        - backend
+      depends_on:
+        - mongodb
+      command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "settings", "--type", "json", "--file", "insertSettings.json", "--drop", "--upsert", "--jsonArray"]
+      deploy:
+        restart_policy:
+          condition: none

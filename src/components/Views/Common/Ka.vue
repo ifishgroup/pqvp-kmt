@@ -29,7 +29,7 @@
               <h1>{{article.title}}</h1>
               <div class="body_text" v-html="htmlOutput(article.content)">
               </div>
-              <div class="row">
+              <div class="row" v-if="settings.voting">
                 <div class="text-right col-lg-12">
                   <span>Was this article helpful?</span>
                   <button id="btnUpvote" :disabled="voted" @click="recordVote(1)" class="btn btn-sm btn-default">
@@ -58,7 +58,7 @@
                         </div>
                       </div>
                       <div class="row p-2">
-                        <div class="col-sm-12 col-lg-6">
+                        <div class="col-sm-12 col-lg-6" v-if="settings.share">
                           <social-sharing :url="article.url" :title="article.title" hashtags="insight,ifish" inline-template>
                             <div>
                               <strong>Share article:</strong>
@@ -111,6 +111,15 @@ export default {
     this.readUrl = `${this.config.readArticleUrl}/${this.articleid}`;
 
     axios
+      .get(this.config.settingsUrl)
+      .then(response => {
+        this.settings = response.data[0];
+      })
+      .catch(e => {
+        this.$toastr.e(e, 'Error Getting Settings');
+      });
+
+    axios
       .get(this.readUrl)
       .then(response => {
         this.article = response.data;
@@ -122,6 +131,7 @@ export default {
   },
   data() {
     return {
+      settings: '',
       articleid: '',
       article: {},
       vote: {

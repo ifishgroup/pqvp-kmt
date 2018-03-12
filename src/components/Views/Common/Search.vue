@@ -4,10 +4,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <card-default>
-                        <div slot="header-card">Start Learning...Search for knowledge articles</div>
+                        <div slot="header-card">Start Learning...Search for knowledge articles
+                            <div class="card-close">
+                                <button v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-primary btn-flat btn-addon btn-sm m-b-10 m-l-5">
+                                    <i class="ti-plus"></i>Suggest</button>
+                            </div>
+                        </div>
                         <div slot="body-card">
                             <div class="row">
-                                <div class="col-lg-3" v-if="treeData.length > 0">
+                                <div class="col-lg-3" v-if="treeData.length > 0 && settings.categories ===true">
                                     <div class="row">
                                         <div class="col-lg-12 p-0">
                                             <ul class="featured bg-gray">
@@ -21,7 +26,7 @@
                                         <tree class="col-sm-12" :data="treeData" v-if="showTree" :options="treeOptions" @node:selected="nodeSelected" />
                                     </div>
                                 </div>
-                                <div :class="[treeData.length > 0 ? 'col-lg-9' : 'col-lg-12']">
+                                <div :class="[treeData.length > 0 && settings.categories === true ? 'col-lg-9' : 'col-lg-12']">
                                     <div class="row pb-3">
                                         <div class="col-lg-12">
                                             <form class="form-horizontal" @submit.prevent="onSubmit">
@@ -41,7 +46,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" v-if="settings.featured === true">
                                         <div class="col-lg-12">
                                             <ul class="featured bg-gray">
                                                 <li v-if="featured_articles">
@@ -89,6 +94,15 @@ import { CardDefault } from '@/components/index';
 export default {
   created() {
     axios
+      .get(this.config.settingsUrl)
+      .then(response => {
+        this.settings = response.data[0];
+      })
+      .catch(e => {
+        this.$toastr.e(e, 'Error Getting Settings');
+      });
+
+    axios
       .get(this.config.featuredArticlesUrl)
       .then(response => {
         this.featured_articles = response.data;
@@ -123,6 +137,7 @@ export default {
   },
   data() {
     return {
+      settings: '',
       form: { search_terms: '' },
       feature_title: 'Featured Articles',
       results_title: 'Top Articles',
@@ -178,8 +193,8 @@ export default {
   margin-bottom: 0 !important;
 }
 
-#search{
-    border-color: #A8A8A8 !important;
+#search {
+  border-color: #a8a8a8 !important;
 }
 
 span.input-group-btn button.btn.btn-primary {

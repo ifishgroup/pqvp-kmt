@@ -15,15 +15,31 @@ services:
       - "3003:3003"
     depends_on:
       - "mongodb"
-      - "mongoimport"
+      - "userimport"
+      - "settingsimport"
   
   mongodb:
     image: mongo:3.6.3
     ports:
       - "27017:27017"
 
+<<<<<<< HEAD
   mongoimport:
     image: ifishgroup/insight-import:${TAG}
+=======
+  userimport:
+    image: ifishgroup/insight-import:dev
+    networks:
+      - backend
+>>>>>>> master
     depends_on:
       - mongodb
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]
+
+  settingsimport:
+    image: ifishgroup/insight-import:dev
+    networks:
+      - backend
+    depends_on:
+      - mongodb
+    command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "settings", "--type", "json", "--file", "insertSettings.json", "--drop", "--upsert", "--jsonArray"]
