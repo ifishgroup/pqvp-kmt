@@ -29,6 +29,17 @@
                     </div>
                   </div>
                 </div>
+                <div v-if="user.info.role !== 'contentAuth' && (form.status!='approved' && form.status!='archived')" class="form-group row">
+                  <label class="col-sm-3 form-control-label"></label>
+                  <div class="col-sm-9">
+                    <div class="button-list">
+                      <button v-if="(form.status!=='approved' && form.status!=='pending approval')" type="button" @click="contentAction('submit for approval','pending approval')" class="btn btn-primary btn-flat btn-addon m-b-10 m-l-5">
+                        <i class="ti-plus"></i>Submit For Approval</button>
+                      <button type="button" @click="contentAction('delete','deleted')" class="btn btn-danger btn-flat btn-addon m-b-10 m-l-5">
+                        <i class="ti-folder"></i>Delete</button>
+                    </div>
+                  </div>
+                </div>
                 <div class="line"></div>
                 <div class="form-group row">
                   <label class="col-sm-3 form-control-label">Status:*</label>
@@ -38,7 +49,7 @@
                       <option v-if="form.status==='approved'" value="approved">Approved</option>
                       <option v-if="form.status==='rejected'" value="rejected">Rejected</option>
                       <option v-if="form.status==='draft'" value="draft">Draft</option>
-                      <option v-if="form.status!=='approved'" value="pending approval">Submit For Approval</option>
+                      <option v-if="form.status==='pending approval'" value="pending approval">Submit For Approval</option>
                     </select>
                   </div>
                 </div>
@@ -68,9 +79,19 @@
                 </div>
                 <div class="line"></div>
                 <div class="form-group row">
-                  <label class="col-sm-3 form-control-label">Permalink:</label>
+                  <label class="col-sm-3 form-control-label">Featured:</label>
                   <div class="col-sm-9">
-                    <input type="text" v-model="form.permalink" name="permalink" class="form-control">
+                    <div class="i-checks">
+                      <input id="chkFeatured" :checked="form.featured" v-model="form.featured" type="checkbox" class="checkbox-template">
+                    </div>
+                  </div>
+                </div>
+                <div class="line"></div>
+                <div class="form-group row">
+                  <label class="col-sm-3 form-control-label">Attachment(s):</label>
+                  <div class="col-sm-9">
+                    <a v-if="form.attachment" :href="`${this.config.uploadUrl}/${form.attachment}`">{{form.attachment}}</a>
+                    <div v-if="!form.attachment">none</div>
                   </div>
                 </div>
                 <div class="line"></div>

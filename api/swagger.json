@@ -57,7 +57,15 @@
             "description": "credentials sent to login a user",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -772,7 +780,7 @@
         "last_updated_user": {
           "type": "string"
         },
-        "permalink": {
+        "attachment": {
           "type": "string"
         },
         "published_date": {
@@ -822,7 +830,7 @@
         "last_updated_user": {
           "type": "string"
         },
-        "permalink": {
+        "attachment": {
           "type": "string"
         },
         "published_date": {

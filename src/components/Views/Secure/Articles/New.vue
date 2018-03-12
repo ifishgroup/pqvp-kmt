@@ -18,8 +18,8 @@
                                     <label class="col-sm-3 form-control-label">Status:*</label>
                                     <div class="col-sm-9">
                                         <select class="form-control" id="status" required v-model="form.status">
-                                            <option value="pending approval">Submit For Approval</option>
                                             <option value="draft">Draft</option>
+                                            <option value="pending approval">Submit for Approval</option>
                                         </select>
                                     </div>
                                 </div>
@@ -49,9 +49,35 @@
                                 </div>
                                 <div class="line"></div>
                                 <div class="form-group row">
-                                    <label class="col-sm-3 form-control-label">Permalink:</label>
+                                    <label class="col-sm-3 form-control-label">Featured:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" v-model="form.permalink" id="permalink" class="form-control">
+                                        <div class="i-checks">
+                                            <input id="chkFeatured" :checked="form.featured" v-model="form.featured" type="checkbox" class="checkbox-template">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Attachment(s):</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" ref="file" name='attachment' placeholder="Select File..." class="form-control" @change="handleFilesUpload">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div v-if="file" class="file-listing">{{ file.name }}
+                                                    <span class="remove-file" v-on:click="removeFile()">Remove</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <button type="button" @click="addFiles()" class="btn btn-dark btn-flat btn-sm btn-addon m-b-10 m-l-5">
+                                                    <i class="ti-plus"></i>Add File</button>
+                                                <br>
+                                                <span>
+                                                    Attachment can only be docx, xlsx ,pdf, or txt file.
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="line"></div>
@@ -82,6 +108,7 @@ export default {
   created() {},
   data() {
     return {
+      file: '',
       form: {
         author_id: '',
         author: '',
@@ -90,8 +117,8 @@ export default {
         status: 'draft',
         content: '',
         keywords: '',
-        permalink: '',
-        featured: 'false',
+        attachment: '',
+        featured: false,
         last_updated: '',
         last_update_user: '',
         published_date: '',
@@ -104,8 +131,24 @@ export default {
     ...mapGetters({ config: 'getConfig', user: 'getUser' }),
   },
   methods: {
+    addFiles() {
+      this.$refs.file.click();
+    },
+    removeFile() {
+      this.file = '';
+    },
+    handleFilesUpload() {
+      this.file = this.$refs.file.files[0];
+      if (!/\.(doc?x|xls?x|pdf|txt)$/i.test(this.file.name)) {
+        this.$toastr.e(
+          'Attachment can only be a docx, xlsx ,pdf, or txt file!',
+          'Attachment Error',
+        );
+        this.file = '';
+      }
+    },
     onSubmit() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
           this.form.author_id = this.user.info._id;
@@ -114,19 +157,43 @@ export default {
           this.form.last_updated = new Date();
           this.form.last_update_user = this.user.info.name;
 
-          axios
-            .post(this.config.newArticleUrl, this.form, {
-              headers: { 'x-auth': this.user.info.token },
-            })
-            .then((response) => {
-              if (response.status === 200) {
-                this.$toastr.s('Article was successfully created!', 'Success');
-                this.resetForm();
-              } else this.$toastr.e(response, 'Article Error');
-            })
-            .catch((e) => {
-              this.$toastr.e(e, 'Article Error');
-            });
+          if (this.file === '') {
+            axios
+              .post(this.config.newArticleUrl, this.form, {
+                headers: { 'x-auth': this.user.info.token },
+              })
+              .then(response => {
+                if (response.status === 200) {
+                  this.$toastr.s('Article was successfully created!', 'Success');
+                  this.resetForm();
+                } else this.$toastr.e(response, 'Article Error');
+              })
+              .catch(e => {
+                this.$toastr.e(e, 'Article Error');
+              });
+          } else {
+            const formData = new FormData();
+
+            formData.append('attachment', this.file);
+            formData.append('newArticle', JSON.stringify(this.form));
+
+            axios
+              .post(this.config.newArticleWithAttachmentUrl, formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                  'x-auth': this.user.info.token,
+                },
+              })
+              .then(response => {
+                if (response.status === 200) {
+                  this.$toastr.s('Article was successfully created!', 'Success');
+                  this.resetForm();
+                } else this.$toastr.e(response, 'Article Error');
+              })
+              .catch(e => {
+                this.$toastr.e(e, 'Article Error');
+              });
+          }
         }
       });
     },
@@ -136,7 +203,8 @@ export default {
       this.form.status = 'draft';
       this.form.content = '';
       this.form.keywords = '';
-      this.form.permalink = '';
+      this.form.attachment = '';
+      this.file = '';
       this.$nextTick(() => {
         this.$validator.reset();
       });
@@ -149,3 +217,22 @@ export default {
 };
 </script>
 
+<style>
+input[type='file'] {
+  position: absolute;
+  top: -500px;
+}
+
+div.file-listing {
+  font-weight: bold !important;
+  font-size: 0.85rem !important;
+  margin-bottom: 5px !important;
+}
+
+span.remove-file {
+  color: red !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+  margin-left: 5px !important;
+}
+</style>

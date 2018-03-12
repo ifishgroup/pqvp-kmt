@@ -11,6 +11,7 @@ const config = {
   meUrl: `${baseUrl}users/me`,
   logoutUrl: `${baseUrl}users/logout`,
   newArticleUrl: `${baseUrl}articles/create`,
+  newArticleWithAttachmentUrl: `${baseUrl}articles/attachment`,
   editArticleUrl: `${baseUrl}articles/edit`,
   updateArticleUrl: `${baseUrl}articles/update`,
   deleteArticleUrl: `${baseUrl}articles/delete`,
@@ -21,6 +22,7 @@ const config = {
   voteArticleUrl: `${baseUrl}articles/vote`,
   searchUrl: `${baseUrl}articles/search`,
   categoriesUrl: `${baseUrl}articles/categories`,
+  uploadUrl: `${baseUrl}public/uploads`,
 };
 
 const app = {

@@ -2,6 +2,7 @@ require('./app/config/config');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const { ObjectID } = require('mongodb');
 
 const { mongoose } = require('./app/db/mongoose');
@@ -9,6 +10,7 @@ const { mongoose } = require('./app/db/mongoose');
 const app = express();
 
 app.use(bodyParser.json());
+app.use('/public', express.static('public'));
 
 const host = process.env.BASE_URL;
 const port = process.env.PORT;
