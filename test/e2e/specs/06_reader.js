@@ -8,9 +8,9 @@ module.exports = {
       .waitForElementPresent('i[class=ti-lock]', 5000)
       .useXpath()
       .waitForElementPresent('//div/a/span', 5000)
-      .click('//*[@id="app"]/div/div/div/section/div/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/li[1]/div/a')
-      .waitForElementPresent('//*[@id="app"]/div/div/div/section/div/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/li[1]/ul/li/div/a', 5000)
-      .click('//*[@id="app"]/div/div/div/section/div/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/li[1]/ul/li/div/a')
+      .click('//ul/li[1]/div/a')
+      .waitForElementPresent('//ul/li[1]/ul/li/div/a', 5000)
+      .click('//ul/li[1]/ul/li/div/a')
       .useCss()
       .waitForElementPresent('div[class=body_text]', 5000);
   },
