@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>build.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "build/build.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>build.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'./check-versions'</span>)()
+
+process.env.NODE_ENV = <span class="hljs-string">'production'</span>
+
+<span class="hljs-keyword">const</span> ora = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ora'</span>)
+<span class="hljs-keyword">const</span> rm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rimraf'</span>)
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">const</span> chalk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chalk'</span>)
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>)
+<span class="hljs-keyword">const</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config'</span>)
+<span class="hljs-keyword">const</span> webpackConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./webpack.prod.conf'</span>)
+
+<span class="hljs-keyword">const</span> spinner = ora(<span class="hljs-string">'building for production...'</span>)
+spinner.start()
+
+rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err =&gt; {
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err
+  webpack(webpackConfig, (err, stats) =&gt; {
+    spinner.stop()
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err
+    process.stdout.write(stats.toString({
+      <span class="hljs-attr">colors</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">modules</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">children</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// If you are using ts-loader, setting this to true will make TypeScript errors show up during build.</span>
+      chunks: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">chunkModules</span>: <span class="hljs-literal">false</span>
+    }) + <span class="hljs-string">'\n\n'</span>)
+
+    <span class="hljs-keyword">if</span> (stats.hasErrors()) {
+      <span class="hljs-built_in">console</span>.log(chalk.red(<span class="hljs-string">'  Build failed with errors.\n'</span>))
+      process.exit(<span class="hljs-number">1</span>)
+    }
+
+    <span class="hljs-built_in">console</span>.log(chalk.cyan(<span class="hljs-string">'  Build complete.\n'</span>))
+    <span class="hljs-built_in">console</span>.log(chalk.yellow(
+      <span class="hljs-string">'  Tip: built files are meant to be served over an HTTP server.\n'</span> +
+      <span class="hljs-string">'  Opening index.html over file:// won\'t work.\n'</span>
+    ))
+  })
+})
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

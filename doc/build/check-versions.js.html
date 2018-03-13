@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>check-versions.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "build/check-versions.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>check-versions.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-meta">'use strict'</span>
+<span class="hljs-keyword">const</span> chalk = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chalk'</span>)
+<span class="hljs-keyword">const</span> semver = <span class="hljs-built_in">require</span>(<span class="hljs-string">'semver'</span>)
+<span class="hljs-keyword">const</span> packageConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../package.json'</span>)
+<span class="hljs-keyword">const</span> shell = <span class="hljs-built_in">require</span>(<span class="hljs-string">'shelljs'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exec</span> (<span class="hljs-params">cmd</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>).execSync(cmd).toString().trim()
+}
+
+<span class="hljs-keyword">const</span> versionRequirements = [
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'node'</span>,
+    <span class="hljs-attr">currentVersion</span>: semver.clean(process.version),
+    <span class="hljs-attr">versionRequirement</span>: packageConfig.engines.node
+  }
+]
+
+<span class="hljs-keyword">if</span> (shell.which(<span class="hljs-string">'npm'</span>)) {
+  versionRequirements.push({
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'npm'</span>,
+    <span class="hljs-attr">currentVersion</span>: exec(<span class="hljs-string">'npm --version'</span>),
+    <span class="hljs-attr">versionRequirement</span>: packageConfig.engines.npm
+  })
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> warnings = []
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; versionRequirements.length; i++) {
+    <span class="hljs-keyword">const</span> mod = versionRequirements[i]
+
+    <span class="hljs-keyword">if</span> (!semver.satisfies(mod.currentVersion, mod.versionRequirement)) {
+      warnings.push(mod.name + <span class="hljs-string">': '</span> +
+        chalk.red(mod.currentVersion) + <span class="hljs-string">' should be '</span> +
+        chalk.green(mod.versionRequirement)
+      )
+    }
+  }
+
+  <span class="hljs-keyword">if</span> (warnings.length) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">''</span>)
+    <span class="hljs-built_in">console</span>.log(chalk.yellow(<span class="hljs-string">'To use this template, you must update following to modules:'</span>))
+    <span class="hljs-built_in">console</span>.log()
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; warnings.length; i++) {
+      <span class="hljs-keyword">const</span> warning = warnings[i]
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'  '</span> + warning)
+    }
+
+    <span class="hljs-built_in">console</span>.log()
+    process.exit(<span class="hljs-number">1</span>)
+  }
+}
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

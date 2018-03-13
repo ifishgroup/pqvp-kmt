@@ -23,7 +23,10 @@ module.exports = {
       selenium_host: 'localhost',
       silent: true,
       globals: {
-        devServerURL: 'http://localhost:' + (process.env.PORT || config.dev.port)
+        // devServerURL: 'http://localhost:/' + (process.env.PORT || config.dev.port)
+        devServerURL: 'http://insight.ifglabs.com/'
+        // devServerURL: 'http://localhost:8080/'
+        // devServerURL: 'http://localhost:80/'
       }
     },
 
@@ -31,8 +34,11 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome',
         javascriptEnabled: true,
-        acceptSslCerts: true
-      }
+        acceptSslCerts: true,
+        chromeOptions: {
+          args: ['headless', '--window-size=1920,1080'],
+        }
+        }
     },
 
     firefox: {
