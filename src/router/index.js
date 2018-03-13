@@ -11,6 +11,7 @@ import {
   Login,
   Search,
   Settings,
+  Suggest,
   Ka,
   Logoff,
   Error404,
@@ -186,6 +187,17 @@ const router = new Router({
     },
     path: '/login',
     component: Login,
+  },
+  {
+    name: 'suggest',
+    meta: {
+      requiresAuth: false,
+      title: 'Search The Knowledge Base',
+      area: 'Public',
+      breadcrumb: 'Suggest Knowledge Artice',
+    },
+    path: '/suggest',
+    component: Suggest,
   },
   {
     path: '/404',

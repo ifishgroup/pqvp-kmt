@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "import": "mongoimport --db Insight --collection users --type json --file ./data/insertUsers.json --drop --upsert --jsonArray",
-    "import2": "mongoimport --db Insight --collection settings --type json --file ./data/insertSettings.json --drop --upsert --jsonArray",
+    "importSetings": "mongoimport --db Insight --collection settings --type json --file ./data/insertSettings.json --drop --upsert --jsonArray",
+    "importArticles": "mongoimport --db Insight --collection ka --type json --file ./data/insertArticles.json --drop --upsert --jsonArray",
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

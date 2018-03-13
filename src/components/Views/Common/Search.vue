@@ -6,7 +6,7 @@
           <card-default>
             <div slot="header-card">Start Learning...Search for knowledge articles
               <div class="card-close">
-                <button @click="$router.push('/login')" v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
+                <button @click="$router.push('/suggest')" v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
                   <i class="ti-plus"></i>Suggest</button>&nbsp;
                 <button @click="$router.push('/login')" v-if="!$store.state.user" type="button" class="btn btn-warning btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
                   <i class="ti-lock"></i>Login</button>
@@ -47,7 +47,7 @@
                           <div class="col-sm-12">
                             <div class="form-group">
                               <div class="input-group">
-                                <input type="text" v-model="form.search_terms" v-validate="'required'" name="search" id="search" class="form-control" placeholder="Search is based on Knowledge Article titles and categories">
+                                <input type="text" v-model="form.search_terms" v-validate="'required'" name="search" id="search" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
                                   <button type="submit" class="btn btn-primary">Search</button>
                                 </span>
