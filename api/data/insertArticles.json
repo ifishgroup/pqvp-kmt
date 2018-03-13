@@ -120,7 +120,7 @@
     "author" : "Ann Jacobs",
     "author_email" : "ajacobs@insight-kmt.com",
     "title" : "Secure File Transfter",
-    "status" : "draft",
+    "status" : "pending approval",
     "content" : "<p>Secure File Transfer (SFT) provides a complete enterprise platform for securely transferring department files using standard secure protocols (e.g., FTS/s, HTTP/s, SSH-FTP), to another server, Internet-connected client, or private IP network.</p><p><strong>Security Compliance:</strong><br><ol><li>HIPAA</li><li>FIPS 140</li><li>SOX</li><li>HITECH</li><li>GLB</li></ol></p><p><strong>Benefits:</strong><br><ol><li>Delegated Administration</li><li>Provide customer ownership without customer headache</li><li>Rapid deployment</li><li>Customer peace of mind</li></ol></p><p><strong>Reliability Features:</strong><br><ol><li>Fully redundant, highly-available, active-active Linux platform</li><li>A Disaster Recovery option will be available in the future</li></ol></p><p>Secure File Transfer, also known as Managed File Transfer, replaces the needfor VPN connections (IPSec tunnels), magnetic tape, tape couriers and storage solutions, paper and postal service delivery, CD packaging processes, standardFTP, and other non-managed, unsecure methods of exchanging information in file-based formats.</p>",
     "keywords" : "Software services",
     "attachment" : "",
