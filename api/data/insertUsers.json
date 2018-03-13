@@ -10,8 +10,8 @@
   {
     "_id": ObjectId("5a8dd9b087f2ab36a4479093"),
     "tokens": [],
-    "name": "Patricia Jacobs",
-    "email": "pjacobs@insight-kmt.com",
+    "name": "Ann Jacobs",
+    "email": "ajacobs@insight-kmt.com",
     "password": "$2a$10$2NMubiI0mjtqzox50Hq6oOKpVzVcUAgXek2tec3wHIFxbHpjOij9W",
     "role": "authorAuth",
     "photo": "PatriciaJacobs_Publisher.jpg"

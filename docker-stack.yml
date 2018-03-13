@@ -84,3 +84,14 @@ services:
       deploy:
         restart_policy:
           condition: none
+
+  articlesimport:
+      image: ifishgroup/insight-import:${TAG}
+      networks:
+        - backend
+      depends_on:
+        - mongodb
+      command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "articles", "--type", "json", "--file", "insertArticles.json", "--drop", "--upsert", "--jsonArray"]
+      deploy:
+        restart_policy:
+          condition: none
