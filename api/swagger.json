@@ -760,6 +760,135 @@
           }
         }
       }
+    },
+    "/dashboard/articles": {
+      "get": {
+        "tags": ["dashboard"],
+        "summary": "Get dashboard total articles",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "totalarticles": {
+                  "type": "integer"
+                },
+                "totalviews": {
+                  "type": "integer"
+                },
+                "totalvotes": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "5XX": {
+          "description": "Unexpected Error"
+        }
+      }
+    },
+    "/dashboard/views": {
+      "get": {
+        "tags": ["dashboard"],
+        "summary": "Get dashboard total views by categories",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "viewcount": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "5XX": {
+          "description": "Unexpected Error"
+        }
+      }
+    },
+    "/dashboard/votes": {
+      "get": {
+        "tags": ["dashboard"],
+        "summary": "Get dashboard total votes by categories",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "description": "an authorization jwt token in header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "votes": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request"
+        },
+        "401": {
+          "description": "Unauthorized"
+        },
+        "5XX": {
+          "description": "Unexpected Error"
+        }
+      }
     }
   },
   "definitions": {
