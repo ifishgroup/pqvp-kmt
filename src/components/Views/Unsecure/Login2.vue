@@ -46,7 +46,7 @@
                                     <br>csmith@insight-kmt.com</li>
                                 <li>
                                     <b>Author</b>
-                                    <br>pjacobs@insight-kmt.com</li>
+                                    <br>ajacobs@insight-kmt.com</li>
                                 <li><br>
                                     <b>Password</b>: abcd1234!</li>
                             </ul>

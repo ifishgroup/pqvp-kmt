@@ -76,6 +76,12 @@ module.exports = function (app) {
 
   app.route('/settings/update').post(authenticate, settingController.update_settings);
 
+  app.route('/dashboard/articles').get(authenticate, kaController.get_dashboard_totals);
+
+  app.route('/dashboard/views').get(authenticate, kaController.get_dashboard_views);
+
+  app.route('/dashboard/votes').get(authenticate, kaController.get_dashboard_votes);
+
   // setup swagger documentation
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

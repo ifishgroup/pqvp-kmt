@@ -242,3 +242,36 @@ exports.get_categories = function(req, res) {
       res.status(500).send(e);
     });
 };
+
+exports.get_dashboard_totals = function(req, res) {
+  
+  KA.getDashTotals()
+    .then(all => {
+      res.status(200).send(all);
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
+};
+
+exports.get_dashboard_views = function(req, res) {
+  
+  KA.getDashViews()
+    .then(all => {
+      res.status(200).send(all);
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
+};
+
+exports.get_dashboard_votes = function(req, res) {
+  
+  KA.getDashVotes()
+    .then(all => {
+      res.status(200).send(all);
+    })
+    .catch(e => {
+      res.status(500).send(e);
+    });
+};

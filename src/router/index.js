@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import {
+  Analytics,
   UserList,
   UserEdit,
   UserNew,
@@ -32,6 +33,17 @@ const router = new Router({
     },
     path: '/',
     component: Search,
+  },
+  {
+    name: 'dashboard',
+    meta: {
+      requiresAuth: true,
+      title: 'Search The Knowledge Base',
+      area: 'Dashboard',
+      breadcrumb: 'Analytics',
+    },
+    path: '/dashboard/analytics',
+    component: Analytics,
   },
   {
     name: 'newuser',
