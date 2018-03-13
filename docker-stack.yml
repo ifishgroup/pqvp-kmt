@@ -72,7 +72,9 @@ services:
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]
     deploy:
       restart_policy:
-        condition: none
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
 
   settingsimport:
       image: ifishgroup/insight-import:${TAG}
@@ -83,7 +85,9 @@ services:
       command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "settings", "--type", "json", "--file", "insertSettings.json", "--drop", "--upsert", "--jsonArray"]
       deploy:
         restart_policy:
-          condition: none
+          condition: on-failure
+          delay: 5s
+          max_attempts: 5
 
   articlesimport:
       image: ifishgroup/insight-import:${TAG}
@@ -91,7 +95,9 @@ services:
         - backend
       depends_on:
         - mongodb
-      command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "articles", "--type", "json", "--file", "insertArticles.json", "--drop", "--upsert", "--jsonArray"]
+      command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "ka", "--type", "json", "--file", "insertArticles.json", "--drop", "--upsert", "--jsonArray"]
       deploy:
         restart_policy:
-          condition: none
+          condition: on-failure
+          delay: 5s
+          max_attempts: 5

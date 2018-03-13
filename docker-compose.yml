@@ -74,4 +74,4 @@ services:
       - backend
     depends_on:
       - mongodb
-    command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "articles", "--type", "json", "--file", "insertArticles.json", "--drop", "--upsert", "--jsonArray"]
+    command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "ka", "--type", "json", "--file", "insertArticles.json", "--drop", "--upsert", "--jsonArray"]
