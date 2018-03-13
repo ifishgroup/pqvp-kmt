@@ -201,13 +201,13 @@ KaSchema.statics.UpdateStatusById = function(form) {
           status: form.status,
           last_updated: new Date(),
           last_update_user: form.user,
-          published_date: new Date()
+          published_date: new Date(),
         });
       else
         ka.set({
           status: form.status,
           last_updated: new Date(),
-          last_update_user: form.user
+          last_update_user: form.user,
         });
 
       ka.save(err => {
@@ -235,7 +235,7 @@ KaSchema.statics.getFeatured = function(user) {
 KaSchema.statics.getTop = function(user) {
   const KA = this;
 
-  return KA.find({ $and: [{ status: 'approved' }, { viewcount: { $gt: 0 } }] })
+  return KA.find({ $and: [{ status: 'approved' }, { viewcount: { $gte: 0 } }] })
     .sort({ viewcount: -1 })
     .limit(10)
     .then(all => {
@@ -288,6 +288,63 @@ KaSchema.statics.search = function(ka) {
 
       return all;
     });
+};
+
+KaSchema.statics.getDashTotals = function() {
+  const KA = this;
+
+  return KA.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalarticles: { $sum: 1 },
+        totalviews: { $sum: '$viewcount' },
+        totalvotes: { $sum: '$votes' },
+      },
+    },
+  ]).then(totals => {
+    if (!totals) {
+      return Promise.reject();
+    }
+
+    return totals;
+  });
+};
+
+KaSchema.statics.getDashViews = function() {
+  const KA = this;
+
+  return KA.aggregate([
+    { $match: { status: { $eq: 'approved' } } },
+    { $project: { _id: 1, viewcount: 1, categories: { $split: ['$keywords', ','] } } },
+    { $unwind: '$categories' },
+    { $group: { _id: '$categories', viewcount: { $sum: '$viewcount' } } },
+    { $sort: { _id: 1 } },
+  ]).then(views => {
+    if (!views) {
+      return Promise.reject();
+    }
+
+    return views;
+  });
+};
+
+KaSchema.statics.getDashVotes = function() {
+  const KA = this;
+
+  return KA.aggregate([
+    { $match: { status: { $eq: 'approved' } } },
+    { $project: { _id: 1, votes: 1, categories: { $split: ['$keywords', ','] } } },
+    { $unwind: '$categories' },
+    { $group: { _id: '$categories', votes: { $sum: '$votes' } } },
+    { $sort: { _id: 1 } },
+  ]).then(votes => {
+    if (!votes) {
+      return Promise.reject();
+    }
+
+    return votes;
+  });
 };
 
 const KA = mongoose.model('KA', KaSchema, 'ka');

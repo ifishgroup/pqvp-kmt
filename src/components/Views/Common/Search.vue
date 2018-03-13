@@ -13,7 +13,7 @@
             <div slot="body-card">
               <div class="row">
                 <div class="col-lg-3  text-center">
-                  <img id="mlogo" src="/static/img/insight-logo.png" width="150px" class="rounded-circle">
+                  <img id="mlogo" src="/static/img/insight-logo.png" width="135px" class="rounded-circle">
                 </div>
                 <div class="col-lg-9">
                   <h4>

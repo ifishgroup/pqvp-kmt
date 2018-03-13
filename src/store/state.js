@@ -25,6 +25,9 @@ const config = {
   uploadUrl: `${baseUrl}public/uploads`,
   settingsUrl: `${baseUrl}settings/all`,
   settingsUpdateUrl: `${baseUrl}settings/update`,
+  dashboardArticlesUrl: `${baseUrl}dashboard/articles`,
+  dashboardViewsUrl: `${baseUrl}dashboard/views`,
+  dashboardVotesUrl: `${baseUrl}dashboard/votes`,
 };
 
 const app = {
