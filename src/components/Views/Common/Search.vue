@@ -6,8 +6,10 @@
           <card-default>
             <div slot="header-card">Start Learning...Search for knowledge articles
               <div class="card-close">
-                <button v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-primary btn-flat btn-addon btn-sm m-b-10 m-l-5">
-                  <i class="ti-plus"></i>Suggest</button>
+                <button @click="$router.push('/login')" v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
+                  <i class="ti-plus"></i>Suggest</button>&nbsp;
+                <button @click="$router.push('/login')" v-if="!$store.state.user" type="button" class="btn btn-warning btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
+                  <i class="ti-lock"></i>Login</button>
               </div>
             </div>
             <div slot="body-card">
@@ -17,7 +19,7 @@
                 </div>
                 <div class="col-lg-9">
                   <h4>
-                    For State agencies and departments who need knowledge management functionality, “Insight” is a web-based service that provides knowledge creation, sharing, and archival features.</h4>
+                    For State agencies and departments that need better knowledge management functionality, INSIGHT is a web-based service that provides knowledge creation, sharing, and archival features.</h4>
                   <h4>Unlike other knowledge management tools, Insight provides easy navigation, portfolio and product knowledge visibility, and an intuitive research experience.
                   </h4>
                 </div>
@@ -196,12 +198,9 @@ export default {
 </script>
 
 <style>
-#mlogo
-{
-
-padding-top:0px !important;
-padding-bottom:20px !important;
-
+#mlogo {
+  padding-top: 0px !important;
+  padding-bottom: 20px !important;
 }
 .form-control {
   padding-top: 0;

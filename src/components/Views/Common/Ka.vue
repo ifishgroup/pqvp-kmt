@@ -58,6 +58,15 @@
                         </div>
                       </div>
                       <div class="row p-2">
+                        <div class="col-sm-12 col-lg-6">
+                          <strong>Attachment:</strong>&nbsp;
+                          <a v-if="article.attachment" :href="`${this.config.uploadUrl}/${article.attachment}`">{{article.attachment}}</a>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                          <strong>Author:</strong> {{article.author}}&nbsp;({{article.author_email}})
+                        </div>
+                      </div>
+                      <div class="row p-2">
                         <div class="col-sm-12 col-lg-6" v-if="settings.share">
                           <social-sharing :url="article.url" :title="article.title" hashtags="insight,ifish" inline-template>
                             <div>
@@ -70,9 +79,6 @@
                               </network>
                             </div>
                           </social-sharing>
-                        </div>
-                        <div class="col-sm-12 col-lg-6">
-                          <strong>Author:</strong> {{article.author}}&nbsp;({{article.author_email}})
                         </div>
                       </div>
                     </div>
