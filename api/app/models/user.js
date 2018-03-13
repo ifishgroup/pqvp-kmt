@@ -36,32 +36,39 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  tokens: [{
-    access: {
-      type: String,
-      required: true,
+  tokens: [
+    {
+      access: {
+        type: String,
+        required: true,
+      },
+      token: {
+        type: String,
+        required: true,
+      },
     },
-    token: {
-      type: String,
-      required: true,
-    },
-  }],
+  ],
 });
 
-UserSchema.methods.toJSON = function () {
+UserSchema.methods.toJSON = function() {
   const user = this;
   const userObject = user.toObject();
 
   return _.pick(userObject, ['_id', 'name', 'email', 'role', 'photo']);
 };
 
-UserSchema.methods.generateAuthToken = function () {
+UserSchema.methods.generateAuthToken = function() {
   const user = this;
   const access = 'auth';
-  const token = jwt.sign({
-    _id: user._id.toHexString(),
-    access,
-  }, process.env.JWT_SECRET).toString();
+  const token = jwt
+    .sign(
+      {
+        _id: user._id.toHexString(),
+        access,
+      },
+      process.env.JWT_SECRET,
+    )
+    .toString();
 
   user.tokens.push({
     access,
@@ -71,18 +78,19 @@ UserSchema.methods.generateAuthToken = function () {
   return user.save().then(() => token);
 };
 
-UserSchema.methods.removeToken = function (deletetoken) {
+UserSchema.methods.removeToken = function(deletetoken) {
   const user = this;
 
   return user.update({
-    $pull: { tokens: {
-      token: deletetoken,
-    },
+    $pull: {
+      tokens: {
+        token: deletetoken,
+      },
     },
   });
 };
 
-UserSchema.statics.findByToken = function (token) {
+UserSchema.statics.findByToken = function(token) {
   const User = this;
   let decoded;
 
@@ -99,12 +107,12 @@ UserSchema.statics.findByToken = function (token) {
   });
 };
 
-UserSchema.statics.findByCredentials = function (email, password) {
+UserSchema.statics.findByCredentials = function(email, password) {
   const User = this;
 
   return User.findOne({
     email,
-  }).then((user) => {
+  }).then(user => {
     if (!user) {
       return Promise.reject();
     }
@@ -122,12 +130,12 @@ UserSchema.statics.findByCredentials = function (email, password) {
   });
 };
 
-UserSchema.statics.findById = function (id) {
+UserSchema.statics.findById = function(id) {
   const User = this;
 
   return User.findOne({
     _id: id,
-  }).then((user) => {
+  }).then(user => {
     if (!user) {
       return Promise.reject();
     }
@@ -136,38 +144,48 @@ UserSchema.statics.findById = function (id) {
   });
 };
 
-UserSchema.statics.UpdateById = function (form) {
+UserSchema.statics.UpdateById = function(form) {
   const User = this;
 
   return User.findOne({
     _id: form._id,
-  }).then((user) => {
+  }).then(user => {
     if (!user) {
       return Promise.reject();
     }
 
     return new Promise((resolve, reject) => {
       user.set({ name: form.name, role: form.role, password: form.password });
-      user.save((err) => { if (err) reject(); else resolve(); });
+      user.save(err => {
+        if (err) reject();
+        else resolve();
+      });
     });
   });
 };
 
-
-UserSchema.statics.findByIdAndRemove = function (id) {
+UserSchema.statics.findByIdAndRemove = function(id) {
   const User = this;
 
-  return User.remove({
-    _id: id,
-  }, err => new Promise((resolve, reject) => {
-    if (err) { reject(); } else { resolve(); }
-  }));
+  return User.remove(
+    {
+      _id: id,
+    },
+    err =>
+      new Promise((resolve, reject) => {
+        if (err) {
+          reject();
+        } else {
+          resolve();
+        }
+      }),
+  );
 };
 
-UserSchema.statics.getAll = function () {
+UserSchema.statics.getAll = function() {
   const User = this;
 
-  return User.find({}).then((all) => {
+  return User.find({}).then(all => {
     if (!all) {
       return Promise.reject();
     }
@@ -176,7 +194,19 @@ UserSchema.statics.getAll = function () {
   });
 };
 
-UserSchema.pre('save', function (next) {
+UserSchema.statics.getAuthor = function() {
+  const User = this;
+
+  return User.findOne({ role: 'authorAuth' }, { name: 1, email: 1 }).then(all => {
+    if (!all) {
+      return Promise.reject();
+    }
+
+    return all;
+  });
+};
+
+UserSchema.pre('save', function(next) {
   const user = this;
 
   if (user.isModified('password')) {

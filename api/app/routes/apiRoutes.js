@@ -39,9 +39,13 @@ module.exports = function (app) {
 
   app.route('/users/me').get(authenticate, userController.get_user_info);
 
+  app.route('/users/author').get(userController.get_author);
+
   app.route('/users/logout').delete(authenticate, userController.logout_user);
 
   app.route('/articles/create').post(authenticate, kaController.create_article);
+
+  app.route('/articles/suggest').post(kaController.create_article);
 
   app.post(
     '/articles/attachment',
@@ -71,6 +75,8 @@ module.exports = function (app) {
   app.route('/articles/categories').get(kaController.get_categories);
 
   app.route('/articles/vote').post(kaController.capture_vote);
+
+  app.route('/articles/suggest').post(kaController.create_article);
 
   app.route('/settings/all').get(settingController.get_all_settings);
 

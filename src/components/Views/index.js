@@ -12,6 +12,7 @@ import Ka from './Common/Ka';
 import Error404 from './Common/404';
 import Login from './Unsecure/Login2';
 import SignUp from './Unsecure/SignUp';
+import Suggest from './Unsecure/Suggest';
 
 export {
   Analytics,
@@ -25,6 +26,7 @@ export {
   SignUp,
   Search,
   Settings,
+  Suggest,
   Ka,
   Logoff,
   Error404,
