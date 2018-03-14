@@ -6,7 +6,8 @@ describe('FooterArea.vue', () => {
     const Constructor = Vue.extend(FooterArea);
     const vm = new Constructor().$mount();
     const year = new Date().getFullYear();
-    expect(vm.$el.querySelector('.text-right p').textContent)
-      .toEqual(`\u00A9 iFish Group ${year}`);
+    expect(vm.$el.querySelector('.text-right p').textContent).toEqual(
+      `Copyright \u00A9 ${year}, The iFish Group, Inc.`,
+    );
   });
 });

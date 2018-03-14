@@ -4,23 +4,23 @@
       <div class="row">
         <div class="col-lg-12">
           <card-default>
-            <div slot="header-card">Start Learning...Search for knowledge articles
+            <div slot="header-card">Start learning...search for knowledge articles
               <div class="card-close">
                 <button @click="$router.push('/suggest')" v-if="!$store.state.user && settings.suggestions ===true" type="button" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
                   <i class="ti-plus"></i>Suggest</button>&nbsp;
-                <button @click="$router.push('/login')" v-if="!$store.state.user" type="button" class="btn btn-warning btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
+                <button @click="$router.push('/login')" v-if="!$store.state.user" type="button" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5 hidden-sm-down">
                   <i class="ti-lock"></i>Login</button>
               </div>
             </div>
             <div slot="body-card">
               <div class="row">
                 <div class="col-lg-3  text-center">
-                  <img id="mlogo" src="/static/img/insight-logo.png" width="135px" class="rounded-circle">
+                  <img id="mlogo" src="/static/img/insight_rgb-large.png" width="135px">
                 </div>
                 <div class="col-lg-9">
-                  <h4>
-                    For State agencies and departments that need better knowledge management functionality, INSIGHT is a web-based service that provides knowledge creation, sharing, and archival features.</h4>
-                  <h4>Unlike other knowledge management tools, Insight provides easy navigation, portfolio and product knowledge visibility, and an intuitive research experience.
+                  <h3 class="h4">
+                    For State agencies and departments that need better knowledge management functionality, INSIGHT is a web-based service that provides knowledge creation, sharing, and archival features.</h3>
+                  <h4>Unlike other knowledge management tools, INSIGHT provides easy navigation, portfolio and product knowledge visibility, and an intuitive research experience.
                   </h4>
                 </div>
               </div>
@@ -220,24 +220,25 @@ span.input-group-btn button.btn.btn-primary {
 }
 
 a.tree-anchor {
-  color: #0073e5 !important;
+  color: #29A8E0 !important;
   font-weight: bold;
+  font-size: 0.9rem;
 }
 
 i.tree-arrow.has-child,
 .tree-arrow.has-child {
   margin-left: 5px !important;
-  color: #0073e5 !important;
+  color: #29A8E0 !important;
   width: 15px !important;
 }
 i.tree-arrow {
-  color: #0073e5 !important;
+  color: #29A8E0 !important;
 }
 
 .tree-arrow.has-child:after {
   height: 6px !important;
   width: 6px !important;
-  border-color: #0073e5 !important;
+  border-color: #29A8E0 !important;
 }
 ul.tree-children li div.tree-content {
   padding-left: 0px !important;
