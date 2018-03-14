@@ -39,6 +39,7 @@
     "markdown-it": "^8.4.1",
     "markdown-it-classy": "^0.2.0",
     "moment": "^2.21.0",
+    "pnpm": "^1.35.10",
     "sanitize-html": "^1.18.2",
     "simplemde": "^1.11.2",
     "vee-validate": "^2.0.4",
