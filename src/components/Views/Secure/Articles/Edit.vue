@@ -145,6 +145,7 @@ export default {
         user: '',
       },
       configs: {
+        lineWrapping: false,
         showIcons: ['code', 'table', 'horizontal-rule'],
       },
     };
@@ -222,9 +223,9 @@ export default {
 
 <style >
 .CodeMirror pre span {
-    font-size:.9rem !important;
-    color: #000000 !important;
-    font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  color: #000000 !important;
+  font-weight: 500 !important;
 }
 
 div.CodeMirror-code pre.CodeMirror-line span {
