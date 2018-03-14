@@ -101,7 +101,7 @@ export default {
 <style scoped>
 .fa-lg {
   font-size: 1.33em;
-  color: #0073e5;
+  color: #29A8E0;
 }
 </style>
 

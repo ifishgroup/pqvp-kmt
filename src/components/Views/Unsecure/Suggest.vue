@@ -127,3 +127,10 @@ export default {
 };
 </script>
 
+<style>
+.CodeMirror pre span {
+    font-size:.9rem !important;
+    color: #000000 !important;
+    font-weight: 500 !important;
+}
+</style>

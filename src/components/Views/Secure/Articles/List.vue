@@ -103,15 +103,15 @@ export default {
 <style scoped>
 .fa-lg {
   font-size: 1.33em;
-  color: #0073e5;
+  color: #29A8E0;
 }
 a.article {
   font-weight: bold;
-  color: #0073e5;
+  color: #29A8E0;
 }
 a.article:hover {
   font-weight: bold;
-  color: #0073e5;
+  color: #29A8E0;
   text-decoration: underline;
 }
 </style>

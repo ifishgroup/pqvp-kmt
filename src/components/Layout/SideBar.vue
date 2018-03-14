@@ -1,7 +1,7 @@
 <template>
   <nav class="side-navbar" :class="{ shrinked: !config.wideMenu }">
     <div class="sidebar-header d-flex align-items-center">
-      <div class="avatar"><img :src="userPhoto" class="img-fluid rounded-circle"></div>
+      <div class="avatar"><img :src="userPhoto" class="img-fluid"></div>
       <div class="title">
         <h3 class="h4">{{userName}}</h3>
         <p>{{userTitle}}</p>
@@ -136,7 +136,7 @@ export default {
       return this.user ? this.user.info.name : 'INSIGHT';
     },
     userPhoto() {
-      let imgsrc = '/static/img/insight-logo.png';
+      let imgsrc = '/static/img/insight_rgb-large.png';
 
       if (this.user) {
         if (this.user.info.photo === null || this.user.info.photo === '') {

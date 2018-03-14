@@ -24,7 +24,7 @@ export default {
       const d = new Date();
       const n = d.getFullYear();
 
-      return `&copy; iFish Group ${n}`;
+      return `Copyright &copy; ${n}, The iFish Group, Inc.`;
     },
   },
   components: {},

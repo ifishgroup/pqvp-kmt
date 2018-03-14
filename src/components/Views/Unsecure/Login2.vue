@@ -2,59 +2,69 @@
     <section class="forms">
         <div class="container-fluid">
             <div class="row">
-                <!-- Basic Form-->
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <card-default>
                         <div slot="header-card">Login Form</div>
                         <div slot="body-card">
-
-                            <form id="login-form" @submit.prevent="onSubmit()">
-                                <div class="form-group">
-                                    <label class="form-control-label">Email</label>
-                                    <input id="email" v-model="form.email" type="text" name="email" v-validate="'required|email'" autofocus class="input-material">
-                                    <span v-show="errors.has('email')" class="error">{{ errors.first('email') }}</span>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <form id="login-form" @submit.prevent="onSubmit()">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Email</label>
+                                            <input id="email" v-model="form.email" type="text" name="email" v-validate="'required|email'" autofocus class="input-material">
+                                            <span v-show="errors.has('email')" class="error">{{ errors.first('email') }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label">Password</label>
+                                            <input id="password" v-model="form.password" type="password" v-validate="'required'" name="password" class="input-material">
+                                            <span v-show="errors.has('password')" class="error">{{ errors.first('password') }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Login</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-control-label">Password</label>
-                                    <input id="password" v-model="form.password" type="password" v-validate="'required'" name="password" class="input-material">
-                                    <span v-show="errors.has('password')" class="error">{{ errors.first('password') }}</span>
+                                <div class="col-lg-7">
+                                    <table class="table table-striped" id="tbl-directory">
+                                        <thead>
+                                            <tr>
+                                                <th>Role</th>
+                                                <th>Name</th>
+                                                <th>Login</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>System Admin</td>
+                                                <td>Simon Sined</td>
+                                                <td>ssined@insight-kmt.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Executive</td>
+                                                <td>Bill Boss</td>
+                                                <td>bboss@insight-kmt.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Content Manager</td>
+                                                <td>Connie Smith</td>
+                                                <td>csmith@insight-kmt.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Author</td>
+                                                <td>Ann Jacobs</td>
+                                                <td>ajacobs@insight-kmt.com</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p><b>Password: abcd1234!</b></p>
                                 </div>
-                                <div class="form-group">
-                                    &nbsp;
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary" type="submit">Login</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </card-default>
                 </div>
-                <!-- Horizontal Form-->
-                <div class="col-lg-6">
-                    <card-default>
-                        <div slot="header-card">Insight User Directory</div>
-                        <div slot="body-card">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <b>System Admin</b>
-                                    <br>ssined@insight-kmt.com</li>
-                                <li>
-                                    <b>Executive</b>
-                                    <br>bboss@insight-kmt.com</li>
-                                <li>
-                                    <b>Content Manager</b>
-                                    <br>csmith@insight-kmt.com</li>
-                                <li>
-                                    <b>Author</b>
-                                    <br>ajacobs@insight-kmt.com</li>
-                                <li><br>
-                                    <b>Password</b>: abcd1234!</li>
-                            </ul>
-                        </div>
-                    </card-default>
-                </div>
-                <!-- Form Elements -->
-
             </div>
         </div>
     </section>
@@ -111,4 +121,11 @@ export default {
   },
 };
 </script>
+<style>
+#tbl-directory tr {
+  font-size: 0.9rem !important;
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+</style>
 
