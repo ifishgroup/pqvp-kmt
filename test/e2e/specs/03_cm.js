@@ -1,5 +1,5 @@
 module.exports = {
-  'CM can Reject KA 1': function (browser) {
+  'CM can Reject KA 2': function (browser) {
     const devServer = browser.globals.devServerURL;
     console.log(devServer);
     browser
@@ -18,8 +18,8 @@ module.exports = {
       .click('i[class=ti-layers')
       .useXpath()
       .click('//a[text()="Edit"]')
-      .waitForElementPresent('//table/tbody/tr[1]/th[2]/a[1]/i', 5000)
-      .click('//table/tbody/tr[1]/th[2]/a[1]/i')
+      .waitForElementPresent('//table/tbody/tr[7]/th[2]/a[1]/i', 5000)
+      .click('//table/tbody/tr[7]/th[2]/a[1]/i')
       .useCss()
       .waitForElementPresent('button[type=submit]', 5000)
       .assert.elementPresent('button[type=submit]')
@@ -43,8 +43,8 @@ module.exports = {
       .click('i[class=ti-layers]')
       .useXpath()
       .click('//a[text()="Edit"]')
-      .waitForElementPresent('//table/tbody/tr/th[2]/a[1]/i', 5000)
-      .click('//table/tbody/tr/th[2]/a[1]/i')
+      .waitForElementPresent('//table/tbody/tr[7]/th[2]/a[1]/i', 5000)
+      .click('//table/tbody/tr[7]/th[2]/a[1]/i')
       .useXpath()
       .assert.elementPresent('//div/div/button[4]')
       .click('//div/div/button[4]')
