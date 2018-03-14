@@ -24,7 +24,7 @@ module.exports = {
       silent: true,
       globals: {
         // devServerURL: 'http://localhost:/' + (process.env.PORT || config.dev.port)
-        devServerURL: 'http://insight.ifglabs.com/'
+        // devServerURL: 'http://insight.ifglabs.com/'
         // devServerURL: 'http://localhost:8080/'
         // devServerURL: 'http://localhost:80/'
       }
@@ -36,7 +36,7 @@ module.exports = {
         javascriptEnabled: true,
         acceptSslCerts: true,
         chromeOptions: {
-          args: ['headless', '--window-size=1920,1080'],
+          args: ['--window-size=1920,1080'],
         }
         }
     },
