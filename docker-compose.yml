@@ -20,6 +20,7 @@ services:
       - "80:5000"
     depends_on:
       - "api"
+    command: [ "${BASE_URL}" ]
     deploy:
       update_config:
         parallelism: 1
