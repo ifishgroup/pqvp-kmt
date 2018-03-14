@@ -220,7 +220,13 @@ export default {
 <style>
 input[type='file'] {
   position: absolute;
-  top: -500px;
+  visibility: hidden;
+}
+
+.CodeMirror pre span {
+  font-size: 0.9rem !important;
+  color: #000000 !important;
+  font-weight: 500 !important;
 }
 
 div.file-listing {

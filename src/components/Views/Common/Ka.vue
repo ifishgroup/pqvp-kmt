@@ -286,11 +286,11 @@ h5 {
 }
 .fa-lg {
   font-size: 1.33em;
-  color: #0073e5;
+  color: #29A8E0;
 }
 
 a.search {
   font-weight: bold !important;
-  color: #0073e5 !important;
+  color: #29A8E0 !important;
 }
 </style>
