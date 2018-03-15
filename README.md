@@ -93,49 +93,33 @@ Responsive design is a web page creation approach that uses flexible layouts, fl
 ## l. Open-Source Technologies
 IFG utilized more than five (5) modern and open-source technologies which include:
 
-|Layer| Open-Source Technology|
+|Layer|Open-Source Technology|
 |---|---|
 |Server Frameworks|[NodeJS](https://nodejs.org/en/)|
 ||[Express](https://expressjs.com/)|
 ||[Nginx](https://nginx.org/en/)|
-
-Continuous Integration or Continuous Delivery
-[Jenkins](https://jenkins.io/
-[Packer](https://www.packer.io/intro/index.html)
-[Terraform](https://github.com/hashicorp/terraform)
-[Docker](https://www.docker.com/)
-[Docker Compose](https://github.com/docker/compose)
-[Docker Swarm](https://github.com/docker/swarm)
-
-Monitoring	
-[Grafana](https://github.com/grafana/grafana)
-[Logstash](https://github.com/elastic/logstash)
-[Weave Scope](https://github.com/weaveworks/scope)
-[Elastic Search](https://github.com/elastic/elasticsearch)
-[Prometheus](https://github.com/prometheus)
-
-Source Control	
-[GitHub](https://github.com/)
-
-IDE	
-[Visual Studio Code](https://code.visualstudio.com/)
-
-UI Front End Framworks/Toolsets
-[VueJS](https://github.com/vuejs)
-[Axios](https://github.com/axios/axios)
-[Bootstrap](https://github.com/twbs/bootstrap)
-
-Database
-[MongoDB](https://github.com/mongodb/mongo)
-
-Testing Framework	
-[Nightwatch](https://github.com/nightwatchjs/nightwatch)
-[Jest](https://github.com/facebook/jest)
-[Swagger](https://github.com/swagger-api/swagger-editor)
-[WAVE](http://wave.webaim.org/)
-
-API Documentation
-[Swagger](https://github.com/swagger-api/swagger-editor)
+|Continuous Integration or Continuous Delivery|[Jenkins](https://jenkins.io/)|
+||[Packer](https://www.packer.io/intro/index.html)|
+||[Terraform](https://github.com/hashicorp/terraform)|
+||[Docker](https://www.docker.com/)|
+||[Docker Compose](https://github.com/docker/compose)|
+||[Docker Swarm](https://github.com/docker/swarm)|
+|Monitoring|[Grafana](https://github.com/grafana/grafana)|
+||[Logstash](https://github.com/elastic/logstash)|
+||[Weave Scope](https://github.com/weaveworks/scope)|
+||[Elastic Search](https://github.com/elastic/elasticsearch)|
+||[Prometheus](https://github.com/prometheus)|
+|Source Control|[GitHub](https://github.com/)|
+|IDE|[Visual Studio Code](https://code.visualstudio.com/)|
+|UI Front End Framworks/Toolsets|[VueJS](https://github.com/vuejs)|
+||[Axios](https://github.com/axios/axios)|
+||[Bootstrap](https://github.com/twbs/bootstrap)|
+|Database|[MongoDB](https://github.com/mongodb/mongo)|
+|Testing Framework|[Nightwatch](https://github.com/nightwatchjs/nightwatch)|
+||[Jest](https://github.com/facebook/jest)|
+||[Swagger](https://github.com/swagger-api/swagger-editor)|
+||[WAVE](http://wave.webaim.org/)|
+|API Documentation|[Swagger](https://github.com/swagger-api/swagger-editor)|
 
 The code flows from UI Front End Frameworks/Toolsets, to Server Frameworks, to REST services documented in Swagger, to the Database layers are included in the GitHub repository. Show-link-to-Dustin-diagram
 
