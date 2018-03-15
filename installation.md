@@ -2,14 +2,14 @@
 
 ## Dependencies
 
-- [Git](https://git-scm.com)
+- [Git](https://git-scm.com) (Optional)
 - [Docker](https://www.docker.com)
 - [Docker Compose](https://docs.docker.com/compose/)
 
 
 ## Install Steps
 
-1. Clone the repository
+1. Clone or download the repository
 
 ``` 
 $ git clone https://github.com/ifishgroup/pqvp-kmt.git
@@ -34,10 +34,10 @@ $ docker-compose up
 
 1. ctrl-c if still running in docker-compose
 
-2. To stop and remove containers
+2. To remove containers
 
 ``` 
-docker-compose down
+$ docker-compose down
 ```
 
 ## Building Containers Manually
