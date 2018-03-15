@@ -1,5 +1,5 @@
 # Pre-Qualified Vendor Pool for Agile Development – Digital Services (PQVP DS-AD) – 2018 Refresh Working Prototype
-This [readme.md](https://github.com/thomas-weitzel/pqvp-kmt/edit/master/README.md) file contains a project description and includes a link to the installation instructions contained in the installation.md file. 
+This [readme.md](https://github.com/thomas-weitzel/pqvp-kmt/edit/master/README.md) file contains a project description and includes a link to the installation instructions contained in the [installation.md](https://github.com/ifishgroup/pqvp-kmt/blob/master/installation.md) file. 
 
 # Technical Approach
 Since its formation in 2008, [The iFish Group (IFG)](https://www.ifishgroup.com/) has had a long, successful history of developing and delivering Information Technology solutions for State of California clients. For this prototype, IFG used an Agile approach utilizing User-Centered Design (UCD) techniques and tools and the U.S. Digital Services Playbook methodology. Documents pertaining to the development process are published in the [Docs](https://github.com/ifishgroup/pqvp-kmt/tree/master/docs) directory within the IFG project’s GitHub repository.
@@ -114,7 +114,7 @@ IFG utilized more than five (5) modern and open-source technologies which includ
 The [code flows](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/PQVP%20-%20INSIGHT%20GitHub%20Repository.pdf) from UI Front End Frameworks/Toolsets, to Server Frameworks, to REST services documented in Swagger, to the Database layers are included in the GitHub repository. Show-link-to-Dustin-diagram
 
 ## m. Flexible Hosting Environment
-Our services are deployed on a flexible hosting environment (IaaS and PaaS) where resources can be provisioned in real time to meet traffic and user demand spikes. The prototype was deployed into Amazon Web Services (AWS), an Infrastructure as a Service and Platform as Service provider, using public utility-based cloud Infrastructure leveraging containerization by deploying all services as Docker containers to a Docker Swarm cluster hosted in AWS.
+Our services are deployed on a flexible hosting environment (IaaS and PaaS) where resources can be provisioned in real time to meet traffic and user demand spikes. The prototype was deployed into [Amazon Web Services (AWS)](https://aws.amazon.com/), an Infrastructure as a Service and Platform as Service provider, using public utility-based cloud Infrastructure leveraging containerization by deploying all services as Docker containers to a Docker Swarm cluster hosted in AWS.
 
 ## n. Automated Unit Testing
 Automated Unit Testing (AUT) is a software testing method in which units of code are rigorously checked to ensure that they correctly function. We performed AUT using Jest Testing Framework for backend restful API and frontend UI components.
@@ -144,7 +144,7 @@ Continuous Monitoring components can be viewed at the following locations:
 [Docker](https://www.docker.com) is an open platform for Developers and System Administrators to build/ship/run distributed applications on laptops, data center VMs, or the cloud. Our prototype is containerized using this operating-system-level virtualization software.
 
 ## s. Installation Instructions
-See the project’s Installation.md file for the detailed documentation of the steps necessary to install and run INSIGHT on another machine.
+See the project’s [Installation.md](https://github.com/ifishgroup/pqvp-kmt/blob/master/installation.md) file for the detailed documentation of the steps necessary to install and run INSIGHT on another machine.
 
 ## t. Open License
 The prototype and underlying platforms used to create and run the INSIGHT Application are openly licensed and free of charge.
