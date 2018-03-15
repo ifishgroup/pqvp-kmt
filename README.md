@@ -85,7 +85,7 @@ IFG utilized more than five (5) modern and open-source technologies which includ
 
 **Continuous Integration or Continuous Delivery:** [Jenkins](https://jenkins.io/), [Packer](https://www.packer.io/intro/index.html), [Terraform](https://github.com/hashicorp/terraform), [Docker](https://www.docker.com/), [Docker Compose](https://github.com/docker/compose), [Docker Swarm](https://github.com/docker/swarm)
    
-**Monitoring:** [Grafana](https://github.com/grafana/grafana) ,[Logstash](https://github.com/elastic/logstash) ,[Weave Scope](https://github.com/weaveworks/scope) ,[Elastic Search](https://github.com/elastic/elasticsearch) ,[Prometheus](https://github.com/prometheus)
+**Monitoring:** [Grafana](https://github.com/grafana/grafana), [Logstash](https://github.com/elastic/logstash), [Weave Scope](https://github.com/weaveworks/scope), [Elastic Search](https://github.com/elastic/elasticsearch), [Prometheus](https://github.com/prometheus)
    
 **Source Control:** [GitHub](https://github.com/)
    
@@ -95,7 +95,7 @@ IFG utilized more than five (5) modern and open-source technologies which includ
    
 **Database:** [MongoDB](https://github.com/mongodb/mongo)
    
-**Testing Frameworks:** [Nightwatch](https://github.com/nightwatchjs/nightwatch) ,[Jest](https://github.com/facebook/jest), [Swagger](https://github.com/swagger-api/swagger-editor), [WAVE](http://wave.webaim.org/)
+**Testing Frameworks:** [Nightwatch](https://github.com/nightwatchjs/nightwatch), [Jest](https://github.com/facebook/jest), [Swagger](https://github.com/swagger-api/swagger-editor), [WAVE](http://wave.webaim.org/)
    
 **API Documentation:** [Swagger](https://github.com/swagger-api/swagger-editor)
 
