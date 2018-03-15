@@ -60,7 +60,7 @@ INSIGHT is designed to meet and exceed accessibility guidelines to ensure access
 ## h. Design Style Guide and Pattern Library
 To construct/develop the application, IFG employed a combination of the [U.S. Web Design Standards](https://standards.usa.gov/) and [Bootstrap](http://getbootstrap.com/) themes and templates. Bootstrap is an HTML5, CSS3, and JS framework for developing responsive projects compatible with desktop/mobile environments.
  
-## i. Performed usability tests with people
+## i. Performed Usability Tests with People
 Users had weekly application development process participation – attending product demonstrations during Sprint reviews and performing usability testing. Users provided qualitative feedback including usability, intuitiveness, usefulness, and overall experience. We integrated feedback and informed the subsequent versions of the prototype.
 
 ## j. Iterative Approach
