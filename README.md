@@ -81,48 +81,23 @@ Responsive design is a web page creation approach that uses flexible layouts, fl
 ## l. Open-Source Technologies
 IFG utilized more than five (5) modern and open-source technologies which include:
 
-**Server Frameworks**
-   - [NodeJS](https://nodejs.org/en/)
-   - [Express](https://expressjs.com/)
-   - [Nginx](https://nginx.org/en/)
+**Server Frameworks:** [NodeJS](https://nodejs.org/en/), [Express](https://expressjs.com/), [Nginx](https://nginx.org/en/)
+
+**Continuous Integration or Continuous Delivery:** [Jenkins](https://jenkins.io/), [Packer](https://www.packer.io/intro/index.html), [Terraform](https://github.com/hashicorp/terraform), [Docker](https://www.docker.com/), [Docker Compose](https://github.com/docker/compose), [Docker Swarm](https://github.com/docker/swarm)
    
-**Continuous Integration or Continuous Delivery**
-   - [Jenkins](https://jenkins.io/)
-   - [Packer](https://www.packer.io/intro/index.html)
-   - [Terraform](https://github.com/hashicorp/terraform)
-   - [Docker](https://www.docker.com/)
-   - [Docker Compose](https://github.com/docker/compose)
-   - [Docker Swarm](https://github.com/docker/swarm)
+**Monitoring:** [Grafana](https://github.com/grafana/grafana) ,[Logstash](https://github.com/elastic/logstash) ,[Weave Scope](https://github.com/weaveworks/scope) ,[Elastic Search](https://github.com/elastic/elasticsearch) ,[Prometheus](https://github.com/prometheus)
    
-**Monitoring**
-   - [Grafana](https://github.com/grafana/grafana)
-   - [Logstash](https://github.com/elastic/logstash)
-   - [Weave Scope](https://github.com/weaveworks/scope)
-   - [Elastic Search](https://github.com/elastic/elasticsearch)
-   - [Prometheus](https://github.com/prometheus)
+**Source Control:** [GitHub](https://github.com/)
    
-**Source Control**
-   - [GitHub](https://github.com/)
+**IDE:** [Visual Studio Code](https://code.visualstudio.com/)
    
-**IDE**
-   - [Visual Studio Code](https://code.visualstudio.com/)
+**UI Front End Framwork/Toolsets:** [VueJS](https://github.com/vuejs), [Axios](https://github.com/axios/axios), [Bootstrap](https://github.com/twbs/bootstrap)
    
-**UI Front End Framwork/Toolsets**
-   - [VueJS](https://github.com/vuejs)
-   - [Axios](https://github.com/axios/axios)
-   - [Bootstrap](https://github.com/twbs/bootstrap)
+**Database:** [MongoDB](https://github.com/mongodb/mongo)
    
-**Database**
-   - [MongoDB](https://github.com/mongodb/mongo)
+**Testing Frameworks:** [Nightwatch](https://github.com/nightwatchjs/nightwatch) ,[Jest](https://github.com/facebook/jest),23. [Swagger](https://github.com/swagger-api/swagger-editor) ,24. [WAVE](http://wave.webaim.org/)
    
-**Testing Frameworks**
-   - [Nightwatch](https://github.com/nightwatchjs/nightwatch)
-   - [Jest](https://github.com/facebook/jest)
-   - [Swagger](https://github.com/swagger-api/swagger-editor)
-   - [WAVE](http://wave.webaim.org/)
-   
-**API Documentation**
-   - [Swagger](https://github.com/swagger-api/swagger-editor)
+**API Documentation:** [Swagger](https://github.com/swagger-api/swagger-editor)
 
 The [code flows](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/PQVP%20-%20INSIGHT%20GitHub%20Repository.pdf) from UI Front End Frameworks/Toolsets, to Server Frameworks, to REST services documented in Swagger, to the Database layers are included in the GitHub repository.
 
