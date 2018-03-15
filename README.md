@@ -10,18 +10,19 @@ Digital Services Playbook: We executed 13 plays: [1], [2], [3], [4], [5], [6], [
 ## Prototype URL
 http://URL.ifgcloud.com
 
-Product Information and Demo
-*Developed by:* The iFish Group, Inc. (IFG)
+# Product Information and Demo
 
-*Developed for:* California Department of Technology, Statewide Technology Procurement
+**Developed by:** The iFish Group, Inc. (IFG)
 
-*Project Name:* INSIGHT Knowledge Management Tool
+**Developed for:** California Department of Technology, Statewide Technology Procurement
 
-*Prototype Development Hours:* Thomas-to-add-link-here.
+**Project Name:** INSIGHT Knowledge Management Tool
 
-*Project URL:* https://github.com/ifishgroup/pqvp-kmt
+**Prototype Development Hours:** Thomas-to-add-link-here.
 
-*Project Demo:* Thomas-to-add-link-here.
+**Project URL:** https://github.com/ifishgroup/pqvp-kmt
+
+**Project Demo:** Thomas-to-add-link-here.
 
 ## Synopsis
 Knowledge Management is the efficient handling of information and resources within an organization. The IFG application, INSIGHT, is a Knowledge Management Tool that provides State Agencies/Departments with the ability to capture, archive, and manage organizational knowledge from their employees and programs to create and share knowledge. 
@@ -32,18 +33,18 @@ Following <<Play 6>>, IFG assigned one product owner, Thomas Weitzel, who had th
 ## b. Multidisciplinary and Collaborative Team
 Multdisciplinary teams ensure that bottlenecks are avoided and that team members are able to perform necessary product completion tasks. Following <<Play 7>>, IFG assembled a multidisciplinary team that collaborated to develop the INSIGHT application: 
 
-*Product Manager: Thomas Weitzel
+**Product Manager:** Thomas Weitzel
 
-*Technical Architect and DevOps Engineer: Dustin Lish
+**Technical Architect and DevOps Engineer:** Dustin Lish
 
-*Frontend and Backend Web Developer: Ernie Lopez
+**Frontend and Backend Web Developer:** Ernie Lopez
 
-*Interaction Designer/User Researcher/Usability Tester: Max Mathews
+**Interaction Designer/User Researcher/Usability Tester:** Max Mathews
 
-*Scrum Master/Agile Coach: Hiren Vashi (Agile-related certifications: AgilityHealth Facilitator, ICP-ACC, SPC4, CSP, CSM, and PMI-ACP) 
+**Scrum Master/Agile Coach:** Hiren Vashi (Agile-related certifications: AgilityHealth Facilitator, ICP-ACC, SPC4, CSP, CSM, and PMI-ACP) 
 
 ## c. Understanding What People Need
-Following << Play 1>> and User Centered Design techniques mentioned below, we identified users, proxy user personas, and their user stories and tested the prototype. Users participated in demos and provided feedback throughout to clarify the goals, needs, and behaviors of the system. We also utilized qualitative data (user groups, interviews, questionnaires) and quantitative data (bug reports and issues reported during demos) to identify user needs. 
+Following <<Play 1>> and User Centered Design techniques mentioned below, we identified users, proxy user personas, and their user stories and tested the prototype. Users participated in demos and provided feedback throughout to clarify the goals, needs, and behaviors of the system. We also utilized qualitative data (user groups, interviews, questionnaires) and quantitative data (bug reports and issues reported during demos) to identify user needs. 
 
 ## d. User Centered Design Techniques and Tools
 IFG followed an Agile incremental and iterative development methodology utilizing the following User-Centered Design (UCD) techniques and tools:
@@ -55,11 +56,14 @@ IFG followed an Agile incremental and iterative development methodology utilizin
 6.	Wire Frames: To record user experience and quickly visualize it, we sketched out initial wireframes.
  
 ## e. GitHub Repository
-IFG‘s GitHub repository to document code commits and publish software is located at: https://github.com/ifishgroup/pqvp-kmt
+IFG‘s GitHub repository to document code commits and publish software is located at:
+
+https://github.com/ifishgroup/pqvp-kmt
 
 ## f. RESTful API Documentation
 IFG used Swagger to document all RESTful APIs. The Swagger documentation is available at:
-URL
+
+http://insight.ifglabs.com/api/docs
 
 ## g. Section 508 and WCAG 2.0
 INSIGHT is designed to meet and exceed accessibility guidelines to ensure access for people with physical, sensory, or cognitive disabilities. This includes adherence to Section 508 of the Americans with Disabilities Act and Web Content Accessibility Guidelines standards, in accordance with the [U.S. Web Design Standards](https://standards.usa.gov). IFG used the [Web Accessibility Evaluation Tool](http://wave.webaim.org/) to assess compliance.
@@ -153,10 +157,18 @@ Terraform is an infrastructure-as-code software that allows users to define a da
 Configuration Management refers to the process by which all artifacts relevant to a project, and the relationships between them, are stored, retrieved, uniquely identified, and modified. We utilized Configuration Management to ensure INSIGHT product integrity and managed the entire system with techniques such as immutable and declarative infrastructure. Tools included Packer, Terraform, AWS, Docker, Docker Swarm, Git, and Jenkins to facilitate changes and deployments to production. Servers are preconfigured using Packer to build AMIs with dependences such as Docker engines already included. We used Terraform to provision infrastructure in AWS and configure the initial Docker Swarm cluster. Docker containers are built and published to a Docker hub that contains configuration details for our services and applications. Docker Swarm is used to orchestrate deployments to the cluster. All operational changes are made using Git and executed via Jenkins.
 
 ## q. Continuous Monitoring
-Continuous Monitoring is the process of measuring and observing the performance and availability of the application, infrastructure, and services across the DevOps workflow. This helped us detect issues before they caused any major downtime for INSIGHT users. To personalize monitoring, the same monitoring stack was deployed to all staging and Production environments, allowing us to use the same tooling and troubleshooting techniques in all environments. All monitoring services are Dockerized and deployed as a monitoring stack. We used Prometheus, cAdvisor, and Node Exporter to collect various metrics and Grafana as a dashboard to display reports. We used Alertmanager, Unseen, and an alert dashboard to send alerts to the team. Weave scope was deployed to visualize the Docker Swarm cluster and container services in operation. We used Caddy as a proxy to provide authentication to all monitoring endpoints. 
+Continuous Monitoring is the process of measuring and observing the performance and availability of the application, infrastructure, and services across the DevOps workflow. This helped us detect issues before they caused any major downtime for INSIGHT users. To personalize monitoring, the same monitoring stack was deployed to all staging and Production environments, allowing us to use the same tooling and troubleshooting techniques in all environments. All monitoring services are Dockerized and deployed as a monitoring stack. We used [Prometheus](http://insight.ifglabs.com:9090), cAdvisor, and Node Exporter to collect various metrics and [Grafana](http://insight.ifglabs.com:3000) as a dashboard to display reports. We used [Alertmanager](http://insight.ifglabs.com:9093), [Unseen](http://insight.ifglabs.com:9094), and an alert dashboard to send alerts to the team. [Weave Scope](http://insight.ifglabs.com:4041) was deployed to visualize the Docker Swarm cluster and container services in operation. We used Caddy as a proxy to provide authentication to all monitoring endpoints. 
+
+Continuous Monitoring components can be viewed at the following locations:
+
+* **Weave Scope:** http://insight.ifglabs.com:4041
+* **Grafana:** http://insight.ifglabs.com:3000
+* **Prometheus:** http://insight.ifglabs.com:9090
+* **Alert Manager:** http://insight.ifglabs.com:9093
+* **Unseen:** http://insight.ifglabs.com:9094
 
 ## r. Open Source Container
-Docker (https://www.docker.com) is an open platform for Developers and System Administrators to build/ship/run distributed applications on laptops, data center VMs, or the cloud. Our prototype is containerized using this operating-system-level virtualization software.
+[Docker](https://www.docker.com) is an open platform for Developers and System Administrators to build/ship/run distributed applications on laptops, data center VMs, or the cloud. Our prototype is containerized using this operating-system-level virtualization software.
 
 ## s. Installation Instructions
 See the project’s Installation.md file for the detailed documentation of the steps necessary to install and run INSIGHT on another machine.
