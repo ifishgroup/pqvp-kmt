@@ -85,6 +85,7 @@ IFG utilized more than five (5) modern and open-source technologies which includ
    - [NodeJS](https://nodejs.org/en/)
    - [Express](https://expressjs.com/)
    - [Nginx](https://nginx.org/en/)
+   
 **Continuous Integration or Continuous Delivery Layer**
    - [Jenkins](https://jenkins.io/)
    - [Packer](https://www.packer.io/intro/index.html)
@@ -92,26 +93,33 @@ IFG utilized more than five (5) modern and open-source technologies which includ
    - [Docker](https://www.docker.com/)
    - [Docker Compose](https://github.com/docker/compose)
    - [Docker Swarm](https://github.com/docker/swarm)
+   
 **Monitoring Layer**
    - [Grafana](https://github.com/grafana/grafana)
    - [Logstash](https://github.com/elastic/logstash)
    - [Weave Scope](https://github.com/weaveworks/scope)
    - [Elastic Search](https://github.com/elastic/elasticsearch)
    - [Prometheus](https://github.com/prometheus)
+   
 **Source Control Layer**
    - [GitHub](https://github.com/)
+   
 **IDE Layer**
    - [Visual Studio Code](https://code.visualstudio.com/)
+   
 **UI Front End Framwork/Toolset Layer**
    - [VueJS](https://github.com/vuejs)
    - [Axios](https://github.com/axios/axios)
    - [Bootstrap](https://github.com/twbs/bootstrap)
+   
 **Database Layer**
    - [MongoDB](https://github.com/mongodb/mongo)
+   
 **Testing Framework Layer**[Nightwatch](https://github.com/nightwatchjs/nightwatch)
    - [Jest](https://github.com/facebook/jest)
    - [Swagger](https://github.com/swagger-api/swagger-editor)
    - [WAVE](http://wave.webaim.org/)
+   
 **API Documentation**
    - [Swagger](https://github.com/swagger-api/swagger-editor)
 
