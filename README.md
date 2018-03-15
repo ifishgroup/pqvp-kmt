@@ -81,12 +81,12 @@ Responsive design is a web page creation approach that uses flexible layouts, fl
 ## l. Open-Source Technologies
 IFG utilized more than five (5) modern and open-source technologies which include:
 
-**Server Framework Layer**
+**Server Frameworks**
    - [NodeJS](https://nodejs.org/en/)
    - [Express](https://expressjs.com/)
    - [Nginx](https://nginx.org/en/)
    
-**Continuous Integration or Continuous Delivery Layer**
+**Continuous Integration or Continuous Delivery**
    - [Jenkins](https://jenkins.io/)
    - [Packer](https://www.packer.io/intro/index.html)
    - [Terraform](https://github.com/hashicorp/terraform)
@@ -94,28 +94,29 @@ IFG utilized more than five (5) modern and open-source technologies which includ
    - [Docker Compose](https://github.com/docker/compose)
    - [Docker Swarm](https://github.com/docker/swarm)
    
-**Monitoring Layer**
+**Monitoring**
    - [Grafana](https://github.com/grafana/grafana)
    - [Logstash](https://github.com/elastic/logstash)
    - [Weave Scope](https://github.com/weaveworks/scope)
    - [Elastic Search](https://github.com/elastic/elasticsearch)
    - [Prometheus](https://github.com/prometheus)
    
-**Source Control Layer**
+**Source Control**
    - [GitHub](https://github.com/)
    
-**IDE Layer**
+**IDE**
    - [Visual Studio Code](https://code.visualstudio.com/)
    
-**UI Front End Framwork/Toolset Layer**
+**UI Front End Framwork/Toolsets**
    - [VueJS](https://github.com/vuejs)
    - [Axios](https://github.com/axios/axios)
    - [Bootstrap](https://github.com/twbs/bootstrap)
    
-**Database Layer**
+**Database**
    - [MongoDB](https://github.com/mongodb/mongo)
    
-**Testing Framework Layer**[Nightwatch](https://github.com/nightwatchjs/nightwatch)
+**Testing Frameworks**
+   - [Nightwatch](https://github.com/nightwatchjs/nightwatch)
    - [Jest](https://github.com/facebook/jest)
    - [Swagger](https://github.com/swagger-api/swagger-editor)
    - [WAVE](http://wave.webaim.org/)
