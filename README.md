@@ -5,7 +5,7 @@ This [readme.md](https://github.com/thomas-weitzel/pqvp-kmt/edit/master/README.m
 Since its formation in 2008, [The iFish Group (IFG)](https://www.ifishgroup.com/) has had a long, successful history of developing and delivering Information Technology solutions for State of California clients. For this prototype, IFG used an Agile approach utilizing User-Centered Design (UCD) techniques and tools and the U.S. Digital Services Playbook methodology. Documents pertaining to the development process are published in the [Docs](https://github.com/ifishgroup/pqvp-kmt/tree/master/docs) directory within the IFG project’s GitHub repository.
 
 Goals: To build a collaborative IFG team comprised of business, project, technical, and development resources to produce quality working software designed and built through continuous customer/user input and feedback throughout the development of the prototype and to deploy the solution using Agile DevOps best practices. 
-Digital Services Playbook: We executed 13 plays: [1](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2001.jpg), [2](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2002.jpg), [3](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2003.jpg), [4](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2004.jpg), [5](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2005.jpg), [6](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2006.jpg), [7](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2007.jpg), [8](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2008.jpg), [9](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2009.jpg), [10](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2010.jpg), [11](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2011.jpg), [12](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2012.jpg), [13](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2013.jpg).
+Digital Services Playbook: We executed [13 plays](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/All13Play-collage.PNG): [1](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2001.jpg), [2](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2002.jpg), [3](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2003.jpg), [4](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2004.jpg), [5](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2005.jpg), [6](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2006.jpg), [7](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2007.jpg), [8](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2008.jpg), [9](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2009.jpg), [10](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2010.jpg), [11](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2011.jpg), [12](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2012.jpg), [13](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2013.jpg).
 
 ## Prototype URL
 * http://insight.ifglabs.com
@@ -23,10 +23,10 @@ Digital Services Playbook: We executed 13 plays: [1](https://github.com/ifishgro
 Knowledge Management is the efficient handling of information and resources within an organization. The IFG application, [INSIGHT](http://insight.ifglabs.com), is a Knowledge Management Tool that provides State Agencies/Departments with the ability to capture, archive, and manage organizational knowledge from their employees and programs to create and share knowledge. 
 
 ## a. Assigned Product Leader
-Following <<Play 6>>, IFG assigned one product owner, Thomas Weitzel, who had the authority, responsibility, and accountability for the quality of the prototype submitted.
+Following [Play 6](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2006.jpg), IFG assigned one product owner, Thomas Weitzel, who had the authority, responsibility, and accountability for the quality of the prototype submitted.
 
 ## b. Multidisciplinary and Collaborative Team
-Multdisciplinary teams ensure that bottlenecks are avoided and that team members are able to perform necessary product completion tasks. Following <<Play 7>>, IFG assembled a multidisciplinary team that collaborated to develop the INSIGHT application: 
+Multdisciplinary teams ensure that bottlenecks are avoided and that team members are able to perform necessary product completion tasks. Following [Play 7](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2007.jpg), IFG assembled a multidisciplinary team that collaborated to develop the INSIGHT application: 
 
 * **Product Manager:** Thomas Weitzel
 * **Technical Architect and DevOps Engineer:** Dustin Lish
@@ -35,7 +35,7 @@ Multdisciplinary teams ensure that bottlenecks are avoided and that team members
 * **Scrum Master/Agile Coach:** Hiren Vashi (Agile-related certifications: AgilityHealth Facilitator, ICP-ACC, SPC4, CSP, CSM, and PMI-ACP) 
 
 ## c. Understanding What People Need
-Following <<Play 1>> and User Centered Design techniques mentioned below, we identified users, proxy user personas, and their user stories and tested the prototype. Users participated in demos and provided feedback throughout to clarify the goals, needs, and behaviors of the system. We also utilized qualitative data (user groups, interviews, questionnaires) and quantitative data (bug reports and issues reported during demos) to identify user needs. 
+Following [Play 1](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Play%2001.jpg) and User Centered Design techniques mentioned below, we identified users, proxy user personas, and their user stories and tested the prototype. Users participated in demos and provided feedback throughout to clarify the goals, needs, and behaviors of the system. We also utilized qualitative data (user groups, interviews, questionnaires) and quantitative data (bug reports and issues reported during demos) to identify user needs. 
 
 ## d. User Centered Design Techniques and Tools
 IFG followed an Agile incremental and iterative development methodology utilizing the following User-Centered Design (UCD) techniques and tools:
@@ -111,7 +111,7 @@ IFG utilized more than five (5) modern and open-source technologies which includ
 |Testing Framework|[WAVE](http://wave.webaim.org/)|
 |API Documentation|[Swagger](https://github.com/swagger-api/swagger-editor)|
 
-The code flows from UI Front End Frameworks/Toolsets, to Server Frameworks, to REST services documented in Swagger, to the Database layers are included in the GitHub repository. Show-link-to-Dustin-diagram
+The [code flows](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/PQVP%20-%20INSIGHT%20GitHub%20Repository.pdf) from UI Front End Frameworks/Toolsets, to Server Frameworks, to REST services documented in Swagger, to the Database layers are included in the GitHub repository. Show-link-to-Dustin-diagram
 
 ## m. Flexible Hosting Environment
 Our services are deployed on a flexible hosting environment (IaaS and PaaS) where resources can be provisioned in real time to meet traffic and user demand spikes. The prototype was deployed into Amazon Web Services (AWS), an Infrastructure as a Service and Platform as Service provider, using public utility-based cloud Infrastructure leveraging containerization by deploying all services as Docker containers to a Docker Swarm cluster hosted in AWS.
