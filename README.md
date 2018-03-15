@@ -84,29 +84,29 @@ IFG utilized more than five (5) modern and open-source technologies which includ
 |Layer|Open-Source Technology|
 |---|---|
 |Server Framework|[NodeJS](https://nodejs.org/en/)|
-|Server Framework|[Express](https://expressjs.com/)|
-|Server Framework|[Nginx](https://nginx.org/en/)|
+||[Express](https://expressjs.com/)|
+||[Nginx](https://nginx.org/en/)|
 |Continuous Integration or Continuous Delivery|[Jenkins](https://jenkins.io/)|
-|Continuous Integration or Continuous Delivery|[Packer](https://www.packer.io/intro/index.html)|
-|Continuous Integration or Continuous Delivery|[Terraform](https://github.com/hashicorp/terraform)|
-|Continuous Integration or Continuous Delivery|[Docker](https://www.docker.com/)|
-|Continuous Integration or Continuous Delivery|[Docker Compose](https://github.com/docker/compose)|
-|Continuous Integration or Continuous Delivery|[Docker Swarm](https://github.com/docker/swarm)|
+||[Packer](https://www.packer.io/intro/index.html)|
+||[Terraform](https://github.com/hashicorp/terraform)|
+||[Docker](https://www.docker.com/)|
+||[Docker Compose](https://github.com/docker/compose)|
+||[Docker Swarm](https://github.com/docker/swarm)|
 |Monitoring|[Grafana](https://github.com/grafana/grafana)|
-|Monitoring|[Logstash](https://github.com/elastic/logstash)|
-|Monitoring|[Weave Scope](https://github.com/weaveworks/scope)|
-|Monitoring|[Elastic Search](https://github.com/elastic/elasticsearch)|
-|Monitoring|[Prometheus](https://github.com/prometheus)|
+||[Logstash](https://github.com/elastic/logstash)|
+||[Weave Scope](https://github.com/weaveworks/scope)|
+||[Elastic Search](https://github.com/elastic/elasticsearch)|
+||[Prometheus](https://github.com/prometheus)|
 |Source Control|[GitHub](https://github.com/)|
 |IDE|[Visual Studio Code](https://code.visualstudio.com/)|
 |UI Front End Framwork/Toolset|[VueJS](https://github.com/vuejs)|
-|UI Front End Framwork/Toolset|[Axios](https://github.com/axios/axios)|
-|UI Front End Framwork/Toolset|[Bootstrap](https://github.com/twbs/bootstrap)|
+||[Axios](https://github.com/axios/axios)|
+||[Bootstrap](https://github.com/twbs/bootstrap)|
 |Database|[MongoDB](https://github.com/mongodb/mongo)|
 |Testing Framework|[Nightwatch](https://github.com/nightwatchjs/nightwatch)|
-|Testing Framework|[Jest](https://github.com/facebook/jest)|
-|Testing Framework|[Swagger](https://github.com/swagger-api/swagger-editor)|
-|Testing Framework|[WAVE](http://wave.webaim.org/)|
+||[Jest](https://github.com/facebook/jest)|
+||[Swagger](https://github.com/swagger-api/swagger-editor)|
+||[WAVE](http://wave.webaim.org/)|
 |API Documentation|[Swagger](https://github.com/swagger-api/swagger-editor)|
 
 The [code flows](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/PQVP%20-%20INSIGHT%20GitHub%20Repository.pdf) from UI Front End Frameworks/Toolsets, to Server Frameworks, to REST services documented in Swagger, to the Database layers are included in the GitHub repository. Show-link-to-Dustin-diagram
