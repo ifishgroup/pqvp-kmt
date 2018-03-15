@@ -8,7 +8,7 @@ Goals: To build a collaborative IFG team comprised of business, project, technic
 Digital Services Playbook: We executed 13 plays: [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13].
 
 ## Prototype URL
-http://insight.ifglabs.com
+* http://insight.ifglabs.com
 
 # Product Information and Demo
 
