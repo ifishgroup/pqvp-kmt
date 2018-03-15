@@ -95,7 +95,7 @@ IFG utilized more than five (5) modern and open-source technologies which includ
    
 **Database:** [MongoDB](https://github.com/mongodb/mongo)
    
-**Testing Frameworks:** [Nightwatch](https://github.com/nightwatchjs/nightwatch) ,[Jest](https://github.com/facebook/jest),23. [Swagger](https://github.com/swagger-api/swagger-editor) ,24. [WAVE](http://wave.webaim.org/)
+**Testing Frameworks:** [Nightwatch](https://github.com/nightwatchjs/nightwatch) ,[Jest](https://github.com/facebook/jest), [Swagger](https://github.com/swagger-api/swagger-editor), [WAVE](http://wave.webaim.org/)
    
 **API Documentation:** [Swagger](https://github.com/swagger-api/swagger-editor)
 
