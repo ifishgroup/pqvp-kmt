@@ -28,42 +28,37 @@ Following <<Play 6>>, IFG assigned one product owner, Thomas Weitzel, who had th
 ## b. Multidisciplinary and Collaborative Team
 Multdisciplinary teams ensure that bottlenecks are avoided and that team members are able to perform necessary product completion tasks. Following <<Play 7>>, IFG assembled a multidisciplinary team that collaborated to develop the INSIGHT application: 
 
-**Product Manager:** Thomas Weitzel
-
-**Technical Architect and DevOps Engineer:** Dustin Lish
-
-**Frontend and Backend Web Developer:** Ernie Lopez
-
-**Interaction Designer/User Researcher/Usability Tester:** Max Mathews
-
-**Scrum Master/Agile Coach:** Hiren Vashi (Agile-related certifications: AgilityHealth Facilitator, ICP-ACC, SPC4, CSP, CSM, and PMI-ACP) 
+* **Product Manager:** Thomas Weitzel
+* **Technical Architect and DevOps Engineer:** Dustin Lish
+* **Frontend and Backend Web Developer:** Ernie Lopez
+* **Interaction Designer/User Researcher/Usability Tester:** Max Mathews
+* **Scrum Master/Agile Coach:** Hiren Vashi (Agile-related certifications: AgilityHealth Facilitator, ICP-ACC, SPC4, CSP, CSM, and PMI-ACP) 
 
 ## c. Understanding What People Need
 Following <<Play 1>> and User Centered Design techniques mentioned below, we identified users, proxy user personas, and their user stories and tested the prototype. Users participated in demos and provided feedback throughout to clarify the goals, needs, and behaviors of the system. We also utilized qualitative data (user groups, interviews, questionnaires) and quantitative data (bug reports and issues reported during demos) to identify user needs. 
 
 ## d. User Centered Design Techniques and Tools
 IFG followed an Agile incremental and iterative development methodology utilizing the following User-Centered Design (UCD) techniques and tools:
-1.	Participatory Design: We used the participatory design process to design the solution. Participants included the entire Development team and additionally identified keen users who provided their initial views/opinions regarding the design creation.
-2.	User Personas: We developed personas for our user base, allowing a common understanding of final INSIGHT product users. We posted our personas in our team development room to further assist us in our product development.
-3.	Persona Development and Empathy Mapping: Using brain-storming techniques at an all-team persona development session, we created personas within an hour. This activity revealed the underlying “why” behind users’ actions, allowing us to proactively design for their real needs.
-4.	User Story Map: Based on goals identified for each persona and by mapping our user journey, we identified how each persona would use the application. We developed many user stories for each persona and ordered them based on the user-set priority. This helped in scoping/planning our project and in identifying the Minimum Viable Product.
-5.	User Stories: For each persona, we developed user stories by focusing on small and immediate customer needs and prioritizing them accordingly. We broke down user needs into small features that we could implement and easily deliver in few hours to few days.
-6.	Wire Frames: To record user experience and quickly visualize it, we sketched out initial wireframes.
+1. Participatory Design: We used the participatory design process to design the solution. Participants included the entire Development team and additionally identified keen users who provided their initial views/opinions regarding the design creation.
+2. User Personas: We developed personas for our user base, allowing a common understanding of final INSIGHT product users. We posted our personas in our team development room to further assist us in our product development.
+3. Persona Development and Empathy Mapping: Using brain-storming techniques at an all-team persona development session, we created personas within an hour. This activity revealed the underlying “why” behind users’ actions, allowing us to proactively design for their real needs.
+4. User Story Map: Based on goals identified for each persona and by mapping our user journey, we identified how each persona would use the application. We developed many user stories for each persona and ordered them based on the user-set priority. This helped in scoping/planning our project and in identifying the Minimum Viable Product.
+5. User Stories: For each persona, we developed user stories by focusing on small and immediate customer needs and prioritizing them accordingly. We broke down user needs into small features that we could implement and easily deliver in few hours to few days.
+6. Wire Frames: To record user experience and quickly visualize it, we sketched out initial wireframes.
  
 ## e. GitHub Repository
 IFG‘s GitHub repository to document code commits and publish software is located at:
-https://github.com/ifishgroup/pqvp-kmt
+* https://github.com/ifishgroup/pqvp-kmt
 
 ## f. RESTful API Documentation
 IFG used Swagger to document all RESTful APIs. The Swagger documentation is available at:
-
-http://insight.ifglabs.com/api/docs
+* http://insight.ifglabs.com/api/docs
 
 ## g. Section 508 and WCAG 2.0
 INSIGHT is designed to meet and exceed accessibility guidelines to ensure access for people with physical, sensory, or cognitive disabilities. This includes adherence to Section 508 of the Americans with Disabilities Act and Web Content Accessibility Guidelines standards, in accordance with the [U.S. Web Design Standards](https://standards.usa.gov). IFG used the [Web Accessibility Evaluation Tool](http://wave.webaim.org/) to assess compliance.
 
 ## h. Design Style Guide and Pattern Library
-To construct/develop the application, IFG employed a combination of the U.S. Web Design Standards (https://standards.usa.gov/) and Bootstrap (http://getbootstrap.com/) themes and templates. Bootstrap is an HTML5, CSS3, and JS framework for developing responsive projects compatible with desktop/mobile environments.
+To construct/develop the application, IFG employed a combination of the [U.S. Web Design Standards](https://standards.usa.gov/) and [Bootstrap](http://getbootstrap.com/) themes and templates. Bootstrap is an HTML5, CSS3, and JS framework for developing responsive projects compatible with desktop/mobile environments.
  
 ## i. Performed usability tests with people
 Users had weekly application development process participation – attending product demonstrations during Sprint reviews and performing usability testing. Users provided qualitative feedback including usability, intuitiveness, usefulness, and overall experience. We integrated feedback and informed the subsequent versions of the prototype.
@@ -71,15 +66,15 @@ Users had weekly application development process participation – attending pro
  
 ## j. Iterative Approach
 During INSIGHT prototype application development, the team used an Agile incremental and iterative development methodology. IFG’s resident Enterprise Agile Coach, Hiren Vashi, guided the team’s approach and process. 
-1.	Day One: Team developed a timeline for iterative timeboxes and divided work effort into timeboxes.
-2.	First Iteration, Sprint 0: We set up workspace, supplies, and communication tools; developed product vision, user personas, and user activity flow; and derived an initial set of user stories. The team also collected business values for each, developed an initial product backlog set, divided the backlog set into releases on the user story map, and set up a team collaboration tool, CA Agile Central.
-3.	Remaining Sprints 1,2, and 3: The team designed and developed our INSIGHT product, using pair programming. 
-4.	Each Sprint: We performed the following ceremonies: 
-a.	Sprint Planning – Team sessions to commit to completion of a set of the highest-ranked product backlog items. Here we decided our Sprint Goals, developed the Sprint Backlog, and estimated user stories using planning poker.
-b.	Daily Standups – Brief meetings for all team members to update each other with vital information for project coordination
-c.	Product Backlog Grooming – Periodically performed to prioritize/estimate user stories in product backlog
-d.	Sprint Review – To provide users and stakeholders with working software demonstration and to gather immediate feedback 
-e.	Sprint Retrospectives– Team noted what worked well and what could be improved.
+1. Day One: Team developed a timeline for iterative timeboxes and divided work effort into timeboxes.
+2. First Iteration, Sprint 0: We set up workspace, supplies, and communication tools; developed product vision, user personas, and user activity flow; and derived an initial set of user stories. The team also collected business values for each, developed an initial product backlog set, divided the backlog set into releases on the user story map, and set up a team collaboration tool, CA Agile Central.
+3. Remaining Sprints 1,2, and 3: The team designed and developed our INSIGHT product, using pair programming. 
+4. Each Sprint: We performed the following ceremonies: 
+a. Sprint Planning – Team sessions to commit to completion of a set of the highest-ranked product backlog items. Here we decided our Sprint Goals, developed the Sprint Backlog, and estimated user stories using planning poker.
+b. Daily Standups – Brief meetings for all team members to update each other with vital information for project coordination
+c. Product Backlog Grooming – Periodically performed to prioritize/estimate user stories in product backlog
+d. Sprint Review – To provide users and stakeholders with working software demonstration and to gather immediate feedback 
+e. Sprint Retrospectives– Team noted what worked well and what could be improved.
 
 ## k. Responsive Multi-Device Design
 Responsive design is a web page creation approach that uses flexible layouts, flexible images, and cascading style sheet media queries. Its goal is to build web pages that detect the visitor's screen size/orientation and accordingly change the layout. INSIGHT was created to work on multiple devices and presents a responsive design. We successfully tested it on Google Chrome, Windows Edge, Safari on iPad/iPhone, and Chrome for Android on mobile devices.
