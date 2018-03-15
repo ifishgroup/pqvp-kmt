@@ -8,7 +8,7 @@ Goals: To build a collaborative IFG team comprised of business, project, technic
 Digital Services Playbook: We executed 13 plays: [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13].
 
 ## Prototype URL
-http://URL.ifgcloud.com
+http://insight.ifglabs.com
 
 # Product Information and Demo
 
@@ -25,7 +25,7 @@ http://URL.ifgcloud.com
 **Project Demo:** Thomas-to-add-link-here.
 
 ## Synopsis
-Knowledge Management is the efficient handling of information and resources within an organization. The IFG application, INSIGHT, is a Knowledge Management Tool that provides State Agencies/Departments with the ability to capture, archive, and manage organizational knowledge from their employees and programs to create and share knowledge. 
+Knowledge Management is the efficient handling of information and resources within an organization. The IFG application, [INSIGHT](http://insight.ifglabs.com), is a Knowledge Management Tool that provides State Agencies/Departments with the ability to capture, archive, and manage organizational knowledge from their employees and programs to create and share knowledge. 
 
 ## a. Assigned Product Leader
 Following <<Play 6>>, IFG assigned one product owner, Thomas Weitzel, who had the authority, responsibility, and accountability for the quality of the prototype submitted.
@@ -57,7 +57,6 @@ IFG followed an Agile incremental and iterative development methodology utilizin
  
 ## e. GitHub Repository
 IFG‘s GitHub repository to document code commits and publish software is located at:
-
 https://github.com/ifishgroup/pqvp-kmt
 
 ## f. RESTful API Documentation
@@ -94,11 +93,11 @@ Responsive design is a web page creation approach that uses flexible layouts, fl
 ## l. Open-Source Technologies
 IFG utilized more than five (5) modern and open-source technologies which include:
 
-## Layer	Open-Source Technology	URL
-Server Frameworks	
-[NodeJS](https://nodejs.org/en/)
-[Express](https://expressjs.com/)
-[Nginx](https://nginx.org/en/)
+|Layer| Open-Source Technology|
+|---|---|
+|Server Frameworks|[NodeJS](https://nodejs.org/en/)|
+||[Express](https://expressjs.com/)|
+||[Nginx](https://nginx.org/en/)|
 
 Continuous Integration or Continuous Delivery
 [Jenkins](https://jenkins.io/
