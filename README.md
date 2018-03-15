@@ -12,17 +12,12 @@ http://insight.ifglabs.com
 
 # Product Information and Demo
 
-**Developed by:** The iFish Group, Inc. (IFG)
-
-**Developed for:** California Department of Technology, Statewide Technology Procurement
-
-**Project Name:** INSIGHT Knowledge Management Tool
-
-**Prototype Development Hours:** Thomas-to-add-link-here.
-
-**Project URL:** https://github.com/ifishgroup/pqvp-kmt
-
-**Project Demo:** Thomas-to-add-link-here.
+* **Developed by:** The iFish Group, Inc. (IFG)
+* **Developed for:** California Department of Technology, Statewide Technology Procurement
+* **Project Name:** INSIGHT Knowledge Management Tool
+* **Prototype Development Hours:** Thomas-to-add-link-here.
+* **Project URL:** https://github.com/ifishgroup/pqvp-kmt
+* **Project Demo:** Thomas-to-add-link-here.
 
 ## Synopsis
 Knowledge Management is the efficient handling of information and resources within an organization. The IFG application, [INSIGHT](http://insight.ifglabs.com), is a Knowledge Management Tool that provides State Agencies/Departments with the ability to capture, archive, and manage organizational knowledge from their employees and programs to create and share knowledge. 
