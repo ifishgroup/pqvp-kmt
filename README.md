@@ -73,12 +73,11 @@ During INSIGHT prototype application development, the team used an Agile increme
    - [Daily Standups](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Section-j-4-b-Daily%20Standups.jpg) – Brief meetings for all team members to update each other with vital information for project coordination
    - [Product Backlog Grooming](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Section-j-4-c-Product%20Backlog%20Grooming.jpg) – Periodically performed to prioritize/estimate user stories in product backlog
    - [Sprint Review](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Section-j-4-d-Sprint%20Review.png) – To provide users and stakeholders with working software demonstration and to gather immediate feedback 
-   - [Sprint Retrospectives](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Section-j-4-e-Sprint%20Retrospectives.png)– Team noted what worked well and what could be improved.
+   - [Sprint Retrospectives](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Section-j-4-e-Sprint%20Retrospectives.png) – Team noted what worked well and what could be improved.
 
 ## k. Responsive Multi-Device Design
 Responsive design is a web page creation approach that uses flexible layouts, flexible images, and cascading style sheet media queries. Its goal is to build web pages that detect the visitor's screen size/orientation and accordingly change the layout. INSIGHT was created to work on multiple devices and presents a responsive design. We successfully tested it on Google Chrome, Windows Edge, Safari on iPad/iPhone, and Chrome for Android on mobile devices.
 
- 
 ## l. Open-Source Technologies
 IFG utilized more than five (5) modern and open-source technologies which include:
 
