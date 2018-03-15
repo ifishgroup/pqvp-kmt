@@ -63,7 +63,6 @@ To construct/develop the application, IFG employed a combination of the [U.S. We
 ## i. Performed usability tests with people
 Users had weekly application development process participation – attending product demonstrations during Sprint reviews and performing usability testing. Users provided qualitative feedback including usability, intuitiveness, usefulness, and overall experience. We integrated feedback and informed the subsequent versions of the prototype.
 
- 
 ## j. Iterative Approach
 During INSIGHT prototype application development, the team used an Agile incremental and iterative development methodology. IFG’s resident Enterprise Agile Coach, Hiren Vashi, guided the team’s approach and process. 
 1. Day One: Team developed a [timeline](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Section-j-1-timeline.jpg) for [iterative timeboxes](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/Section-j-1-Iterative%20TimeBoxes-Release%20Information%20and%20Metrics.pdf) and divided work effort into timeboxes.
