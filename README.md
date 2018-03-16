@@ -96,8 +96,8 @@ The [code flows](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/PQVP%20
 ## m. Flexible Hosting Environment
 Our services are deployed on a flexible hosting environment (IaaS and PaaS) where resources can be provisioned in real time to meet traffic and user demand spikes. The prototype was deployed into [Amazon Web Services (AWS)](https://aws.amazon.com/), an Infrastructure as a Service and Platform as Service provider, using public utility-based cloud Infrastructure leveraging containerization by deploying all services as Docker containers to a Docker Swarm cluster hosted in AWS.
 
-## n. Automated Unit Testing [(AUT)](https://github.com/ifishgroup/pqvp-kmt/tree/master/test/unit)
-We performed AUT using Jest Testing Framework for unit-level code. We also performed automated [end-to-end testing](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/e2e-test-result.PNG) using Nightwatch.js.
+## n. Automated Unit Testing
+Automated Unit Testing (AUT) is a software testing method in which units of code are rigorously checked to ensure that they correctly function. We performed AUT using [Jest Testing Framework](https://github.com/ifishgroup/pqvp-kmt/tree/master/test/unit) for unit-level code. We also performed automated end-to-end testing using [Nightwatch](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/e2e-test-result.PNG).
 
 ## o. Continuous Integration
 Continuous Integration (CI) is a development practice that requires Developers to integrate code into a shared repository several times daily. An automated build verifies each check-in, allowing early problem detection. We accomplished CI using Docker, Jenkins, and Terraform.
