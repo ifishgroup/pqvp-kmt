@@ -126,7 +126,7 @@ Continuous Monitoring components can be viewed at the following locations (Usern
 [Docker](https://www.docker.com) is an open platform for Developers and System Administrators to build/ship/run distributed applications on laptops, data center VMs, or the cloud. Our prototype is containerized using this operating-system-level virtualization software.
 
 ## s. Installation Instructions
-See the project’s [Installation.md](https://github.com/ifishgroup/pqvp-kmt/blob/master/installation.md) file for the detailed documentation of the steps necessary to install and run INSIGHT on another machine.
+See the project’s [installation.md](https://github.com/ifishgroup/pqvp-kmt/blob/master/installation.md) file for the detailed documentation of the steps necessary to install and run INSIGHT on another machine.
 
 ## t. Open License
 The prototype and underlying platforms used to create and run the INSIGHT Application are openly licensed and free of charge.
