@@ -120,6 +120,8 @@ Continuous Monitoring components can be viewed at the following locations (Usern
 * **Alert Manager:** http://insight.ifglabs.com:9093
 * **Unseen:** http://insight.ifglabs.com:9094
 
+*These tools are best viewed using Google Chrome.*
+
 ## r. Open Source Container
 [Docker](https://www.docker.com) is an open platform for Developers and System Administrators to build/ship/run distributed applications on laptops, data center VMs, or the cloud. Our prototype is containerized using this operating-system-level virtualization software.
 
