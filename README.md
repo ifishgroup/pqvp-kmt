@@ -17,7 +17,7 @@ Digital Services Playbook: We executed [13 plays](https://github.com/ifishgroup/
 * **Project Name:** INSIGHT Knowledge Management Tool
 * **Prototype Development Hours:** [Development Hours](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/PQVP%20-%20INSIGHT%20Prototype%20Development%20Hours.pdf)
 * **Project URL:** https://github.com/ifishgroup/pqvp-kmt
-* **Project Demo:** Thomas-to-add-link-here.
+* **Project Demo:** [INSIGHT Demo](http://youtube.com)
 
 ## Synopsis
 Knowledge Management is the efficient handling of information and resources within an organization. The IFG application, [INSIGHT](http://insight.ifglabs.com), is a Knowledge Management Tool that provides State Agencies/Departments with the ability to capture, archive, and manage organizational knowledge from their employees and programs to create and share knowledge. 
