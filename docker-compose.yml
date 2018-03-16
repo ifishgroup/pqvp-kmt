@@ -1,43 +1,23 @@
 version: '3.5'
 
-networks:
-  web:
-    driver: overlay
-    attachable: true
-  backend:
-    driver: overlay
-    attachable: true
-
-volumes:
-  db: {}
-
 services:
-  insight:
-    image: ifishgroup/insight:dev
-    networks:
-      - web
+  proxy:
+    image: nginx:1.13.9-alpine
     ports:
       - "80:80"
+    volumes:
+      - ./resources/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - "insight"
+      
+  insight:
+    image: ifishgroup/insight:${TAG}
     depends_on:
       - "api"
     command: [ "${BASE_URL}" ]
-    deploy:
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 3
-        window: 120s
 
   api:
-    image: ifishgroup/insight-api:dev
-    networks:
-      - web
-      - backend
-    ports:
-      - "3003:3003"
+    image: ifishgroup/insight-api:${TAG}
     depends_on:
       - "mongodb"
       - "userimport"
@@ -46,33 +26,23 @@ services:
   
   mongodb:
     image: mongo:3.6.3
-    networks:
-      - backend
     ports:
       - "27017:27017"
-    volumes: 
-      - db:/data/db
 
   userimport:
-    image: ifishgroup/insight-import:dev
-    networks:
-      - backend
+    image: ifishgroup/insight-import:${TAG}
     depends_on:
       - mongodb
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "users", "--type", "json", "--file", "insertUsers.json", "--drop", "--upsert", "--jsonArray"]
 
   settingsimport:
-    image: ifishgroup/insight-import:dev
-    networks:
-      - backend
+    image: ifishgroup/insight-import:${TAG}
     depends_on:
       - mongodb
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "settings", "--type", "json", "--file", "insertSettings.json", "--drop", "--upsert", "--jsonArray"]
 
   articlesimport:
-    image: ifishgroup/insight-import:dev
-    networks:
-      - backend
+    image: ifishgroup/insight-import:${TAG}
     depends_on:
       - mongodb
     command: ["./wait-for-it.sh", "mongodb:27017", "--", "mongoimport", "--host", "mongodb", "--db", "Insight", "--collection", "ka", "--type", "json", "--file", "insertArticles.json", "--drop", "--upsert", "--jsonArray"]
