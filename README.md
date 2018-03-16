@@ -1,5 +1,5 @@
 # Pre-Qualified Vendor Pool for Agile Development – Digital Services (PQVP DS-AD) – 2018 Refresh Working Prototype
-This [readme.md](https://github.com/thomas-weitzel/pqvp-kmt/edit/master/README.md) file contains a project description and includes a link to the installation instructions contained in the [installation.md](https://github.com/ifishgroup/pqvp-kmt/blob/master/installation.md) file. 
+This [readme.md](https://github.com/ifishgroup/pqvp-kmt/blob/master/README.md) file contains a project description and includes a link to the installation instructions contained in the [installation.md](https://github.com/ifishgroup/pqvp-kmt/blob/master/installation.md) file. 
 
 # Technical Approach
 Since its formation in 2008, [The iFish Group (IFG)](https://www.ifishgroup.com/) has had a long, successful history of developing and delivering Information Technology solutions for State of California clients. For this prototype, IFG used an Agile approach utilizing User-Centered Design (UCD) techniques and tools and the U.S. Digital Services Playbook methodology. Documents pertaining to the development process are published in the [Docs](https://github.com/ifishgroup/pqvp-kmt/tree/master/docs) directory within the IFG project’s GitHub repository.
