@@ -17,7 +17,7 @@ Digital Services Playbook: We executed [13 plays](https://github.com/ifishgroup/
 * **Project Name:** INSIGHT Knowledge Management Tool
 * **Prototype Development Hours:** [Development Hours](https://github.com/ifishgroup/pqvp-kmt/blob/master/docs/PQVP%20-%20INSIGHT%20Prototype%20Development%20Hours.pdf)
 * **Project URL:** https://github.com/ifishgroup/pqvp-kmt
-* **Project Demo:** [INSIGHT Demo](http://youtube.com)
+* **Project Demo:** [INSIGHT Demo](https://www.youtube.com/watch?v=wAhuKoETV0Q)
 
 ## Synopsis
 Knowledge Management is the efficient handling of information and resources within an organization. The IFG application, [INSIGHT](http://insight.ifglabs.com), is a Knowledge Management Tool that provides State Agencies/Departments with the ability to capture, archive, and manage organizational knowledge from their employees and programs to create and share knowledge. 
@@ -112,7 +112,7 @@ Configuration Management refers to the process by which all artifacts relevant t
 ## q. Continuous Monitoring
 Continuous Monitoring is the process of measuring and observing the performance and availability of the application, infrastructure, and services across the DevOps workflow. This helped us detect issues before they caused any major downtime for INSIGHT users. To personalize monitoring, the same monitoring stack was deployed to all staging and Production environments, allowing us to use the same tooling and troubleshooting techniques in all environments. All monitoring services are Dockerized and deployed as a monitoring stack. We used [Prometheus](http://insight.ifglabs.com:9090), cAdvisor, and Node Exporter to collect various metrics and [Grafana](http://insight.ifglabs.com:3000) as a dashboard to display reports. We used [Alertmanager](http://insight.ifglabs.com:9093), [Unseen](http://insight.ifglabs.com:9094), and an alert dashboard to send alerts to the team. [Weave Scope](http://insight.ifglabs.com:4041) was deployed to visualize the Docker Swarm cluster and container services in operation. We used Caddy as a proxy to provide authentication to all monitoring endpoints. 
 
-Continuous Monitoring components can be viewed at the following locations:
+Continuous Monitoring components can be viewed at the following locations (Username/Password: admin/admin):
 
 * **Weave Scope:** http://insight.ifglabs.com:4041
 * **Grafana:** http://insight.ifglabs.com:3000
